@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" ng-app="TAS_SITE">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1">
+		
+		<style type="text/css">
+  @import url("/Redesign/css/style.css");
+  @import url("/Redesign/css/style_960.css");
+  @import url("/Redesign/css/style_800.css");
+  @import url("/Redesign/css/style_640.css");
+  @import url("/Redesign/css/style_480.css");
+  
+</style>
+
+
+
+		<title>NOAA Teacher at Sea</title>
+		
+	</head>
+	<body>
+		
+		 
+
+</div>
+<div style="clear:both"></div>
+
+</div>
+
+ </div>
+
+ 
+<div id="contain" ng-hide="checkContents==false" >
+
+<div ng-include="'partials/header.html'"></div>
+  
+<div  ng-include="'partials/nav_bar.html'"></div> 
+<script type="text/javascript">
+  if (navigator.appName.match('Opera')||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 9'))||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 8')) || (navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 7'))||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 6')))
+ {
+
+  
+  document.write("<div style='padding:10px;background:white;'><h4 style='color:red;' >This site is optimized for use with <a href='http://www.getfirefox.com'>Firefox</a>, <a href='https://www.google.com/intl/en/chrome/browser/#brand=CHMB&utm_campaign=en&utm_source=en-ha-na-us-sk&utm_medium=ha'>Chrome</a>, <a href='http://www.apple.com/safari/'>Safari</a>  and <a href='http://www.microsoft.com/windows/internet-explorer/default.aspx'>Internet Explorer</a> version 10 or higher.</h4><p>Currently the site does not support Opera or Opera Mini.  For an optimal user experience, please utilize a newer version of either of these browsers.</p><p>If you continue to use one of these browsers many of the features on this site, like the ability to favorite blogposts and images and email them to yourself will not work.</p></div>");
+  
+ 
+}
+
+</script>
+  <div ng-view view-animation >
+  	<div style="width:75px; margin-left:auto; margin-right:auto; margin-top:40%;margin-bottom:60%; background:none;" ng-hide="checkContents ==true"><img style="border:none" src="/images/NOAA-Logo.gif"/></div>		
+
+  </div>
+			
+<div class="clear"></div>
+
+
+ 
+ 
+	<div  ng-controller ="Footer" ng-include="'partials/footer.html'" ></div> 
+</div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript"> 
+google.load('feeds', '1', {'nocss' : 1}) 
+</script>
+
+
+
+<script type="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/Scripts/iscroll.js"></script>
+<script src="/Redesign/angular/bower_components/angular-IE/xdomain.min.js" slave="http://cityblinking.com/TAS/proxy.html"></script>
+<script src="/Redesign/angular/bower_components/jquery/dist/jquery.min.js"></script>	
+<script src="/Redesign/angular/bower_components/angular/angular.js"></script>
+<script src="/Redesign/angular/bower_components/angular-route/angular-route.js"></script>
+<script src="/Redesign/angular/bower_components/ui-utils/ui-utils.min.js"></script>
+<script src="/Redesign/angular/bower_components/angular-sanitize/sanitize.js"></script>
+<script src="/Redesign/angular/bower_components/angular-animate/angular-animate.js"></script>
+<script src="/Redesign/angular/bower_components/angular-touch/angular-touch.min.js"></script>
+
+<!--<script src ="/Redesign/angular/bower_components/angular-resize/ngresize.js"></script>-->
+
+<script src="http://maps.googleapis.com/maps/api/js?libraries=weather,visualization&sensor=false&language=en&v=3.13"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js" type="text/javascript"></script>
+<script src="/Redesign/angular/js/app.js"></script>
+<script src="/Redesign/angular/js/services.js"></script>
+<script src="/Redesign/angular/js/directives.js"></script>	
+<script src="/Redesign/angular/js/controllers.js"></script>
+<script src="/Redesign/angular/js/filters.js"></script>	
+
+
+</body>
+
+
+</html>

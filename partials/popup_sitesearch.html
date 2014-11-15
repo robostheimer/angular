@@ -1,0 +1,25 @@
+<div >
+	<div class="bigImgClose" id="alert_box_close" ng-click="closeBigImageSite()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+	</div>
+	<div id="sitesearchbox" class="scrolly">
+		<div id="numberofresults">
+			<h2> Search Results for: {{search_site}} </h2>
+			<br>
+			<h6>Number of Results: {{sitesearch.length}}</h6>
+		</div>
+		
+
+		<div class="preloader" ng-hide="showSiteSearch==true"></div>
+		<div class="wrapper_search" id="wrapper_search_site" style="overflow-y: scroll;" ng-show="showSiteSearch==true">
+			<br>
+			<div class="scroller_search">
+				
+				<ul class="sitesearch">
+					<li ng-repeat="site in sitesearch"><a href="{{site.page}}">{{site.title}}</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+</div>
+

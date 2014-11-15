@@ -1,0 +1,347 @@
+<div id="top" >
+	
+	<div class="popup_holder" class="animate-show"  ng-hide="bigImage==false" >
+		<image-nopost id="bigImg1" class="bigImg animate-show"></image-nopost>
+		
+
+		<div style="clear:both"></div>
+
+	</div>
+	
+	<div ng-show="checkContents==false" style="margin:15px">
+		<h1>Uh Oh!  The Information you requested was not found.</h1>
+		<p>
+			We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.
+		</p>
+	</div>
+	<div style="clear:both"></div>
+	<div id="top" ng-hide="checkContents==false">
+
+	</div>
+	<slide-show></slide-show>
+
+	<div id="top_right">
+		<h6>QUICK LINKS <span class="green">FOR TEACHERS</span></h6>
+		<ul>
+			<li class="diamond">
+				<a href="/about/highlights.html">Program Highlights</a> »»
+			</li>
+			<li class="diamond">
+				<a href="/about/faqs.html">Frequently Asked Questions </a>»»
+			</li>
+			<li class="diamond">
+				<a href="http://teacheratsea.wordpress.com" target="_blank">Teacher Blogs </a>»»
+			</li>
+			<li class="diamond">
+				<a href="/about/how_to_apply.html">How to Apply</a> »»
+			</li>
+			<li class="diamond">
+				<a href="/2013/">Current Season</a> »»
+			</li>
+			<li class="diamond">
+				<a href="/media/">Photos and Videos</a> »»
+			</li>
+		</ul>
+		<h6 style="padding-top:5px;">QUICK LINKS <span class="green">FOR ALUMNI</span></h6>
+		<ul class="bottom_top_right">
+
+			<li class="diamond">
+				<a href="/alumni/index.html#resources">Resources</a> »»
+			</li>
+			<li class="diamond">
+				<a href="/alumni/index.html#connected">Stay Connected</a> »»
+			</li>
+			<li class="diamond">
+				<a href="/alumni/index.html#forms">Alumni Forms </a>»»
+			</li>
+			<li class="diamond" style="padding-bottom:0px">
+				<a href="/alumni/spotlight.html">Alumni Spotlight</a> »»
+			</li>
+		</ul>
+
+		<ul>
+			<li class="soc_media_links">
+				<a href="http://teacheratsea.wordpress.com" target="_blank"><img src="/images/wp_logo.png" width="20" height="20" class="icon" alt="wordpress" /></a>
+			</li>
+
+			<li class="soc_media_links">
+				<a href="http://www.facebook.com/noaateacheratsea" target="_blank"><img src="/images/facebook.png" width="20" height="20" class="icon" alt="facebook"/></a>
+			</li>
+			<li class="soc_media_links">
+				<a href="http://twitter.com/teacheratsea" target="_blank"><img src="/images/twitter.png" width="20" height="20" class="icon" alt="twitter"/></a>
+			</li>
+
+			<li class="soc_media_links">
+				<a href="http://www.flickr.com/photos/60919111@N08/sets/72157626264008559/with/6635298211/" target="_blank"><img src="/images/flickr.png" alt="flickr"  width="20" height="20" class="icon"/></a>
+			</li>
+			<li class="soc_media_links">
+				<a href="http://www.youtube.com/playlist?list=PLFC2C10270ABB3B09" target="_blank"><img src=/images/youtube.png width="21" height="20" class="icon" alt="youtube"/></a>
+			</li>
+			<li class="soc_media_links">
+				<a href="media/Feeds.html" ><img src="/images/feed-icon-22x22.png" width="20" height="20" class="icon" alt="rss feed"  /></a>
+			</li>
+		</ul>
+
+	</div>
+
+	<div style="clear:both"></div>
+	<div class="border" id="first_border" ></div>
+
+	<div class="main_home">
+		<div class="main_left">
+
+			<div class="main_box" id="home_currentbox" >
+				<h6 >2014 <span class="green">SEASON</span></h6><div class="border2"></div>
+				<!--<div class="preloader" ng-hide="data[0].hider ==false"></div>-->
+
+				<div class="main_box_inner" id="current"   >
+
+					
+					<carou-sel service="HomePageCurrent" type="current" length="{{teachers.length}}" width="202"></carou-sel>
+					
+
+					<div class="scrollbar-container"></div>
+
+					
+					<div class="clear"></div>
+					
+					<a href="#/2014/">All Teachers<span class="chevron">»»</span></a>
+				</div>
+
+			</div>
+
+			<div class="main_box" id="home_alumnibox">
+				<h6 >ALUMNI <span class="green">SPOTLIGHT</span></h6>
+				<div class="border2"></div>
+				<div  class="main_box_inner" id="alumni">
+					<!--<div class="preloader" ng-hide="alumniHider ==false"></div>-->
+					<div class="main_box_inner">
+						<!--<div class="wrapper" id="wrapper_alumni">
+						<div id="scroller_alumni" class="scroller">-->
+						<carou-sel service="HomePageAlumni" type='alumni' length="{{spotlights.length}}" width="{{windowWidth}}" resize-home></carou-sel>
+						<div class="clear"></div>
+
+						<a href="#/alumni_spotlight/">All Spotlights<span class="chevron">»»</span></a>
+						<br>
+						<a class="feed_link more" href="/alumni/alumni_spotlight.xml" target="_blank"><img src="/images/feed-icon-22x22.png" width="10" height="10" class="icon" alt="rss feed"> Subscribe to Feed <span class="chevron">»»</span></a>
+
+					</div>
+				</div>
+			</div>
+			<div class="main_box2" id="home_photoofweekbox" >
+				<h6>PHOTO<span class="green"> OF THE WEEK</span></h6>
+				<div class="border2"></div>
+				<!--<div style="margin-top:0px;" class="preloader" ng-hide="powHider ==false"></div>-->
+				<div  class="main_box_inner" id="alumni">
+					<!--<div class="preloader" ng-hide="powHider ==false"></div>-->
+
+					<div class="main_box_inner">
+						<carou-sel service="HomePagePOW" type='pow' length="{{pows.length}}" width="{{windowWidth}}" resize-home ></carou-sel>
+						<div class="clear"></div>
+
+						<a href="#/alumni_spotlight/">All Photos of the Week<span class="chevron">»»</span></a>
+						<br>
+						<a class="feed_link more" href="/media/photo_of_week.xml" target="_blank"><img src="/images/feed-icon-22x22.png" width="10" height="10" class="icon" alt="rss feed"> Subscribe to Feed <span class="chevron">»»</span></a>
+					</div>
+				</div>
+			</div>
+			<div id="clear_box" style="clear:both"></div>
+
+			<div class="main_box_sm " id="home_blogsbox" >
+				<h6 >FROM <span class="green">THE BLOG</span></h6>
+				<div class="border2"></div>
+
+				<div  class="main_box_sm_inner blogpostsbox" id="blogs" >
+
+					<ul>
+						<li id="blogpost{{wp.id}}"  class="padding10" ng-repeat="wp in wpMinus">
+							<a href="{{wp.item.BlogUrl[0]}}" target="_blank">{{wp.item.BlogTitle}}</a>
+							<br>
+							<span class="caption">{{wp.item.ind_date}}</span>
+							<span class="chevron">»»</span>
+						</li>
+
+					</ul>
+					<p></p><a href="http://teacheratsea.wordpress.com" target="_blank">View All Posts <span class="chevron">»»</span></a></p>
+					<p>
+						<a href="http://teacheratsea.wordpress.com/feed" target="_blank">Subscribe to Feed <span class="chevron">»»</span></a>
+					</p>
+				</div>
+
+			</div>
+			<div class="border" id="second_border" style="margin-right:15px; margin-left:15px"></div>
+
+			<div class="main_box_sm" id="home_dykbox">
+				<h6 >DID <span class="green">YOU KNOW?</span></h6>
+				<div class="border2"></div>
+				<div class="preloader" style="margin-top:0" ng-hide="dykHider ==false"></div>
+				<div  class="main_box_sm_inner" id="dyk">
+					<div class="main_box_inner_sm_list" ng-repeat="dyk in dyks" >
+						<a href="/dyk/#box{{dyk1.num}}_text"> {{dyk.gsx$shortdescription.$t}} <span class="chevron">»»</span> </a>
+					</div>
+
+					<a href="/dyk/">More Facts from Sea<span class="chevron">»»</span></a>
+				</div>
+
+			</div>
+
+			<div class="main_box_sm" id="highlights">
+				<h6 >TAS <span class="green">HIGHLIGHTS</span></h6>
+				<div class="border2"></div>
+				<div  class="main_box_inner_sm">
+					<ul >
+						<li class="main_box_inner_list_bullet">
+							Teacher at Sea has accepted teachers from all 50 states, American Samoa, Puerto Rico and Guam
+						</li>
+						<li class="main_box_inner_list_bullet">
+							Teacher at Sea has sent over 600 teachers out on NOAA Research cruises.
+						</li>
+
+						<li class="main_box_inner_list_bullet">
+							Over 7000 Students Reached
+						</li>
+						<li c;ass="main_box_inner_list_bullet">
+							Graduate Credits Awarded: 16
+						</li>
+					</ul>
+					<br/>
+
+					<a href="/about/highlights.html">More Highlights <span class="chevron">»»</span></a>
+				</div>
+
+			</div>
+			<div class="main_box_sm2" id="newsbox_main">
+				<h6 >TAS <span class="green">NEWS</span></h6>
+				<div class="border2"></div>
+				<div class="preloader" style="margin-top:0" ng-hide="dykHider ==false"></div>
+
+				<div class="main_box_sm_inner">
+					<div  id="news">
+						<div class="main_box_inner_sm_list" ng-repeat="new in news">
+							<a href="{{new.articleurl}}" target="_blank">{{new.article}}<span class="chevron">»»</span></a>
+						</div>
+					</div>
+					<a href="#/news/">More News Articles <span class="chevron">»»</span></a>
+
+				</div>
+				<div style="clear:both"></div>
+			</div>
+
+		</div>
+
+		<div class="bottom_right" id="from-blog">
+			<div class="right_column_box">
+
+				<h6>FROM THE <span class="green">TAS BLOG</span></h6>
+				<div class="border2" style="margin-left:15px;"></div>
+				<div class="preloader" style="margin-top:0" ng-hide="wpHider==false"></div>
+				<div id="blogpostsbox" class="blogpostsbox">
+					<ul>
+						<li   class="padding10" ng-repeat="wp in wpMinus">
+							<a href="{{wp.item.BlogUrl[0]}}" target="_blank">{{wp.item.BlogTitle}}</a>
+							<br>
+							<span class="caption">{{wp.item.ind_date}}</span>
+							<span class="chevron">»»</span>
+						</li>
+
+					</ul>
+					<p></p><a href="http://teacheratsea.wordpress.com" target="_blank">View All Posts <span class="chevron">»»</span></a></p>
+					<p>
+						<a href="http://teacheratsea.wordpress.com/feed" target="_blank">Subscribe to Feed <span class="chevron">»»</span></a>
+					</p>
+				</div>
+				<div style="clear:both; margin-top:15px;"></div>
+
+			</div>
+		</div>
+
+		<div class="bottom_right" id="sm">
+
+			<div class="right_column_box">
+
+				<h6>TAS <span class="green">ON SOCIAL MEDIA</span></h6>
+				<div class="border2" style="margin-left:15px; margin-bottom:0px"></div>
+				<div id="social_media" >
+
+					<ul ol role = "social_media_tabs">
+
+						<li id=“tweets” ng-model="tweets.state"  class="{{tweets.state}}" role="tweets_tab" >
+							<a  ng-model = "tweets"  class="cursor" ng-click="buttonChange(tweets.name)">Tweets</a>
+						</li>
+						<li id=“photos” ng-model="photos.state"  class="{{photos.state}}" role="photos_tab" >
+							<a  ng-model = "photos"  class="cursor" ng-click="buttonChange(photos.name)">Photos</a>
+						</li>
+						<li id=“videos” ng-model="videos.state"  class="{{videos.state}}" role="videos_tab" >
+							<a  ng-model = "videos"  class="cursor" ng-click="buttonChange(videos.name)">Videos</a>
+						</li>
+
+					</ul>
+				</div>
+				<div id="social_media_body_home" style="overflow:hidden"   >
+					<div id="tweetsbox" class="{{tweets.classy}}">
+					<div style="padding:15px;">
+					<a class="twitter-timeline" href="https://twitter.com/TeacherAtSea" data-widget-id="524574102959300608" data-chrome="noheader nofooters noborders transparent noscrollbar">Tweets by @TeacherAtSea</a>
+					<script>
+					! function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+					if (!d.getElementById(id)) {
+					js = d.createElement(s);
+					js.id = id;
+					js.src = p + "://platform.twitter.com/widgets.js";
+					fjs.parentNode.insertBefore(js, fjs);
+					}
+					}(document, "script", "twitter-wjs");
+					</script>
+
+					</div>
+					</div>
+
+					<div style="margin-top:10px;margin-bottom:10px;margin-right:10px;margin-left:5px;;" id="photobox" class="{{photos.classy}}">
+					<div >
+					<div >
+					<carou-sel resize-social service="" type="photos" length="{{images.length}}" width="{{windowWidth+5}}"></carou-sel>
+
+				</div>
+
+				<p>
+					<a href="#/media/" class="view_all">View All Photos <span class="chevron">»»</span></a>
+				</p>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div style="margin-top:10px;margin-bottom:10px;margin-right:10px;" id="videosbox" ng-model="videos" class="{{videos.classy}}">
+
+		<div>
+			<div >
+				<carou-sel service="" resize-social type="videos" length="{{videosArr.length}}" width="{{windowWidth+12}}"></carou-sel>
+			</div>
+		</div>
+
+	</div>
+	</div>
+
+	
+</div>
+
+		</div>
+		<div class="bottom_right" id="newsbox_right" style="margin-top:15px;">
+				<div class="right_column_box" >
+				<h6 >TAS <span class="green">NEWS</span></h6>
+				<div class="border2"></div>
+				<div class="preloader" style="margin-top:0" ng-hide="dykHider ==false"></div>
+
+				
+					<div  id="news" style="padding:15px;">
+						<div id=news{{new.id}} class="main_box_inner_sm_list" ng-repeat="new in news">
+							<a href="{{new.articleurl}}" target="_blank">{{new.article}}<span class="chevron">»»</span></a>
+						</div>
+					<a href="#/news/">More News Articles <span class="chevron">»»</span></a>
+					</div>
+					
+
+				</div>
+				<div style="clear:both"></div>
+			</div>
+
+</div>
+<div style="clear:both"></div>

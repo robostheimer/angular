@@ -1,0 +1,25 @@
+		<div>
+			<div class="bigImgClose" id="alert_box_close" ng-click="closeBigImage()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+			</div>
+			<div id="imagesbox" class="scrolly">
+				<div id="numberofresults"><h2> Search Results for: {{search_images}} </h2><br><h6>Number of Results: {{images.length}}</h6></div>
+				<div class="preloader" ng-hide="showImageSearch==true"></div>
+				<div class="wrapper_search" id="wrapper_search_images" style="overflow-y: scroll;" ng-show="showImageSearch==true"	>
+					<br><div class="scroller_search">
+						
+
+						<div id="searcher_image_media{{index}}">
+							<div id="search_img_media{{src.id}}" class="search_image" ng-repeat = "src in images">
+								<img  id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite off" style="border:none;cursor:pointer" src="/images/star.png" alt="Add to Favorites">
+								<div>
+									<img  resizesearch-image ng-click ="bigImage2=true; openBigImage(src.src[0], src.post_title, src.post_url, src.finalCaption, src.parent, src.id)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src[0]}}?w={{search_image}}" alt="{{src.finalCaption}}" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+	

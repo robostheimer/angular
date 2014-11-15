@@ -1,0 +1,76 @@
+
+<div >
+	<div id="popup_holder" class="animate-show"  ng-hide="bigImage==false" >
+		<big-image id="bigImg1" class="bigImg animate-show"></big-image>
+
+				<div style="clear:both"></div>
+
+				</div>
+				<div ng-show="dataLoaded==false" style="margin:15px"><h1>Uh Oh!  The Information you requested was not found.</h1><p>We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.</p></div>
+				<div id="top">
+	<div class="main_top" >
+    <h1>NOAA's Teacher at Sea {{year}} Field Season</h1>
+    <div class="border2" ></div>
+	  	
+	  	<div class="svg_us" ng-include="'images/US_Map.svg'" style=""></div>
+	  	<div class="map_txt animate-show" ng-hide="hideMapDiv==true" >
+	  		 
+		       <div class="teacherinfo" ng-repeat="teacher in teachers.forRollOver" >
+		          <div   class="img"><img src="{{teacher.image.split('?')[0]+'?w=75'}}" alt ="{{teacher.firstname}} {{teacher.lastname}}"/></div>
+		          <div  class="info"><a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}">{{teacher.firstname}} {{teacher.lastname}}</a><br>{{teacher.city}}, {{teacher.state}}<br><a href="{{teacher.school_url}}" target="_blank">{{teacher.school}}</a></div>
+		                 
+		          <div class="clear" ng-class="{padding:clearer==true}"></div>   
+		       </div>
+		       <div class="close" ng-click="closeRollover()"><strong>X</strong></div>		
+		       
+	  	 </div>  
+	  	 
+	  		
+	  	  	 
+
+
+<div class="caption">The home states of NOAA's {{year}} Teachers at Sea.  <br><b style="color:#0057a5">>>Click on the states with numbers in the map above for teacher info. </b></div>
+	 
+
+      <div   class="top-paragraph">
+            <p style="margin-right:15px;">Below is a list of the NOAA Teachers at Sea for the {{year}} Field Season. Once they have embarked on their cruise, you can gain access to their logs which document their missions at sea and offer a wealth of information about the research being conducted as well as personal stories. All individual teachers' logs can be accessed by clicking on the teacher's name.</p>
+          </div>
+         </div>
+         <div class="border"></div>
+         <div style="margin-left:20px;">
+         	<div class="preloader" ng-hide="dataLoaded"></div>
+ 		
+			
+ 	<div id="teacherList"  ng-hide="dataLoaded==false" >
+ 		
+ 		<div ng-repeat = "teacher in teachers">
+ 			<div class="class_page_image">
+ 				<img resize-class src="{{teacher.image}}?w={{tnWidth}}" alt="{{teacher.firstname}} {{teacher.lastname}} "></div>
+ 				<div class="class_page_text">
+ 					
+ 					<b><a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}">{{teacher.firstname}} {{teacher.lastname}}</a></b> ({{teacher.state}}), {{teacher.shiptype}} <a href="{{teacher.shipurl}}" target="_blank"><em>{{teacher.ship}}</em></a>
+ 					<p style="margin-top:7px;">{{teacher.firstname}} {{teacher.lastname}} teaches <span ng-show="teacher.subjects_num==1">{{teacher.subjects}} <a href="{{teacher.schoolurl}}" target="_blank">{{teacher.school}}</a></span><span ng-show="teacher.subjects_num==2">{{teacher.subjects1}} at <a href="{{teacher.schoolurl1}}" target="_blank">{{teacher.school1}}</a> and {{teacher.subjects2}} at <a href="{{teacher.schoolurl2}}" target="_blank">{{teacher.school2}}</a></span>  in {{teacher.city}}, {{teacher.state}}. 
+ 						<span ng-show="teacher.datesComp==0"> {{teacher.firstname}}  was aboard NOAA Ship <em><a href="{{teacher.shipurl}}">{{teacher.ship}}</a></em>.
+ 							<br><br><a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/blogs"><em> blogs</em></a> | <a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/photos"><em>photos</em></a> | <a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/ship"><em>ship</em></a>
+ 								
+ 						</span>
+ 						<span ng-show="teacher.datesComp==1"> {{teacher.firstname}}  is aboard NOAA Ship <em><a href="{{teacher.shipurl}}">{{teacher.ship}}</a></em>.
+ 							<br><br><a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/blogs"><em> blogs</em></a> | <a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/photos"><em>photos</em></a> | <a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/ship"><em>ship</em></a>
+ 								
+ 						</span>
+ 						<span ng-show="teacher.datesComp==2"> {{teacher.firstname}}  will be aboard NOAA Ship <em><a href="{{teacher.shipurl}}">{{teacher.ship}}</a></em>.
+ 							<br><br><a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/blogs"><em> blogs</em></a> | <a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/photos"><em>photos</em></a> | <a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/ship"><em>ship</em></a>
+ 								
+ 						</span></p>
+ 							</div>
+ 							<div style="clear:both"></div>
+ 							</div>
+ 						
+ 						
+ 		
+ 		
+ 	</div>
+    </div>
+    
+    
+</div>

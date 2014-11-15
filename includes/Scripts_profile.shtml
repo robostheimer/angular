@@ -1,0 +1,276 @@
+<?php if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start(); ?>
+
+<meta name="viewport" content="initial-scale=1">
+
+<style type="text/css">
+  @import url("/Redesign/css/style.css");
+  @import url("/Redesign/css/style_960.css");
+  @import url("/Redesign/css/style_800.css");
+  @import url("/Redesign/css/style_640.css");
+  @import url("/Redesign/css/style_480.css");
+  
+</style>
+
+
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript"> 
+google.load('feeds', '1', {'nocss' : 1}) 
+</script>
+
+
+
+<script type="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/Scripts/iscroll.js"></script>
+<script type="text/javascript">
+//myScroll_blogs = new iScroll('wrapper_blogs', {hScrollbar:false, vScrollbar: true, vScroll:true, hideScrollbar: false,});
+	
+	</script>
+<script src = "/Scripts/changeClass.js"></script>
+<script src="/Redesign/angular/bower_components/jquery/dist/jquery.min.js"></script>	
+<script src="/Redesign/angular/bower_components/angular/angular.js"></script>
+<script src="/Redesign/angular/bower_components/angular-route/angular-route.js"></script>
+<script src="/Redesign/angular/bower_components/ui-utils/ui-utils.min.js"></script>
+<script src="/Redesign/angular/bower_components/angular-sanitize/sanitize.js"></script>
+<script src="/Redesign/angular/bower_components/angular-animate/angular-animate.js"></script>
+
+<script src="http://maps.googleapis.com/maps/api/js?libraries=weather,visualization&sensor=false&language=en&v=3.13"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js" type="text/javascript"></script>
+<script src="/Redesign/angular/js/app.js"></script>
+<script src="/Redesign/angular/js/services.js"></script>
+<script src="/Redesign/angular/js/controllers.js"></script>
+<script src="/Redesign/angular/js/directives.js"></script>	
+<script src="/Redesign/angular/js/filters.js"></script>	
+		
+
+    
+
+  
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+function run_Resp_Des()
+{
+	if($(window).width()<465)
+	{
+	resp_des_bigImg.width=240
+	resp_des_tab_box_image.width=150;
+	resp_profile_photo.width = 300
+	
+	resp_blog_photo.width=130;
+	resp_des_video.width=130;
+	resp_des_smImg.width=100;
+	resp_des_blogImg.width=50;
+	}
+	
+	if($(window).width()>465)
+	{
+	resp_des_bigImg.width=370;
+	resp_des_tab_box_image.width=150;
+	resp_profile_photo.width = 350
+	resp_blog_photo.width=135;
+	resp_des_video.width=135;
+	resp_des_smImg.width=115;
+	resp_des_blogImg.width=75;
+	}
+	if($(window).width()>640)
+	{
+	
+	resp_des_current.width = 185;
+	resp_des_bigImg.width=480;
+	resp_des_tab_box_image.width=200;
+	resp_profile_photo.width = 300
+	resp_blog_photo.width=130;
+	resp_des_video.width=225;
+	resp_des_smImg.width=125;
+	resp_des_blogImg.width=85;
+	}
+	if($(window).width()>785)
+	{
+	
+	resp_des_bigImg.width=600;
+	resp_profile_photo.width = 300
+	resp_blog_photo.width=120;
+	resp_des_video.width=200;
+	resp_des_smImg.width=125;
+	resp_des_blogImg.width=100;
+	}
+	if($(window).width()>945)
+	{
+	resp_des_bigImg.width=650;
+	resp_profile_photo.width = 400
+	resp_blog_photo.width=130;
+	resp_des_video.width=250;
+	resp_des_smImg.width=130;
+	resp_des_blogImg.width=100;
+	}
+	
+	
+	if($(window).width()<800)
+	{
+	
+	$('.scrollbar-container').show();
+	$('#wrapper_lessons').css('overflow-y','hidden');
+	$('#wrapper_blogposts').css('overflow-y','hidden');
+	$('#wrapper_photos').css('overflow-y','hidden');
+	$('#wrapper_videos').css('overflow-y','hidden');
+	$('#wrapper_news').css('overflow-y','hidden');	
+	$('.wrapper_search').css('overflow-y', 'hidden')
+	
+	
+	
+	}
+	else
+	{
+	
+	$('.scrollbar-container').remove();
+	$('#wrapper_lessons').css('overflow-y','scroll');
+	$('#wrapper_blogposts').css('overflow-y','scroll');
+	$('#wrapper_photos').css('overflow-y','scroll');
+	$('#wrapper_videos').css('overflow-y','scroll');
+	$('#wrapper_news').css('overflow-y','scroll');
+	$('.wrapper_search').css('overflow-y', 'scroll')
+	$('.scroller-profile').attr('style','');
+	//$('.scroller_search').attr('style','');
+	}
+	if($(window).height()<400)
+	{
+	$('.wrapper_search').css({'max-height':'170px'})	
+	}
+	
+	
+	//$('.main_image').src= main_image.split('?')[0]+'?w='+resp_des_image_frame.width;
+}
+$(document ).ready(function() {
+   run_Resp_Des();
+ $('#bigImg5').append('<div style="position:relative;float:right; margin-right:-50px;width:30px;margin-top:-50px; z-index:100;" id="alert_box_close" onclick="$(\'#bigImg5\').fadeOut(\'slow\', function(){$(\'#bigImg5 .scroller_fav\').html(\'\')});"><a name="close_too"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30"/></a></div>')
+$('#bigImg5').append('<div id="favorites_holder" style="display:none"><ul class="chooser"><li id="wrapper_search_favbtn" class="on" onclick="favTab(this.id);">BLOGS</li><li id="wrapper_search_fav_imgbtn" onclick="favTab(this.id);">IMAGES</li><li id="wrapper_search_fav_lessonsbtn" onclick="favTab(this.id);">LESSONS</li><li id="wrapper_search_fav_dykbtn" onclick="favTab(this.id);">DYKs</li></ul><div id="numberofresults_fav"></div><div class="wrapper_fav"  id="wrapper_search_fav"><div id="scrollerLS_blogs" class="scroller_fav"></div><div style="clear:both"></div></div><div class="wrapper_fav"  id="wrapper_search_fav_img" style="display:none"><div id="scrollerLS_imgs" class="scroller_fav"></div><div style="clear:both"></div></div><div class="wrapper_fav"  id="wrapper_search_fav_lessons" style="display:none"><div id="scrollerLS_lessons" class="scroller_fav"></div><div style="clear:both"></div></div><div class="wrapper_fav"  id="wrapper_search_fav_dyk" style="display:none"><div id="scrollerLS_dyk" class="scroller_fav"></div><div style="clear:both"></div></div>');
+$('#favorites_holder').append('<ul id="actions"></ul>');
+addLS();
+
+////Check for IE Version//////////////
+if ((navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 8')) || (navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 7'))||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 6')))
+ {
+
+  
+  document.getElementById('IE_box').innerHTML="<h4 style='color:red'>This site is optimized for use with <a href='http://www.getfirefox.com'>Firefox</a>, <a href='https://www.google.com/intl/en/chrome/browser/#brand=CHMB&utm_campaign=en&utm_source=en-ha-na-us-sk&utm_medium=ha'>Chrome</a>, <a href='http://www.apple.com/safari/'>Safari</a>  and <a href='http://www.microsoft.com/windows/internet-explorer/default.aspx'>Internet Explorer</a> version 10 or higher.</h4><p>For an optimal user experience, please utilize a newer version of either of these browsers.</p><p>If you continue to use one of these browsers many of the features on this site, like the ability to favorite blogposts and images and email them to yourself will not work."
+ 
+}
+
+  
+});
+
+if(navigator.appVersion.match('MSIE 9')||navigator.appVersion.match('MSIE 8')||navigator.appVersion.match('MSIE 7')||navigator.appVersion.match('MSIE 6')||navigator.appVersion.match('MSIE 5')||navigator.appVersion.match('MSIE 4'))
+		{
+		}
+		else
+		{
+			$(window).resize(function () 
+			{
+				
+				$(window).delay(750, run_Resp_Des()/*, loadWP2(spreadsheet_obj_top.name, spreadsheet_obj_top.number)*/ )
+				var profileImage = $('#profileImage').attr('src');
+				
+				var blogphotos = $('.photosblog');
+				for (var x=0; x<blogphotos.length; x++)
+				{
+					var blogphoto = blogphotos[x].src;
+					blogphotos[x].src=blogphoto.split('?')[0]+'?w='+resp_blog_photo.width;	
+				}
+				var ytframe = $('.ytframe');
+				ytframe.attr('width',resp_des_video.width);
+				ytframe.attr('height',resp_des_video.width*.75);
+				
+				
+				$('#profileImage').attr('src', profileImage.split('?')[0]+'?w='+(resp_profile_photo.width-80))
+				
+				
+				
+				
+				
+				
+				if($('#bigImg2').is(':visible')){	
+				
+				preloader($('.bigImgClick').attr('src'),$('.bigImgClick').attr('alt'),$('.bigImgClick').attr('id'),$('.bigImgClick').attr('title'),$('.bigImgClick').length)
+				}
+				
+				if($('#bigImg3').is(':visible'))
+				{	
+ 				openBigImage_photobox($('#bigImage2').attr('src'),$('#bigImage2').attr('alt'),$('#bigImage2').attr('id'),$('#bigImage2').attr('title'),$('#bigImage2').length)			
+				}
+				
+				if($('#bigImg').is(':visible')||$('#bigImg5').is(':visible'))
+				{
+				var images = $('.bigImgClick');
+				var images2 = $('.ImgClick');
+				for(var i=0; i<images.length;i++)
+					{
+					var imgsrc = images[i].src;
+					images[i].src =imgsrc.split('?')[0]+'?w='+resp_des_smImg.width;
+					}
+				for(var n=0; n<images2.length;n++)
+					{
+					var imgsrc2 = images2[n].src;
+					images2[n].src =imgsrc2.split('?')[0]+'?w='+resp_des_blogImg.width;
+					}
+				//myScroll_search = new iScroll('wrapper_search_blogs', {hScroll:false, hScrollbar:false, lockDirection:false})
+				//myScroll_search_images = new iScroll('wrapper_search_images', {hScroll:false, hScrollbar:false, lockDirection:false})		
+				runResizeSearch();
+				}
+				if($('#bigImg4').is(':visible'))
+				{
+				runResizeSearch();	
+				}
+				
+				if($('img').hasClass('top_image'))
+				{
+				url = $('.top_image')[0].src.split('?')[0];
+				caption = $('.caption').html();
+				loadImage(url, caption)
+				}
+				
+				if($('img').hasClass('collage_src'))
+				{
+					
+					loadImageQuote();
+				}
+				
+			//runResizeScriptProfile()
+			
+
+			})
+}
+ 
+function loadImage(url,caption)
+{
+	
+	$('.image_frame').html('');
+	$('.caption').html('');
+	$('.image_frame').append('<div><img class="top_image" src="'+url+'?w='+resp_des_image_frame.width+'"alt="Teacher at Sea Maureen Anderson standing in front of NOAA Ship Oregon II"/></div><div class="caption"></div>	');		
+	$('.caption').append(caption);		
+
+}	
+
+$(document ).ready(function() {
+  run_Resp_Des();
+
+
+
+
+  
+});
+$(window).load(function(){
+
+
+})
+			
+</script>
+
+<script>
+</script>

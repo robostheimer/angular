@@ -1,0 +1,110 @@
+<div class="preloader" ng-hide="teachers[0].checkContents==true"></div>
+<div id="top" ng-hide="teachers[0].checkContents==false">
+	<div class="popup_holder" class="animate-show"  ng-hide="popup==false">
+		
+		<bigimage-repeat id="bigImg" class="bigImg animate-show" ng-hide="bigImage==false"></bigimage-repeat>
+	</div>
+	<div class="popup_holder" class="animate-show"  ng-hide="popup2==false">
+	<big-image id="bigImg2" class="bigImg animate-show" ng-hide="bigImage2==false"></big-image>	
+	</div>
+				<div style="clear:both"></div>
+
+				
+				
+				<div ng-show="teachers[0].checkContents==false" style="margin-left:15px;"><h1>Uh Oh!  The Information you requested was not found.</h1><p>We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.</p></div>
+				
+				<div  style="padding:15px;"><h1 >Teacher at Sea Media Gallery</h1>
+				<div class="border2"></div>
+				</div>
+				<slideshow-media id="slideshow-media" ng-hide="teachers[0].checkContents==false"></slideshow-media>
+				<div id="slideshow-media-alt" class="main_box" ng-hide="teachers[0].checkContents==false" >
+				<div 	class="main_box_inner">
+				<div id="wrapper">
+				<div class="scroller" id="media_scroller">
+				<ul>
+					
+					<li ng-repeat="slide in slides">
+						
+						<div class="image" style="cursor:pointer">
+							<img ng-click ="nameClick(slide.publishdate, slide.title)" resize-current class="slideshow_alt_image" src="{{slide.imageurl}}?w={{windowWidth}}" alt="{{slide.title}}"></div>
+							<div class="teacher_info"><h6><a  ng-click ="nameClick(slide.publishdate, slide.title)">Teacher at Sea {{slide.title}} <em></h6>{{slide.description}}</em></div>
+					</li>
+				</ul>
+				</div>
+
+				</div>
+				</div>
+				<div style="clear:both"></div>
+				</div>
+
+				<div class="bottom_right-media" >
+
+				<div class="right_column_box" style="">
+
+				<h6 style="margin-left:15px;">Teacher at Sea Media By Year<span style="color:#189E81"></span></h6>
+				<div class="border2" style="margin-left:15px; margin-bottom:0px"></div>
+				<div id="social_media" >
+
+				<ul>
+
+				<li id="categories{{teachers.group0[0].year}}" ng-model="teachers.buttons[0].state"  ng-class="{on:teachers.buttons[0].state=='on', off: teachers.buttons[0].state=='off'}" ><a style="cursor:pointer" title="categories2014btn"  ng-click="tabClick(0)">{{teachers.group0[0].year}}</a></li>
+				<li id="categories{{teachers.group1[0].year}}"  ng-model="teachers.buttons[1].state"  ng-class="{on:teachers.buttons[1].state=='on', off: teachers.buttons[1].state=='off'}" ><a style="cursor:pointer" title="categories2013btn"  ng-click="tabClick(1)">{{teachers.group1[0].year}}</a></li>
+				<li id="categories{{teachers.group2[0].year}}"  ng-model="teachers.buttons[2].state"  ng-class="{on:teachers.buttons[2].state=='on', off: teachers.buttons[2].state=='off'}" ><a title="categories2012btn" ng-click="tabClick(2)"> {{teachers.group2[2].year}}</a></li>
+				<li id="categories{{teachers.group3[0].year}}" ng-model="teachers.buttons[3].state"  ng-class="{on:teachers.buttons[3].state=='on', off: teachers.buttons[3].state=='off'}" ><a title="categories2011btn" ng-click="tabClick(3)"> {{teachers.group3[3].year}}</a></li>
+				</ul>
+
+				</div>
+				<div id="social_media_body" >
+
+				<div class="preloader" ng-hide="dataLoaded==true"></div>
+
+				<div id="categories{{teachers.group0[0].year}}box"  ng-model="teachers.buttons[0].state"  ng-class="{shower2:teachers.buttons[0].state=='on', hider2: teachers.buttons[0].state=='off'}">
+				<div id="wrapper_2014" class="wrapper_generic_media" style="overflow-y: scroll; overflow-x: hidden;">
+				<div class="scroller_generic" >{{teacher.lastname}}
+				<div class="names" ng-repeat="teacher in teachers.group0"><a style="color:#189E81" id="{{teacher.firstname}} {{teacher.lastname}}" ng-click="nameClick(teacher.year, teacher.firstname+' '+ teacher.lastname)">{{teacher.firstname}} {{teacher.lastname_forDOM}}</a>
+
+				</div>
+				</div>
+				</div>
+				</div>
+
+				<div id="categories{{teachers.group1[0].year}}box" ng-model="teachers.buttons[1].state"  ng-class="{shower2:teachers.buttons[1].state=='on', hider2: teachers.buttons[1].state=='off'}">
+				<div id="wrapper_2014" class="wrapper_generic_media" style="overflow-y: scroll; overflow-x: hidden;">
+				<div class="scroller_generic" >
+				<div class="names" ng-repeat="teacher in teachers.group1"><a style="color:#189E81" id="{{teacher.firstname}} {{teacher.lastname}}" ng-click="nameClick(teacher.year, teacher.firstname+' '+ teacher.lastname)">{{teacher.firstname}} {{teacher.lastname_forDOM}}</a>
+
+				</div>
+				</div>
+				</div>
+				</div>
+				<div id="categories{{teachers.group2[0].year}}box" ng-model="teachers.buttons[2].state"  ng-class="{shower2:teachers.buttons[2].state=='on', hider2: teachers.buttons[2].state=='off'}">
+				<div id="wrapper_2014" class="wrapper_generic_media" style="overflow-y: scroll; overflow-x: hidden;">
+				<div class="scroller_generic" >
+				<div class="names" ng-repeat="teacher in teachers.group2"><a style="color:#189E81" id="{{teacher.firstname}} {{teacher.lastname}}" ng-click="nameClick(teacher.year, teacher.firstname+' '+ teacher.lastname)">{{teacher.firstname}} {{teacher.lastname_forDOM}}</a>
+
+				</div>
+				</div>
+				</div>
+				</div>
+				<div id="categories{{teachers.group3[0].year}}box" ng-model="teachers.buttons[3].state"  ng-class="{shower2:teachers.buttons[3].state=='on', hider2: teachers.buttons[3].state=='off'}">
+				<div id="wrapper_2014" class="wrapper_generic_media" style="overflow-y: scroll; overflow-x: hidden;">
+				<div class="scroller_generic" >
+				<div class="names" ng-repeat="teacher in teachers.group3" ><a style="color:#189E81" id="{{teacher.firstname}} {{teacher.lastname}}" ng-click="nameClick(teacher.year, teacher.firstname+' '+ teacher.lastname)">{{teacher.firstname}} {{teacher.lastname_forDOM}}</a>
+
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+</div>
+
+<div style="clear:both"></div>
+
+</div>
+
+<div style="clear:both"></div>
+<div style="padding:15px"><p>Over the years our teachers have taken and uploaded many stunning photos.  The Teacher at Sea Media Library is an online vault where a all photos and videos uploaded by our teachers are stored and available for searchable access and download.  All photos and videos are open for downloading and reuse with attribution to the <i>NOAA Teacher at Sea Program</i></p>
+	<p>This database is browsable from this page by clicking on the teacher name in the yellow box in the right column.  Additionally, the photo database is searchable from all pages by clicking on the search icon in the upper right portion of the Teacher at Sea website.</p>
+	
+	<p>If you are interested in staff-curated photos, check out the <a href="#/photo_of_week/">Teacher at Sea Photo of the Week page</a> (which contains over 100 photos and is searchable). and/or <a href="/dyk/" target="_blank">Did You Know: Tweets From Sea</a><p></div>

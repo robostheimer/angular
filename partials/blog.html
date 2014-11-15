@@ -1,0 +1,11 @@
+ <div id="top" >
+      <div class="main_top" >
+      <div class="profile_photo"><div><img  id="profileImage" ng-src='{{src}}' alt='{{alt}}'  class="no-border"/></div>
+      <div class="profile_caption">{{caption}} <a ng-href='{{shipurl}}' target='_blank'>{{ship}}</a></div>      </div>
+      <div id="profile_data"><h4 style="margin:0px;">{{teachername}}</h4>
+      	<p>{{teacherfirstname}} {{teacherlastname}} teaches  {{subject}} at <a ng-href="{{schoolurl}}" target="_blank">{{school}}</a> in {{schoollocation}}. {{teacherfirstname}}  was aboard {{shiptype}} <em><a ng-href="{{shipurl}}" target="_blank">{{ship}}</a></em> while scientists conducted a <a ng-href="{{missionurl}}" target="_blank">{{mission}}</a>. You can learn more about this important scientific work by <a ng-href="{{missionurl}}" target="_blank">clicking here</a>.</p>
+      	<p><b style="color:#0057a5">School Town: </b>{{city}}, {{state}}<br><b style="color:#0057a5">School: </b><a ng-href="{{schoolurl}}" target="_blank">{{school}}</a><br> <b style="color:#0057a5">Grades Taught: </b>{{grades}}<br><b style="color:#0057a5">Ship: </b>{{shiptype}} <a ng=href="{{shipurl}}" target="_blank"><em>{{ship}}</em></a><br><b style="color:#0057a5">Cruise Dates:</b> {{dates}}<br><b style="color:#0057a5">Mission:</b> <a ng-href="{{missionurl}}" target="_blank">{{mission}}</a><br><b style="color:#0057a5">Blog: </b><a ng-href="{{blogurl}}" target="_blank">{{teachername}}'s Blog Posts</a></p>
+      	 </div>
+      <div style="clear:both"></div>
+     
+ </div>

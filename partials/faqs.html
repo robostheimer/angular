@@ -1,0 +1,77 @@
+
+<div class="preloader" ng-hide="checkContents==true"></div>
+<div ng-show="checkContents==true">
+	<div id="popup_holder"  class="animate-show" ng-hide="bigImage==false">
+		<big-image id="bigImg1" class="bigImg " ></big-image>
+
+		<div style="clear:both"></div>
+
+	</div>
+	<div ng-show="checkContents==false" style="margin:15px">
+		<h1>Uh Oh!  The Information you requested was not found.</h1>
+		<p>
+			We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a ng-href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.
+		</p>
+	</div>
+	
+	<div id="top"  >
+		<div class="main_top" >
+			<div>
+				<h1>Frequently Asked Questions</h1>
+				<div class="border2"></div>
+
+				<div class="main_no_tab">
+					<div id="questions">
+						<ul>
+							<li  ng-repeat="question in faqs">
+								<a ng-click="showAnswer(question.id)">{{question.gsx$question.$t}}</a>
+								<div  class="animate-show-fast" id ="answer{{question.id}}" ng-hide="question.gsx$answer.hideAnswer==true">
+
+									<div ng-bind-html="SkipValidation(question.gsx$answer.$t)"</div>
+									</div>
+									</li>
+
+									</ul>
+									</div>
+
+									<div class='right_column_faq'>
+									<div id="social_media" >
+									<ul>
+									<li ng-repeat="button in buttons" id="button.name" class="{{button.state}}"><a  ng-click="buttonChange(button.name)">{{button.name}}</a></li>
+
+									</ul>
+									</div>
+
+									<div id="social_media_body_faq" >
+
+									<div id="{{buttons[0].name}}box" class="{{buttons[0].classy}}">
+									<ul style="text-align:left">
+									<li ></li>
+									<li ><span style="color:#0057a5">FACT 1</span>: Teacher at Sea has accepted teachers from all 50 states, American Samoa, Puerto Rico and Guam<a href="http://www.ourcoloradonews.com/centennial/newsreleases/centennial-teacher-assists-noaa-scientists/article_1e60e654-ea0b-11e0-b183-001cc4c03286.html" target="_blank"><span style="padding-bottom:3px; color:#ECBD00"></span></a><span style="padding-bottom:3px; color:#ECBD00"></span>
+										</li>
+										<li ></li>
+										<li >
+											<span style="color:#0057a5">FACT 2</span>: Teacher at Sea has sent over 650 teachers out on NOAA Research cruises.
+										</li>
+										<li ></li>
+										<li >
+											<span style="color:#0057a5">FACT 3</span>: The Mission of the Program is to give teachers a clearer insight into our ocean planet, a greater understanding of maritime work and studies, and to increase their level of environmental literacy by fostering an interdisciplinary research experience.
+										</li>
+										<li ></li>
+										<li >
+											<span style="color:#0057a5">FACT 4</span>: Teacher at Sea was established in 1990 by the NOAA Office of Marine and Aviation Operations.
+										</li>
+										</ul>
+									</div>
+								<div id="{{buttons[2].name}}box" style="margin-left:15px;" class="{{buttons[1].classy}}">
+									
+									<carou-sel service="" type="quotes" length="{{quotes.length}}" width="225"></carou-sel>								
+							</div>
+				</div>
+			</div>
+		</div>
+		<div style="clear:both"></div>
+
+	</div>
+
+</div>

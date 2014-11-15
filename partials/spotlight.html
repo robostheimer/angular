@@ -1,0 +1,82 @@
+<div id="top">
+	<div id="popup_holder"  class="animate-show" ng-hide="bigImage==false">
+		<big-image id="bigImg1" class="bigImg " ></big-image>
+
+		<div style="clear:both"></div>
+
+	</div>
+	<div ng-show="checkContents==false" style="margin:15px">
+		<h1>Uh Oh!  The Information you requested was not found.</h1>
+		<p>
+			We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a ng-href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.
+		</p>
+	</div>
+
+
+		<div class="main_top" ng-hide="indivSpot==true;" >
+			<div style="float:left">
+				<h1>Teacher at Sea Alumni Spotlight</h1>
+			</div>
+
+			<div class="internal_search">
+				<form id="news" name="news"  >
+					<input type="text" name="search_alumni_spot" value="" placeholder="Search Spotlights" class="text" ng-model="query" ng-change="checkLength(query)">
+				</form>
+
+				<div class="search" aria-hidden="true" data-icon="a"></div>
+
+			</div>
+			<div class="clear"></div>
+			<div class="border2"></div>
+
+			<div id="bigContainer" class="animate-show"  ng-hide="noFilter==true;">
+				<div id="container_spot" style="margin-left:0px;" >
+					<div id="box0" class="spot_box"ng-repeat="spot in data | filter:query" >
+						<div class="spot_image" id="image{{spot.id}}">
+							<span style="cursor:pointer"  ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)" ng-enter="openBigImage(spot.url,spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)"> 
+								<img resize-list class="image_spot" src="{{spot.url}}?w={{tnWidth}}" alt="{{spot.caption}}"> </span>
+
+							</span>
+							</div>
+							<div class="spot_desc" id="spot_desc{{id}}">
+								<h6 >{{spot.firstname}} {{spot.lastname}}</h6>
+							<span ng-bind-html="spot.shortbody"></span>
+
+							<p><a href="#{{spot.hash}}"  ng-hide="spot.hideLongBody==true">Read More</a>
+							<br>
+							<a style="cursor:pointer"ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
+							</p>
+							</div>
+							<div style="clear:both; margin-bottom:15px;"></div><div class="border border-width"></div>
+							</div>
+							</div>
+							</div>
+
+					<div id="bigContainer" class="animate-show" ng-hide="noFilter==false;" >
+							<div id="container_spot" style="margin-left:0px;">
+							<div id="box0" class="spot_box" ng-repeat ="spot in filtered_data">
+							<div class="spot_image" id="image{{spot.id}}">
+							<span style="cursor:pointer"  ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)" ng-enter="openBigImage(spot.url,spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">
+							<img resize-list class="image_spot" src="{{spot.url}}?w={{tnWidth}}" alt="{{spot.caption}}"> </span>
+						</div>
+						<div class="spot_desc" id="spot_desc{{id}}">
+							<h6>{{spot.firstname}} {{spot.lastname}}</h6>
+							<span ng-bind-html="spot.shortbody"></span>
+
+							<p><a href="#{{spot.hash}}" ng-click="openIndivSpot(spot.id)" ng-hide="spot.hideLongBody==true">Read More</a><br>
+							
+							<a style="cursor:pointer"ng-click="openBigImage(spot.url.split('?')[0]+'?w=650',spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
+							</p>
+						</div>
+						<div style="clear:both; margin-bottom:15px;"></div><div class="border border-width"></div>
+					</div>
+				</div>
+				<pagination-routes length={{data.length}} page={{currentPage}} itemsper={{itemsPerPage}}></pagination-routes>
+			</div>
+			
+
+			<div style="margin:20px; margin-left:30px"><img width="15" height="15" src="/images/feed-icon-22x22.png" style="border:none;margin-top:8px;" alt="RSS Feed"/><a href="/alumni/alumni_spotlight.xml" target="_blank">Subscribe to the Alumni Spotlight Feed <span style="color:#ECBD00">»</span></a>
+			</div>
+		</div>
+	
+	</div>

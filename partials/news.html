@@ -1,0 +1,79 @@
+
+<div >
+	<div id="popup_holder"  class="animate-show" ng-hide="bigImage==false">
+		<big-image id="bigImg1" ></big-image>
+				
+
+				<div style="clear:both"></div>
+
+				</div>
+				<div ng-show="news.dataLoaded==false" style="margin:15px"><h1>Uh Oh!  The Information you requested was not found.</h1><p>We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.</p></div>
+			</div>
+			<div id="top">
+	<div class="main_top">
+    <div style="float:left">
+    <h1>NOAA Teacher at Sea in the News</h1></div>
+    <div class="internal_search">
+		<form id="news" name="news"  >
+		<input type="text" name="search_news" value="" placeholder="Search News" class="text" ng-model="query" ng-change="checkLength(query)">
+		</form>
+
+
+  		<div class="search" aria-hidden="true" data-icon="a"></div>
+
+		</div>
+<div class="clear"></div>
+    <div class="border2"></div>
+    				<div class="preloader" ng-hide="news.dataLoaded==true"></div>
+
+		
+<div class="main_no_tab" ng-hide="news.dataLoaded==false">
+	
+<div >
+	
+	<div ng-repeat="article in data | filter:query" ng-hide="noFilter==true;" >
+		<div class="news_image"  ">
+			
+			<img class="newsimage" src="{{article.main.newsItems.image}}?w=100 alt="{{article.teacher}>
+		</div>
+		<div class="news_info" >
+			<h6><a href="#/{{article.main.newsItems.articleYear}}/{{article.main.newsItems.teacher.replace(' ', '*')}}">{{article.main.newsItems.teacher}}</a></h6>
+			<p>Read these articles  about NOAA Teacher at Sea {{article.main.newsItems.teacher}}:</p> 
+			<div ><a href="{{article.main.newsItems.articleurl}}" target="_blank">{{article.main.newsItems.articletitle}}</a> from <a href="{{article.main.newsItems..mediaoutleturl}}" target="_blank"><em>{{article.main.newsItems.mediaoutlet}}</em></a> </div>
+			 <div ng-repeat = "item in article.main.newsItemsFinal"><a href="{{item.articleurl}}" target="_blank">{{item.articletitle}}</a> from <a href="{{item.mediaoutleturl}}" target="_blank"><em>{{item.mediaoutlet}}</em></a></div><br>
+				
+			</p></div>
+				<div class="clear"></div>
+	</div><br> 
+</div>
+<div ng-hide="noFilter==false;" >
+	<div  ng-repeat="article in filtered_data" ng-hide="noFilter==false;"  >
+		<div class="news_image"  ">
+			
+			<img class="newsimage" src="{{article.main.newsItems.image}}?w=100 alt="{{article.teacher}>
+		</div>
+		<div class="news_info" >
+			<h6><a href="#/{{article.main.newsItems.articleYear}}/{{article.main.newsItems.teacher.replace(' ', '*')}}">{{article.main.newsItems.teacher}}</a></h6>
+			<p>Read these articles  about NOAA Teacher at Sea {{article.main.newsItems.teacher}}:</p> 
+			<div ><a href="{{article.main.newsItems.articleurl}}" target="_blank">{{article.main.newsItems.articletitle}}</a> from <a href="{{article.main.newsItems..mediaoutleturl}}" target="_blank"><em>{{article.main.newsItems.mediaoutlet}}</em></a> </div>
+			 <div ng-repeat = "item in article.main.newsItemsFinal"><a href="{{item.articleurl}}" target="_blank">{{item.articletitle}}</a> from <a href="{{item.mediaoutleturl}}" target="_blank"><em>{{item.mediaoutlet}}</em></a></div><br>
+				
+			</p></div>
+				<div class="clear"></div>
+	</div>
+	 <pagination-routes length={{data.length}} page={{currentPage}} itemsper={{itemsPerPage}}></pagination-routes>
+	</div>
+</div>
+
+
+<!--<div id="2013div"><h2 style="margin-bottom:15px;">2013 Articles</h2><div id="2013articles"></div></div>
+
+<div id="2012div"><h2 style="margin-bottom:15px;">2012 Articles</h2><div id="2012articles"></div></div>
+<div id="2011div" style="margin-top:25px;">
+  <h2 style="margin-bottom:15px;">2011 Articles</h2><div id="2011articles"></div>-->
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+</div>

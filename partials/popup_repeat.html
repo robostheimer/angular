@@ -1,0 +1,23 @@
+		<div>
+			<div class="bigImgClose" id="alert_box_close" ng-click="closeBigImage()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+			</div>
+			<div id="imagesbox" class="scrolly">
+				<div class="wrapper_search" id="wrapper_search_images" style="overflow-y: scroll;">
+					<div class="scroller_search">
+						<h2>Teacher at Sea {{name}}'s Photos</h2>
+
+						<div id="searcher_image_media{{index}}">
+							<div id="search_img_media{{src.id}}" class="search_image" ng-repeat = "src in wp.Images">
+								<img  id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite off" style="border:none;cursor:pointer" src="/images/star.png" alt="Add to Favorites">
+								<div>
+									<img ng-click ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w=150" alt="{{wp.BlogTitle}}{{src.caption}}" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+	

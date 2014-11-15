@@ -1,0 +1,204 @@
+<div >
+	<div id="popup_holder" class="animate-show"  ng-hide="bigImage==false" >
+		<big-image id="bigImg1" class="bigImg animate-show"></big-image>
+
+		<div style="clear:both"></div>
+
+	</div>
+	<div ng-show="teacher.dataLoaded==false" style="margin:15px">
+		<h1>Uh Oh!  The Information you requested was not found.</h1>
+		<p>
+			We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.
+		</p>
+	</div>
+	<div id="top" ng-hide="teacher.dataLoaded==false">
+		<div class="main_top" >
+			<div class="profile_photo">
+				<div><img resize-profile  id="profileImage" src='{{teacher.image.split("?")[0]}}?w={{topImageWidth}}' alt='{{alt}}'  class="no-border" border="none"/>
+				</div>
+				<div class="profile_caption">
+					<span class="caption"> {{teacher.caption}} <a ng-href='{{teacher.shipurl}}' target='_blank'><i>{{teacher.ship}}</i></a></span>
+				</div>
+			</div>
+			<div id="profile_data">
+				<h4 style="margin:0px;">{{teacher.firstname}} {{teacher.lastname_forDOM}}</h4>
+				<p>
+					{{teacher.firstname}} {{teacher.lastname_forDOM}} teaches <span ng-show="teacher.subjects_num==1">{{teacher.subjects}} <a href="{{teacher.schoolurl}}" target="_blank">{{teacher.school}}</a></span><span ng-show="teacher.subjects_num==2">{{teacher.subjects1}} at <a href="{{teacher.schoolurl1}}" target="_blank">{{teacher.school1}}</a> and {{teacher.subjects2}} at <a href="{{teacher.schoolurl2}}" target="_blank">{{teacher.school2}}</a></span> in {{teacher.city}}, {{teacher.state}}. {{teacher.firstname}} <span ng-show="teacher.datesComp==0">was aboard {{teacher.shiptype}} <em><a ng-href="{{teacher.shipurl}}" target="_blank">{{teacher.ship}}</a></em> while scientists conducted a <a ng-href="{{teacher.missionurl}}" target="_blank">{{teacher.mission}}</a>. You can learn more about this important scientific work by <a ng-href="{{teacher.missionurl}}" target="_blank">clicking here</a>.</span>
+					<span ng-show="teacher.datesComp==1">is aboard {{teacher.shiptype}} <em><a ng-href="{{teacher.shipurl}}" target="_blank">{{teacher.ship}}</a></em> while scientists conducted a <a ng-href="{{teacher.missionurl}}" target="_blank">{{teacher.mission}}</a>. You can learn more about this important scientific work by <a ng-href="{{teacher.missionurl}}" target="_blank">clicking here</a>.</span>
+					<span ng-show="teacher.datesComp==2">will be aboard {{teacher.shiptype}} <em><a ng-href="{{teacher.shipurl}}" target="_blank">{{teacher.ship}}</a></em> while scientists conducted a <a ng-href="{{teacher.missionurl}}" target="_blank">{{teacher.mission}}</a>. You can learn more about this important scientific work by <a ng-href="{{teacher.missionurl}}" target="_blank">clicking here</a>.</span>
+				</p>
+				<p>
+					<b style="color:#0057a5">School Town: </b>{{teacher.city}}, {{teacher.state}}
+					<br>
+					<b style="color:#0057a5">School: </b><span ng-show="teacher.subjects_num==1"><a href="{{teacher.schoolurl}}" target="_blank">{{teacher.school}}</a></span><span ng-show="teacher.subjects_num==2"><a href="{{teacher.schoolurl1}}" target="_blank">{{teacher.school1}}</a> and {{teacher.subjects2}} at <a href="{{teacher.schoolurl2}}" target="_blank">{{teacher.school2}}</a></span>
+					<br>
+					<b style="color:#0057a5">Grades Taught: </b>{{teacher.grades}}
+					<br>
+					<b style="color:#0057a5">Ship: </b>{{teacher.shiptype}} <a ng-href="{{teacher.shipurl}}" target="_blank"><em>{{teacher.ship}}</em></a>
+					<br>
+					<b style="color:#0057a5">Cruise Dates:</b> {{teacher.dates}}
+					<br>
+					<b style="color:#0057a5">Mission: </b><a ng-href="{{teacher.cruiseurl}}" target="_blank">{{teacher.mission}}</a>
+					<br>
+					<b style="color:#0057a5">Blog: </b><a ng-href="{{teacher.wordpressurl}}" target="_blank">{{teacher.firstname}}'s Blog Posts</a>
+				</p>
+			</div>
+			<div style="clear:both"></div>
+
+		</div>
+
+		<div class="border" style="margin-bottom:20px; margin-top: 0px;"></div>
+		<div class="main_inner_page" >
+
+			<div id="social_media">
+
+				<ul ol role = "profile_tabs">
+
+					<li id=“blogposts” ng-model="buttons.blogs.state"  class="{{buttons.blogs.state}}" ng-hide="wp.Blogs==false" role="blogs_tab" >
+						<a  ng-model = "buttons.blogs"  class="cursor"  href="#{{location}}/blogs">Blogs</a>
+					</li>
+					<li id=“photos” ng-model="buttons.photos.state"  class="{{buttons.photos.state}}" ng-hide="wp.checkPhotos==false" role="photos_tab" >
+						<a  ng-model = "buttons.photos"  class="cursor" href="#{{location}}/photos">Photos</a>
+					</li>
+					<li id=“videos” ng-model="buttons.videos.state"  class="{{buttons.videos.state}}" ng-hide="wp.checkVideos==false" role="videos_tab" >
+						<a  ng-model = "buttons.videos"   class="cursor" href="#{{location}}/videos">Videos</a>
+					</li>
+					<li id=“lessons” ng-model="buttons.lessons.state"  class="{{buttons.lessons.state}}" ng-hide="lessons.checkContents==false" role="lessons_tab">
+						<a  ng-model = "buttons.lessons"   class="cursor" href="#{{location}}/lessons">Lessons</a>
+					</li>
+					<li id=“news” ng-model="buttons.news.state"  class="{{buttons.news.state}}"  ng-hide="news.checkContents==false" role="news_tab">
+						<a  ng-model = "buttons.news"  class="cursor" href="#{{location}}/news" >News</a>
+					</li>
+					<li id=“ship” ng-model="buttons.ship.state"  class="{{buttons.ship.state}}"  role="ship_tabs">
+						<a  ng-model = "buttons.ship"  class="cursor" href="#{{location}}/ship">Ship</a>
+					</li>
+
+				</ul>
+			</div>
+			
+			<div id="social_media_body" >
+				<div class="preloader" ng-hide="wp.dataLoaded"></div>
+				<div ng-hide="wp.checkForItems==true" style="margin:15px">
+					<h3>{{teacher.firstname}} {{teacher.lastname}} has not sailed yet.  Please check this site after {{teacher.dates.split('-')[0]}} for {{teacher.firstname}}'s posts and photos. </h3>
+				</div>
+
+				<div id="blogpostsbox"  class="{{buttons.blogs.classy}}" aria-labelledby="blogposts" aria-hidden="{{buttons.blogs.state}}" >
+					<div class="profile-wrapper" id="wrapper_blogposts" style="overflow: scroll;">
+						<div class="scroller_profile" id="scroller_blogs">
+							<div class="searcher" id="searcher_profile{{index}}"  ng-repeat="item in wp.items">
+								<div style="display:none;" id="search_image1profile" class="search_image_blog"><img id="search_image_img_profile{{index}}" class="ImgClick" style="border:none;" ng-src="{{item.src}}" alt="{{item.title}}">
+								</div>
+								<div id="search_image_txt{{item.id}}_profile" class="search_image_text">
+									<b><a id="titlelink{{index}}_profile" class="titlelink searchlink" href="{{item.BlogUrl[0]}}" title="{{item.BlogTitle}}" target="_blank">{{item.BlogTitle}}</a>&nbsp;&nbsp;</b><img id="favorite_profile{{item.id}}" class="search_favorite off" style="border:none;cursor:pointer" src="/images/star.png" alt="Add to Favorites">
+									<div id="blogdesc{{item.id}}" class="blogdesc" >
+										{{item.contentSnipp}}... <a ng-href="{{item.link}}" target="_blank">Read More</a>
+									</div>
+
+									<div style="margin-top; font-weight:normal;display:none; float:left" ng-repeat="tags in item.CategoriesArr" >
+										<a class="caption" style="cursor:pointer" ng-click="showResult()">{{tags}}, </a>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div style="clear:both"></div>
+
+				</div>
+				<div id="photobox" class="{{buttons.photos.classy}}" aria-labelledby="photos" aria-hidden='{{buttons.photos.state}}'>
+					<div class="profile-wrapper" id="wrapper_photos" style="overflow: scroll;" ">
+					<div class="scroller_profile" id="scroller_photos"  >
+					<div id="searcher_image_profile{{index}}">
+					<div id="search_img_profile{{src.id}}" class="blogphotos" ng-repeat = "src in wp.Images"><img  id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite off" style="border:none;cursor:pointer" src="/images/star.png" alt="Add to Favorites">
+					<div><img ng-click ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w=130" alt="{{wp.BlogTitle}}{{src.caption}}" />
+					</div>
+					</div>
+					</div>
+					<div style="clear:both; margin-bottom:20px;"></div>
+					</div>
+
+					<div style="clear:both"></div>
+					</div>
+					</div>
+					<div id="videosbox" class="{{buttons.videos.classy}}" ng-switch="wp.dataLoaded" aria-labelledby="videos" aria-hidden='{{buttons.videos.state}}}'>
+					
+					<div class="profile-wrapper" id="wrapper_videos" style="overflow: scroll;" ng-switch="wp.dataLoaded">
+					<div class="scroller_profile" id="scroller_videos" ng-switch="wp.loaded">
+					<div class="wp" style="float:left; margin:15px; " ng-repeat = "src in wp.WPVid" ng-switch="wp.dataLoaded">
+
+					<wp-videos resize-profile width="{{video}}" height="{{video*.75}}"></wp-videos>
+					</div>
+
+					<div class="yt" style="float:left; margin:15px; "ng-repeat = "src in wp.YT">
+					<yt-videos></yt-videos>
+					</div>
+					<div id="vm" style="float:left; margin:15px;" ng-repeat = "src in wp.VMVid">
+					<vm-videos></vm-videos>
+					</div>
+					</div>
+					</div>
+					</div>
+
+					<div style="clear:both"></div>
+					<div id="lessonsbox"  class="{{buttons.lessons.classy}}" aria-hidden='{{buttons.lessons.state}}}' aria-labelledby="lessons"><div class="profile-wrapper" id="wrapper_lessons" style="overflow-y: scroll;"   >
+
+					<div class="scroller_profile" id="scroller_lessons" ng-hide="wp.lessonContents==false">
+					<b >Teacher at Sea participants create lessons for their own classes based on their research cruise. You are welcome to use these lessons and adapt them as you see fit.</b>
+					<br><br>
+					<div ng-repeat="lesson in lessons" class="searcher" id="searcher_profile_lesson0">
+					<div id="search_profile_lesson_profile0" style="padding-bottom:20px;list-style:none;" class="lessonsearch" >
+					<b style="margin-left:0"><a target="_blank" id="lesson_profile0" class="titlelink" ng-href="{{lesson.url}}" title="Hydrography, Mapping the Ocean Floor with a Sounding Box">{{lesson.title}}</a> &nbsp;&nbsp;</b>
+					<img id="favorite_profile_lesson0" class="search_favorite" src="/images/star.png" alt="Add to Favorites" style="border:none">
+					<div style="font-size:10px">
+						<em>(PDF: {{lesson.size}})</em>
+					</div>
+					<div>
+						<p class="description">
+							{{lesson.description}}
+						</p>
+						<div class="author">
+							Author: <a href="/2014/harrington.html">{{lesson.firstname}} {{lesson.lastname}}</a>
+						</div>
+						<div class="grades">
+							Grade Levels: {{lesson.grades}}
+						</div>
+						<div class="topics">
+							Topics:{{lesson.topics}}
+						</div>
+						<div class="tags">
+							Tags: {{lesson.keywords}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div id="newsbox" class="{{buttons.news.classy}}" aria-labelledby="news" aria-hidden='{{buttons.news.state}}}'>
+	<div class="profile-wrapper" id="wrapper_news" style="overflow: scroll;" >
+		<div class="scroller_profile" id="scroller_news">
+			<div style="list-style-type:none;margin-bottom:15px;" ng-repeat="newsItem in news" >
+
+				Read this article <a href="{{newsItem.articleurl}}" target="_blank">{{newsItem.article}}</a> about NOAA Teacher at Sea {{newsItem.teacher}} from <a ng-href="{{newsItem.mediaoutleturl}}" target="_blank"><em>{{newsItem.mediaoutlet}}</em></a>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div id="shipinfobox" class="{{buttons.ship.classy}}" aria-labelledby="ship" aria-hidden='{{buttons.news.state}}}'>
+	<div class="profile-wrapper" id="wrapper_ship" style="overflow: scroll;">
+		<div class="scroller_profile" id="scroller_ship">
+			<div><img style="float:left; margin:15px; margin-left:0px;margin-top:0px;margin-right:20px;" src="{{ship[0].shipimage}}?w={{video}}" alt=" {{ship[0].shipname}}"><h6 style="margin-left:0px"> {{ship[0].shipname}}</h6><p ng-bind-html="SkipValidation(ship[0].description)"></p>
+
+
+		</div>
+	</div>
+	
+</div>
+
+<div style="clear:both"></div>
