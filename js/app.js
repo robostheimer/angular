@@ -282,7 +282,15 @@ TAS_SITE.config(['$routeProvider',
      // use the HTML5 History API
 		
 
-  }]);
+  }])
+  
+.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+         $httpProvider.defaults.headers.post['Accept'] = 'application/json, text/javascript';
+    	$httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8'
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+]); 
   
   /*app.run(function($rootScope, $location, $anchorScroll, $routeParams) {
   $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {

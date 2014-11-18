@@ -14,12 +14,11 @@
 </style>
 
 
-
 		<title>NOAA Teacher at Sea</title>
 		
 	</head>
 	<body>
-		
+	
 		 
 
 </div>
@@ -31,12 +30,8 @@
 
  
 <div id="contain" ng-hide="checkContents==false" >
-
-<div ng-include="'partials/header.html'"></div>
-  
-<div  ng-include="'partials/nav_bar.html'"></div> 
 <script type="text/javascript">
-  if (navigator.appName.match('Opera')||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 9'))||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 8')) || (navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 7'))||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 6')))
+  if (navigator.appName.match('Opera')||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 8')) || (navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 7'))||(navigator.appName=="Microsoft Internet Explorer" &&navigator.appVersion.match('MSIE 6')))
  {
 
   
@@ -46,6 +41,10 @@
 }
 
 </script>
+<div ng-include="'partials/header.html'"></div>
+  
+<div  ng-include="'partials/nav_bar.html'"></div> 
+
   <div ng-view view-animation >
   	<div style="width:75px; margin-left:auto; margin-right:auto; margin-top:40%;margin-bottom:60%; background:none;" ng-hide="checkContents ==true"><img style="border:none" src="/images/NOAA-Logo.gif"/></div>		
 
@@ -68,7 +67,7 @@ google.load('feeds', '1', {'nocss' : 1})
 
 <script type="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/Scripts/iscroll.js"></script>
-<script src="/Redesign/angular/bower_components/angular-IE/xdomain.min.js" slave="http://cityblinking.com/TAS/proxy.html"></script>
+
 <script src="/Redesign/angular/bower_components/jquery/dist/jquery.min.js"></script>	
 <script src="/Redesign/angular/bower_components/angular/angular.js"></script>
 <script src="/Redesign/angular/bower_components/angular-route/angular-route.js"></script>
@@ -86,7 +85,6 @@ google.load('feeds', '1', {'nocss' : 1})
 <script src="/Redesign/angular/js/directives.js"></script>	
 <script src="/Redesign/angular/js/controllers.js"></script>
 <script src="/Redesign/angular/js/filters.js"></script>	
-
 
 </body>
 

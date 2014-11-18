@@ -14,12 +14,12 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			
 			
 			
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL+%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+Year=%272014%27+ORDER%20BY+TeacherLastName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&calback=?').then(function(result) {
-
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL+%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+Year=%272014%27+ORDER%20BY+TeacherLastName%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
+				console.log(result.data.rows);
 				
 				if (result.data.rows != undefined) {
 					
-						
+							
 					for (var o = 0; o < result.data.rows.length; o++) {
 					var d = new Date();
     				var td = d.valueOf();
@@ -148,7 +148,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getCarouselData:function(region)
 			{
 				var spot = [];
-				return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+FirstName,LastName,ShortBody,LongBody,image,caption,PublishDate,Region+FROM+1z6kUehyfSNqaAGinvARZLYyjb7Dhk2F9rt49xHIV+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {					
+				return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+FirstName,LastName,ShortBody,LongBody,image,caption,PublishDate,Region+FROM+1z6kUehyfSNqaAGinvARZLYyjb7Dhk2F9rt49xHIV+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {					
 					if(result.data.rows!=null)
 					{
 						var d= new Date();
@@ -195,7 +195,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	return {
 	getCarouselData : function() {
 			var pow = [];
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+PhotoURL,PhotoCaption,PhotoDescription,ShortDescription,BlogURL,PhotoCredit,BlogTitle,PublishDate, Keywords+FROM+19WBCSYuVJh1O2KaThKQJpLLn0VF6w3rHhbKtZMVf+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {					
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+PhotoURL,PhotoCaption,PhotoDescription,ShortDescription,BlogURL,PhotoCredit,BlogTitle,PublishDate, Keywords+FROM+19WBCSYuVJh1O2KaThKQJpLLn0VF6w3rHhbKtZMVf+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {					
 					if(result.data.rows!=null)
 					{
 						var d= new Date();
@@ -247,7 +247,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			
 			
 			
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL+%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+Year=%272014%27+ORDER%20BY+TeacherLastName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL+%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+Year=%272014%27+ORDER%20BY+TeacherLastName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 
 				
 				if (result.data.rows != undefined) {
@@ -292,7 +292,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 		getSpotlightData:function(region)
 			{
 				var spot = [];
-				return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+FirstName,LastName,ShortBody,LongBody,image,caption,PublishDate,Region+FROM+1z6kUehyfSNqaAGinvARZLYyjb7Dhk2F9rt49xHIV+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {					
+				return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+FirstName,LastName,ShortBody,LongBody,image,caption,PublishDate,Region+FROM+1z6kUehyfSNqaAGinvARZLYyjb7Dhk2F9rt49xHIV+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {					
 					if(result.data.rows!=null)
 					{
 						var d= new Date();
@@ -331,7 +331,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			},
 			getPOWData : function() {
 			var pow = [];
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+PhotoURL,PhotoCaption,PhotoDescription,ShortDescription,BlogURL,PhotoCredit,BlogTitle,PublishDate, Keywords+FROM+19WBCSYuVJh1O2KaThKQJpLLn0VF6w3rHhbKtZMVf+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {					
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+PhotoURL,PhotoCaption,PhotoDescription,ShortDescription,BlogURL,PhotoCredit,BlogTitle,PublishDate, Keywords+FROM+19WBCSYuVJh1O2KaThKQJpLLn0VF6w3rHhbKtZMVf+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {					
 					if(result.data.rows!=null)
 					{
 						var d= new Date();
@@ -370,7 +370,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			},*/
 			getDYKData : function() {
 			
-			return $http.get('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdDdoTkZFb0lMMVUzdzFBOUZaWllxeUE/od6/public/values?alt=json').then(function(result) {					
+			return $http.jsonp('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdDdoTkZFb0lMMVUzdzFBOUZaWllxeUE/od6/public/values?alt=json&callback=JSON_CALLBACK').then(function(result) {					
 					
 					
 					var randomNum =Math.floor(Math.random()*(result.data.feed.entry.length-3))	
@@ -396,7 +396,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			var news = [];
 			var newsObj = {};
 			newsObj.checkContents = false;
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+ArticleYear%2C+Teacher%2C+MediaOutlet%2C+ArticleTitle%2C+MediaOutletURL%2C+ArticleURL+FROM+1EaTTZDozzJ0k3K2FMoD0O6JAfeiHcc6SB95f0hYv&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+ArticleYear%2C+Teacher%2C+MediaOutlet%2C+ArticleTitle%2C+MediaOutletURL%2C+ArticleURL+FROM+1EaTTZDozzJ0k3K2FMoD0O6JAfeiHcc6SB95f0hYv&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 				if (result.data.rows != undefined) {
 					for (var o = 0; o < 5; o++) {
 						news.push({
@@ -434,7 +434,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			//var feed = 'http://teacheratsea.wordpress.com/category/'+$routeParams.teachername.split('*')[0].toLowerCase()+'-'+$routeParams.teachername.split('*')[1].toLowerCase()+'/feed';
 			//console.log(feed);
 
-			return $http.get('/php/xml_json_home.php?q=2014').then(function(result) {
+			return $http.jsonp('/php/xml_json_home.php?q=2014&callback=JSON_CALLBACK').then(function(result) {
 
 				WPdata = result.data;
 				WPdata.dataLoaded = false;
@@ -626,7 +626,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			teacherfirstname = teacherfirstname.replace(/'/g, "\'");
 			teacherlastname = teacherlastname.replace(/'/g, "\\'");
 
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL+%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+TeacherFirstName%20%20CONTAINS%20IGNORING%20CASE%27' + (teacherfirstname) + '%27+AND+TeacherLastName%20CONTAINS%20IGNORING%20CASE%27' + (teacherlastname) + '%27+ORDER%20BY+TeacherLastName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL+%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+TeacherFirstName%20%20CONTAINS%20IGNORING%20CASE%27' + (teacherfirstname) + '%27+AND+TeacherLastName%20CONTAINS%20IGNORING%20CASE%27' + (teacherlastname) + '%27+ORDER%20BY+TeacherLastName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 
 				if (result.data.rows != undefined) {
 
@@ -681,7 +681,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			teacherlastname = teacherlastname.replace(/'/g, "\\'");
 		
 
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+LastName%2CFirstName%2CState%2C+YearSailed%2C+GradeLevel%2C+Size%2C+Title%2C+Keywords%2C+Objective%2C+Description%2C+URL%2c+Topics+FROM+17OXuyYjiIvxjr1Yd3DZ-SI-dzp-soOuTDNOHoSOA+WHERE+FirstName%20CONTAINS%20IGNORING%20CASE%27' + toTitleCase(teacherfirstname) + '%27+AND+LastName%20CONTAINS%20IGNORING%20CASE%27' + toTitleCase(teacherlastname) + '%27+ORDER%20BY+LastName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+LastName%2CFirstName%2CState%2C+YearSailed%2C+GradeLevel%2C+Size%2C+Title%2C+Keywords%2C+Objective%2C+Description%2C+URL%2c+Topics+FROM+17OXuyYjiIvxjr1Yd3DZ-SI-dzp-soOuTDNOHoSOA+WHERE+FirstName%20CONTAINS%20IGNORING%20CASE%27' + toTitleCase(teacherfirstname) + '%27+AND+LastName%20CONTAINS%20IGNORING%20CASE%27' + toTitleCase(teacherlastname) + '%27+ORDER%20BY+LastName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 				if (result.data.rows != undefined) {
 
 					for (var o = 0; o < result.data.rows.length; o++) {
@@ -736,7 +736,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			teacherfirstname = teacherfirstname.replace(/'/g, "\'");
 			teacherlastname = teacherlastname.replace(/'/g, "\\'");
 			var teachername = teacherfirstname + ' ' + teacherlastname;
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+ArticleYear%2C+Teacher%2C+MediaOutlet%2C+ArticleTitle%2C+MediaOutletURL%2C+ArticleURL+FROM+1EaTTZDozzJ0k3K2FMoD0O6JAfeiHcc6SB95f0hYv+WHERE+Teacher%20CONTAINS%20IGNORING%20CASE%27' + toTitleCase(teachername) + '%27+ORDER%20BY+Teacher"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+ArticleYear%2C+Teacher%2C+MediaOutlet%2C+ArticleTitle%2C+MediaOutletURL%2C+ArticleURL+FROM+1EaTTZDozzJ0k3K2FMoD0O6JAfeiHcc6SB95f0hYv+WHERE+Teacher%20CONTAINS%20IGNORING%20CASE%27' + toTitleCase(teachername) + '%27+ORDER%20BY+Teacher"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 				if (result.data.rows != undefined) {
 					for (var o = 0; o < result.data.rows.length; o++) {
 						news.push({
@@ -778,7 +778,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			teacherfirstname = teacherfirstname.replace(/'/g, "\'");
 			teacherlastname = teacherlastname.replace(/'/g, "\\'");
 			var teachername = teacherfirstname + ' ' + teacherlastname;
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+ShipName%2C+Image+%2CDescription+FROM+1pfPZ8CHS1sXia_hgESAHxdXOYzalx-IWU2MdsPkC+WHERE+ShipName%20CONTAINS%20IGNORING%20CASE%27' + toTitleCase(ship) + '%27+ORDER%20BY+ShipName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+ShipName%2C+Image+%2CDescription+FROM+1pfPZ8CHS1sXia_hgESAHxdXOYzalx-IWU2MdsPkC+WHERE+ShipName%20CONTAINS%20IGNORING%20CASE%27' + toTitleCase(ship) + '%27+ORDER%20BY+ShipName"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 				if (result.data.rows != undefined) {
 					for (var o = 0; o < result.data.rows.length; o++) {
 						ships.push({
@@ -807,7 +807,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			//var feed = 'http://teacheratsea.wordpress.com/category/'+$routeParams.teachername.split('*')[0].toLowerCase()+'-'+$routeParams.teachername.split('*')[1].toLowerCase()+'/feed';
 			//console.log(feed);
 
-			return $http.get('/php/xml_json.php?q=' + year + '&n=' + name).then(function(result) {
+			return $http.jsonp('/php/xml_json.php?q=' + year + '&n=' + name+'&callback=JSON_CALLBACK').then(function(result) {
 
 				WPdata = result.data;
 				WPdata.dataLoaded = false;
@@ -1205,7 +1205,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			
 			var year = $location.path().split('/')[1].split('/')[0];
 
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+CruiseDates%20%20CONTAINS%20IGNORING%20CASE%27' + year + '%27+ORDER%20BY+Year+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+CruiseDates%20%20CONTAINS%20IGNORING%20CASE%27' + year + '%27+ORDER%20BY+Year+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 					if (result.data.rows != undefined) {
 
 						for (var o = 0; o < result.data.rows.length; o++) {
@@ -1281,7 +1281,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			
 			
 
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+ORDER%20BY+TeacherLastName+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+ORDER%20BY+TeacherLastName+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 					if (result.data.rows != undefined) {
 						teachers.yearsArr=[];
 						teachers.finalYearsArr=[];
@@ -1440,7 +1440,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	return {
 	getNewsData : function() {
 			var news = [];
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+ArticleYear,Teacher,MediaOutlet,ArticleTitle,MediaOutletURL,ArticleURL,Image+FROM+1EaTTZDozzJ0k3K2FMoD0O6JAfeiHcc6SB95f0hYv+ORDER%20BY+ArticleYear+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+ArticleYear,Teacher,MediaOutlet,ArticleTitle,MediaOutletURL,ArticleURL,Image+FROM+1EaTTZDozzJ0k3K2FMoD0O6JAfeiHcc6SB95f0hYv+ORDER%20BY+ArticleYear+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 					if (result.data.rows != undefined) {
 						news.yearsArr=[];
 						news.finalYearsArr=[];
@@ -1536,7 +1536,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	return {
 		getPOWData : function() {
 		var pow = [];
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+PhotoURL,PhotoCaption,PhotoDescription,ShortDescription,BlogURL,PhotoCredit,BlogTitle,PublishDate, Keywords+FROM+19WBCSYuVJh1O2KaThKQJpLLn0VF6w3rHhbKtZMVf+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {					
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+PhotoURL,PhotoCaption,PhotoDescription,ShortDescription,BlogURL,PhotoCredit,BlogTitle,PublishDate, Keywords+FROM+19WBCSYuVJh1O2KaThKQJpLLn0VF6w3rHhbKtZMVf+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {					
 					if(result.data.rows!=null)
 					{
 						var d= new Date();
@@ -1583,7 +1583,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 		getSpotData: function()
 		{
 			var spot=[];
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+FirstName,LastName,ShortBody,LongBody,image,caption,PublishDate,Region+FROM+1z6kUehyfSNqaAGinvARZLYyjb7Dhk2F9rt49xHIV+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {					
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+FirstName,LastName,ShortBody,LongBody,image,caption,PublishDate,Region+FROM+1z6kUehyfSNqaAGinvARZLYyjb7Dhk2F9rt49xHIV+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {					
 					if(result.data.rows!=null)
 					{
 						var d= new Date();
@@ -1632,7 +1632,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getTabsData: function(spreadsheet_id, type)
 			{
 				var tabs=[];
-				return $http.get('https://spreadsheets.google.com/feeds/list/'+spreadsheet_id+'/1/public/values?alt=json').then(function(result){
+				return $http.jsonp('https://spreadsheets.google.com/feeds/list/'+spreadsheet_id+'/1/public/values?alt=json&callback=JSON_CALLBACK').then(function(result){
 				tabs=result.data.feed.entry;
 				
 								
@@ -1661,7 +1661,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getTopData: function(spreadsheet_id,type)
 			{
 				var top=[];
-				return $http.get('https://spreadsheets.google.com/feeds/list/'+spreadsheet_id+'/2/public/values?alt=json').then(function(result){
+				return $http.jsonp('https://spreadsheets.google.com/feeds/list/'+spreadsheet_id+'/2/public/values?alt=json&callback=JSON_CALLBACK').then(function(result){
 				top=result.data.feed.entry;
 				top.type = type;
 				top.image = result.data.feed.entry[0].gsx$image.$t;
@@ -1679,7 +1679,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getFAQData: function()
 			{
 				var faq=[];
-				return $http.get('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdGF0RG02ZzNHYzFRZnYwd3ZlNlRWcVE/1/public/values?alt=json').then(function(result){
+				return $http.jsonp('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdGF0RG02ZzNHYzFRZnYwd3ZlNlRWcVE/1/public/values?alt=json&callback=JSON_CALLBACK').then(function(result){
 					var faq=result.data.feed.entry;
 					for(var i=0; i<faq.length; i++)
 					{
@@ -1692,7 +1692,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getQuotesData:function()
 			{
 				var quotes=[];
-				return $http.get('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdHczblprYk9WalhQTzhnY0h5Sm10Z3c/1/public/values?alt=json').then(function(result){
+				return $http.jsonp('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdHczblprYk9WalhQTzhnY0h5Sm10Z3c/1/public/values?alt=json&callback=JSON_CALLBACK').then(function(result){
 					quotes = result.data.feed.entry;
 					for(var i=0; i<quotes.length;i++)
 					{
@@ -1715,7 +1715,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getIntroData: function()
 			{
 				var intro=[];
-				return $http.get('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdEJDOE9weDRPdnV2WmN6aEVJUlByZnc/3/public/values?alt=json').then(function(result){
+				return $http.jsonp('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdEJDOE9weDRPdnV2WmN6aEVJUlByZnc/3/public/values?alt=json&callback=JSON_CALLBACK').then(function(result){
 					var intro=result.data.feed.entry;
 					
 					return intro;
@@ -1724,7 +1724,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getGalleryData: function()
 			{
 				var gallery=[];
-				return $http.get('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdEJDOE9weDRPdnV2WmN6aEVJUlByZnc/2/public/values?alt=json').then(function(result){
+				return $http.jsonp('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdEJDOE9weDRPdnV2WmN6aEVJUlByZnc/2/public/values?alt=json&callback=JSON_CALLBACK').then(function(result){
 					var gallery=result.data.feed.entry;
 					for(var i=0; i<gallery.length; i++)
 					{
@@ -1737,7 +1737,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getTeacherData:function()
 			{
 				var teachers=[];
-				return $http.get('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdFlQc2dkYjlqNVlzUzJXWlVrWUFSZFE/1/public/values?alt=json').then(function(result){
+				return $http.jsonp('https://spreadsheets.google.com/feeds/list/0Ak_vKEBczgcYdFlQc2dkYjlqNVlzUzJXWlVrWUFSZFE/1/public/values?alt=json&callback=JSON_CALLBACK').then(function(result){
 					teachers = result.data.feed.entry;
 					teachers.teacher_locations=[];
 					teachers.teacher_locations_str ='';
@@ -1794,7 +1794,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			getSpotlightData:function(region)
 			{
 				var spot = [];
-				return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+FirstName,LastName,ShortBody,LongBody,image,caption,PublishDate,Region+FROM+1z6kUehyfSNqaAGinvARZLYyjb7Dhk2F9rt49xHIV+WHERE+Region=%27'+region+'%27+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {					
+				return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+FirstName,LastName,ShortBody,LongBody,image,caption,PublishDate,Region+FROM+1z6kUehyfSNqaAGinvARZLYyjb7Dhk2F9rt49xHIV+WHERE+Region=%27'+region+'%27+ORDER%20BY+PublishDate+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {					
 					if(result.data.rows!=null)
 					{
 						var d= new Date();
@@ -1842,7 +1842,7 @@ return{
 	loadSlideData:function(tableId)
 	{
 		var slideshow = [];
-				return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+SlideNumber,Title,ImageUrl,Link,Description,PublishDate,Type+FROM+'+tableId+'+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {					
+				return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+SlideNumber,Title,ImageUrl,Link,Description,PublishDate,Type+FROM+'+tableId+'+%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {					
 var d= new Date();
 						result.data.rows.reverse();
 						var slideshow_beginner = JSON.stringify(result.data.rows);
@@ -1952,7 +1952,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	{
 		
 		var blogs ={};
-		return $http.get('/php/search_blogs.php?q='+search_term).then(function(result)
+		return $http.jsonp('/php/search_blogs.php?q='+search_term+'&callback=JSON_CALLBACK').then(function(result)
 		{
 			blogs=result.data.items;
 			for(var x=0; x<blogs.length;x++)
@@ -1966,7 +1966,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	{
 		
 		var images ={};
-		return $http.get('/php/search_images.php?q='+search_term).then(function(result)
+		return $http.jsonp('/php/search_images.php?q='+search_term+'&callback=JSON_CALLBACK').then(function(result)
 		{
 			images=result.data.images;
 			for(var x=0; x<images.length; x++)
@@ -2000,7 +2000,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	searchLessons:function(search_term)
 	{
 		var lessons = [];
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+LastName%2CFirstName%2CState%2C+YearSailed%2C+GradeLevel%2C+Size%2C+Title%2C+Keywords%2C+Objective%2C+Description%2C+URL%2c+Topics+FROM+17OXuyYjiIvxjr1Yd3DZ-SI-dzp-soOuTDNOHoSOA&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+LastName%2CFirstName%2CState%2C+YearSailed%2C+GradeLevel%2C+Size%2C+Title%2C+Keywords%2C+Objective%2C+Description%2C+URL%2c+Topics+FROM+17OXuyYjiIvxjr1Yd3DZ-SI-dzp-soOuTDNOHoSOA&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 				if (result.data.rows != undefined) {
 					for (var o = 0; o < result.data.rows.length; o++) {
 						if(result.data.rows[o][0].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][1].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][2].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][3].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][4].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][6].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][7].toLowerCase().replace(/\W/g, '').match(search_term.toLowerCase())||result.data.rows[o][8].toLowerCase().replace(/\W/g, '').match(search_term.toLowerCase())||result.data.rows[o][9].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][11].toLowerCase().match(search_term.toLowerCase()))
@@ -2034,7 +2034,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	searchSite:function(search_term)
 	{
 		var sitesearch = [];
-			return $http.get('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+lastname,firstname,city,state,Title,Page,subject,ship,school,cruisetype,keywords+FROM+1jNDK0JUr8xJ5u1Kg-y03OSgQOE8XYEVTlYb43HuB&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+lastname,firstname,city,state,Title,Page,subject,ship,school,cruisetype,keywords+FROM+1jNDK0JUr8xJ5u1Kg-y03OSgQOE8XYEVTlYb43HuB&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 				if (result.data.rows != undefined) {
 					c
 					for (var o = 0; o < result.data.rows.length; o++) {
