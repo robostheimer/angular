@@ -15,15 +15,15 @@
 
 		<div class="main_top" ng-hide="indivSpot==true;" >
 			<div style="float:left">
-				<h1>Teacher at Sea Alumni Spotlight</h1>
+				<h1 tabindex="140">Teacher at Sea Alumni Spotlight</h1>
 			</div>
 
 			<div class="internal_search">
-				<form id="news" name="news"  >
-					<input type="text" name="search_alumni_spot" value="" placeholder="Search Spotlights" class="text" ng-model="query" ng-change="checkLength(query)">
+				<form id="spotlight" name="spotlight"  >
+					<label style="visibility:hidden">Search Alumni Spotlights</label><input tabindex="140" type="text" name="search_alumni_spot" value="" placeholder="Search Spotlights" class="text" ng-model="query" ng-change="checkLength(query)">
 				</form>
 
-				<div class="search" aria-hidden="true" data-icon="a"></div>
+				<div class="search" aria-hidden="true" data-icon="a" tabindex="140"></div>
 
 			</div>
 			<div class="clear"></div>
@@ -32,19 +32,19 @@
 			<div id="bigContainer" class="animate-show"  ng-hide="noFilter==true;">
 				<div id="container_spot" style="margin-left:0px;" >
 					<div id="box0" class="spot_box"ng-repeat="spot in data | filter:query" >
-						<div class="spot_image" id="image{{spot.id}}">
+						<div class="spot_image" id="image{{spot.id}}" tabindex="{{spot.tabIndex}}">
 							<span style="cursor:pointer"  ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)" ng-enter="openBigImage(spot.url,spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)"> 
-								<img resize-list class="image_spot" src="{{spot.url}}?w={{tnWidth}}" alt="{{spot.caption}}"> </span>
+								<img tabindex="{{spot.tabIndex}}" resize-list class="image_spot" src="{{spot.url}}?w={{tnWidth}}" alt="{{spot.caption}}"> </span>
 
 							</span>
 							</div>
-							<div class="spot_desc" id="spot_desc{{id}}">
-								<h6 >{{spot.firstname}} {{spot.lastname}}</h6>
+							<div tabindex="{{spot.tabIndex}}" class="spot_desc" id="spot_desc{{id}}" tabindex="{{spot.tabIndex}}">
+								<h6 tabindex="{{spot.tabIndex}}" >{{spot.firstname}} {{spot.lastname}}</h6>
 							<span ng-bind-html="spot.shortbody"></span>
 
-							<p><a href="#{{spot.hash}}"  ng-hide="spot.hideLongBody==true">Read More</a>
+							<p><a href="#{{spot.hash}}"  ng-hide="spot.hideLongBody==true" tabindex="{{spot.tabIndex}}">Read More</a>
 							<br>
-							<a style="cursor:pointer"ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
+							<a  tabindex="{{spot.tabIndex}}" style="cursor:pointer"ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
 							</p>
 							</div>
 							<div style="clear:both; margin-bottom:15px;"></div><div class="border border-width"></div>
@@ -55,27 +55,27 @@
 					<div id="bigContainer" class="animate-show" ng-hide="noFilter==false;" >
 							<div id="container_spot" style="margin-left:0px;">
 							<div id="box0" class="spot_box" ng-repeat ="spot in filtered_data">
-							<div class="spot_image" id="image{{spot.id}}">
+							<div tabindex="{{spot.tabIndex}}" class="spot_image" id="image{{spot.id}}">
 							<span style="cursor:pointer"  ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)" ng-enter="openBigImage(spot.url,spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">
-							<img resize-list class="image_spot" src="{{spot.url}}?w={{tnWidth}}" alt="{{spot.caption}}"> </span>
+							<img tabindex="{{spot.tabIndex}}" resize-list class="image_spot" src="{{spot.url}}?w={{tnWidth}}" alt="{{spot.caption}}"> </span>
 						</div>
-						<div class="spot_desc" id="spot_desc{{id}}">
-							<h6>{{spot.firstname}} {{spot.lastname}}</h6>
+						<div tabindex="{{spot.tabIndex}}" class="spot_desc" id="spot_desc{{id}}">
+							<h6 tabindex="{{spot.tabIndex}}">{{spot.firstname}} {{spot.lastname}}</h6>
 							<span ng-bind-html="spot.shortbody"></span>
 
-							<p><a href="#{{spot.hash}}" ng-click="openIndivSpot(spot.id)" ng-hide="spot.hideLongBody==true">Read More</a><br>
+							<p><a tabindex="{{spot.tabIndex}}" href="#{{spot.hash}}" ng-click="openIndivSpot(spot.id)" ng-hide="spot.hideLongBody==true">Read More</a><br>
 							
-							<a style="cursor:pointer"ng-click="openBigImage(spot.url.split('?')[0]+'?w=650',spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
+							<a  tabindex="{{spot.tabIndex}}" style="cursor:pointer"ng-click="openBigImage(spot.url.split('?')[0]+'?w=650',spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
 							</p>
 						</div>
 						<div style="clear:both; margin-bottom:15px;"></div><div class="border border-width"></div>
 					</div>
 				</div>
-				<pagination-routes length={{data.length}} page={{currentPage}} itemsper={{itemsPerPage}}></pagination-routes>
+				<pagination-routes length={{data.length}} page={{currentPage}} itemsper={{itemsPerPage}} tabindex="200"></pagination-routes>
 			</div>
 			
 
-			<div style="margin:20px; margin-left:30px"><img width="15" height="15" src="/images/feed-icon-22x22.png" style="border:none;margin-top:8px;" alt="RSS Feed"/><a href="/alumni/alumni_spotlight.xml" target="_blank">Subscribe to the Alumni Spotlight Feed <span style="color:#ECBD00">»</span></a>
+			<div style="margin:20px; margin-left:30px"><img width="15" height="15" src="/images/feed-icon-22x22.png" style="border:none;margin-top:8px;" alt="RSS Feed"/><a tabindex="201" href="/alumni/alumni_spotlight.xml" target="_blank">Subscribe to the Alumni Spotlight Feed <span style="color:#ECBD00">»</span></a>
 			</div>
 		</div>
 	

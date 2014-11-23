@@ -113,7 +113,7 @@
 					<div class="scroller_profile" id="scroller_photos"  >
 					<div id="searcher_image_profile{{index}}">
 					<div id="search_img_profile{{src.id}}" class="blogphotos" ng-repeat = "src in wp.Images"><img  id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite off" style="border:none;cursor:pointer" src="/images/star.png" alt="Add to Favorites">
-					<div><img ng-click ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w=130" alt="{{wp.BlogTitle}}{{src.caption}}" />
+					<div><img tabindex="{{src.tabIndex}}" ng-click ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id)" ng-enter ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w=130" alt="{{wp.BlogTitle}}{{src.caption}}" />
 					</div>
 					</div>
 					</div>

@@ -1,7 +1,6 @@
-<div id="midBlock">
-
-	<div class="resp_nav" ng-controller="RespNav">
-		<div class="icon lines" tabindex="0" ng-click="respNavToggle()"></div>
+<div id="midBlock"	>
+			<div class="resp_nav" ng-controller="RespNav" ng-hide="showNav==false">
+		<div class="icon lines" tabindex="0" ng-click="respNavToggle()" ng-enter="respNavToggle()" alt="open menu"></div>
 		<div class="resp_inner_nav animate-show-fast" ng-hide="resp_nav_shower==false">
 			<div class="resp_inner_nav_home"  >
 				<a href="#/home" role="navigation_item"  tabindex="1">Home</a>
@@ -59,12 +58,12 @@
 			</div>
 
 		</div>
-		<div class="close" aria-hidden="true" data-icon="l" role="close button" tabindex="20" ng-hide="resp_nav_shower==false" ng-click="respNavToggle()"></div>
+		<div class="close" aria-hidden="true" data-icon="l" role="close button" tabindex="20" ng-hide="resp_nav_shower==false" ng-click="respNavToggle()" ng-enter="respNavToggle()"></div>
 		
 
 	</div>
 
-	<ul id="midNavElements">
+	<ul id="midNavElements" ng-hide="showNav==false">
 		<li class="mid_home">
 			<a href="#/home" role="navigation_item" tabindex="21" >Home<span style="color:#ECBD00">&nbsp;»</span></a>
 		</li>
@@ -99,10 +98,14 @@
 		<li class="mid_alumni">
 			<a href="#/alumni" role="navigation_item" tabindex="29">Alumni<span style="color:#ECBD00">&n4sp;»</span></a>
 		</li>
+		<li><a ng-click ="showNav=false" ng-enter ="showNav=false"  style="postion:absolute;" tabindex="1" ><font color="#EBFAF7">
+		Jump to Page Content</font>
+	</a>
+</li>
 		<!--<li><a href="/about/social_media.html">Connect with Teacher at Sea </a><span style="color:#ECBD00">»</span></li>-->
 		<!-- <li><a href="/sitemap.html">Site Map <span style="color:#ECBD00">»</span></a></li> -->
 	</ul>
-	<div ng-controller="SearchBox">	<a role="search_button" ng-click="searchToggle()" ><div class="icon right search_icon" style="float:right" tabindex="30"></div></a>
+	<div ng-controller="SearchBox" >	<a role="search_button" ng-click="searchToggle()" ng-enter="searchToggle()" alt="open search box"><div class="icon right search_icon" style="float:right" tabindex="30"><img src="/images/dyk/search_icon.png" alt="open search box"/></div></a>
 	<div class="popup_holder animate-show"  ng-hide ="popupHider==true">
 		<bigimage-blogs id="bigImg-blogs" class="bigImg animate-show" ng-hide="bigImageHider==true"></bigimage-repeat>
 	</div>
@@ -123,45 +126,49 @@
 	</div>
 	
 		
-			<div id="search_box" role="searchbox" class="animate-show-fast" ng-hide="searchBox==false" >
-	<div style="float:right;width:30px; margin:auto; margin-top:-10px;" id="search_box_close" ng-click= "searchToggle()">
-		<a style="border:none"><img style="margin-left:10px;" alt="collapse button_bigger" class="icon" src="/images/collapse_btn_bigger_search.png" height="30" width="30"/></a>
+			<div id="search_box" role="searchbox" class="animate-show-fast" ng-hide="searchBox==false"  >
+	<div style="float:right;width:30px; margin:auto; margin-top:-10px;" id="search_box_close" ng-click= "searchToggle()" ng-enter="searchTogle()">
+		<a tabindex="30" style="border:none" ng-enter="searchTog	gle()"><img ng-enter="searchToggle()" style="margin-left:10px;" alt="close search box" class="icon" src="/images/collapse_btn_bigger_search.png" height="30" width="30"/></a>
 	</div>
 	<div id="explanation_contain" style="display:block; padding-right:5px;background:white; border:1px dotted #ccc; " >
 		<img id="closeinfo" onclick="$('#explanation').hide();$('#closeinfo').hide();$('#openinfo').show();$('#explanation_contain').css('width','15px'); " src="/images/dyk/close_btn_bluedk_sm.png" alt="collapse button" width="10" height="10" class="icon" style="padding-left:5px; cursor:pointer;"/>
-		<img style="display:none; padding-left:5px;cursor:pointer" id="openinfo" onclick="$('#explanation').show();$('#closeinfo').show();$('#openinfo').hide();$('#explanation_contain').css('width','auto'); " src="/images/dyk/info_sm.png" alt="collapse button" width="10" height="10" class="icon"/>
+		<img style="display:none; padding-left:5px;cursor:pointer" id="openinfo" onclick="$('#explanation').show();$('#closeinfo').show();$('#openinfo').hide();$('#explanation_contain').css('width','auto'); " src="/images/dyk/info_sm.png" alt="close information section" width="10" height="10" class="icon"/>
 		<p id="explanation"" style="padding:2px;font-size: .77em;font-style: italic;color: #888888;margin-left: 3px;padding-top: 2px;text-decoration: none;">As you search our site, you will notice that the blog, images, and lesson results all now have small stars beside them.   Click on this icon to "store"  your favorite Teacher at Sea resources in your browser.  Simply click on the big star icon (next to the search icon), to view, email or share your favorited resources.   For more information, click on this star and then click on the  <img src='/images/dyk/info.png' class='no-border' width='12' height='12' alt='info'/> button on the "Favorites" results page"</p>
 		</div>
 
 		<div style="padding:10px; padding-top:5px; padding-bottom:10px;">
-		<h6 style="margin-bottom:2px;">Search Blogs</h6>
+		
 		<form  name="searchblogs" id="blogs">
-		<input type="text" name="blogfield" ng-model="search_blogs" style="width: 170px" tabindex="31" />
-		<input type="image" src="/images/search_submit.png" placeholder="Search Blogs"  ng-click="searchBlogs(search_blogs)" tabindex="32"  />
+		<label>Search Blogs</label>
+		<input type="text" name="blogfield" ng-model="search_blogs" style="width: 170px" tabindex="31" placeholder="Search Blogs" value="Search Blogs" />
+		<input type="image" src="/images/search_submit.png" alt="search blogs "  ng-click="searchBlogs(search_blogs)" tabindex="32"  />
 		</form>
 		</div>
 
 		<div style="padding:10px; padding-bottom:5px;">
-		<h6 style="margin-bottom:2px;">Search Images</h6>
+	
 		<form  name="searchmedia" id="photos"   >
-		<input type="text"  name="searchfield" ng-model="search_images" style="width:170px;" tabindex="33" />
-		<input type="image" src="/images/search_submit.png" placeholder="Search Images"  ng-click="searchImages(search_images)"  tabindex="34" />
+				<label>Search Images</label>
+		<input type="text"  name="searchfield" ng-model="search_images" style="width:170px;" tabindex="33" placeholder="Search Images" alt="search Images" />
+		<input type="image" src="/images/search_submit.png"  alt="search images" ng-click="searchImages(search_images)"  tabindex="34" />
 		</form>
 		</div>
 
 		<div style="padding:10px; padding-bottom:5px;">
-		<h6 style="margin-bottom:2px;">Search Lessons</h6>
+	
 		<form  name="searchlessons" id="searchlessons"   >
-		<input type="text"  name="searchfield" ng-model="search_lessons" style="width:170px;" tabindex="35" />
-		<input type="image" src="/images/search_submit.png" placeholder="Search Lessons"  ng-click="searchLessons(search_lessons)"  tabindex="35" />
+		<label>Search Lessons</label>
+		<input type="text"  name="searchfield" ng-model="search_lessons" style="width:170px;" tabindex="35"  placeholder="Search Lessons"  />
+		<input type="image" src="/images/search_submit.png" alt="search lessons" ng-click="searchLessons(search_lessons)"  tabindex="35" />
 		</form>
 		</div>
 		
 		<div style="padding:10px; padding-bottom:5px;">
-		<h6 style="margin-bottom:2px;">Search Site</h6>
+		
 		<form  name="searchsite" id="searchsite"   >
-		<input type="text"  name="searchfield" ng-model="search_site" style="width:170px;" tabindex="36" />
-		<input type="image" src="/images/search_submit.png" placeholder="Search Lessons"  ng-click="searchSite(search_site)"  tabindex="37" />
+		<label>Search Site</label>
+		<input type="text"  name="searchfield" ng-model="search_site" style="width:170px;" tabindex="36" placeholder="Search Lessons" />
+		<input type="image" src="/images/search_submit.png" alt="search site"   ng-click="searchSite(search_site)"  tabindex="37" />
 		</form>
 		</div>
 
@@ -185,10 +192,10 @@
 
 
 
-		<div id="mainBlock">
+		<div id="mainBlock" ng-hide="showNav==false">
 		<div id="mainNavElements">
 		<ul class="navigation" ng-controller="Navigation">
-		<li class="dropdown" ng-mouseover="navigationToggle('about')" ng-mouseout="navigationToggle('about')"><a role="navigation_item" tabindex="39" href="#/about/" class="mainnavitems"><b>ABOUT TAS</b></a><span class="spacer">|</span>
+		<li class="dropdown" ng-mouseover="navigationToggle('about')" ng-mouseout="navigationToggle('about')" ng-enter="navigationToggle('about')"><a role="navigation_item" tabindex="39" href="#/about/" class="mainnavitems"><b>ABOUT TAS</b></a><span class="spacer">|</span>
 		
 		<div id="a" class="{{navigationItems[0].state}}" style=" z-index:10000; position:relative; background-color:#0057a5;top:6px">
 		<div class="top">
@@ -213,7 +220,7 @@
 
 		</li>
 
-		<li class="dropdown" ng-mouseover="navigationToggle('current')" ng-mouseout="navigationToggle('current')" id="main_current"><a role="navigation_item" tabindex="51" href="#/2014/" class="mainnavitems"><b>CURRENT SEASON</b></a><span class="spacer">|</span>
+		<li class="dropdown" ng-mouseover="navigationToggle('current')" ng-mouseout="navigationToggle('current')" id="main_current" ng-enter="navigationToggle('current')"><a role="navigation_item" tabindex="51" href="#/2014/" class="mainnavitems"><b>CURRENT SEASON</b></a><span class="spacer">|</span>
 		<div id="b"  class="{{navigationItems[1].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
 
 		<div  class="top">
@@ -289,8 +296,8 @@
 </div>
 </li>
 
-<li class="dropdown" tabindex="80" ng-mouseover="navigationToggle('past')" ng-mouseout="navigationToggle('past')" id="main_past">
-	<a  role="navigation_item"  href="#/Past_Seasons" class="mainnavitems"><b>PAST SEASONS</b></a><span class="spacer">|</span>
+<li class="dropdown" ng-mouseover="navigationToggle('past')" ng-mouseout="navigationToggle('past')" id="main_past" ng-enter="navigationToggle('past')">
+	<a  role="navigation_item"   tabindex="80" href="#/Past_Seasons" class="mainnavitems"><b>PAST SEASONS</b></a><span class="spacer">|</span>
 	<div id="c" class="{{navigationItems[2].state}}" style="  z-index:10000; position:relative; background-color:#0057a5;top:6px">
 
 		<div class="top">
@@ -336,7 +343,7 @@
 
 </li>
 
-<li class="dropdown" ng-mouseover="navigationToggle('alumni')" ng-mouseout="navigationToggle('alumni')" id="main_alumni">
+<li class="dropdown" ng-mouseover="navigationToggle('alumni')" ng-mouseout="navigationToggle('alumni')" id="main_alumni" ng-enter="navigationToggle('alumni')">
 	<a role="navigation_item" tabindex="93" href="#/alumni" class="mainnavitems" ><b>ALUMNI</b></a><span class="spacer">|</span>
 	<div id="d" class="{{navigationItems[3].state}}"style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
 
@@ -367,7 +374,7 @@
 
 </li>
 
-<li class="dropdown" ng-mouseover="navigationToggle('resources')" ng-mouseout="navigationToggle('resources')" id="main_resources">
+<li class="dropdown" ng-mouseover="navigationToggle('resources')" ng-mouseout="navigationToggle('resources')" id="main_resources" ng-enter="navigationToggle('resources')">
 	<a role="navigation_item" tabindex="100" href="#/resources/" class="mainnavitems"><b>RESOURCES</b></a><span class="spacer">|</span>
 
 	<div id="e" class="{{navigationItems[4].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
@@ -385,7 +392,7 @@
 
 </li>
 
-<li class="dropdown" ng-mouseover="navigationToggle('media')" ng-mouseout="navigationToggle('media')" id="main_media">
+<li class="dropdown" ng-mouseover="navigationToggle('media')" ng-mouseout="navigationToggle('media')" id="main_media" ng-enter="navigationToggle('media')">
 	<a role="navigation_item" tabindex="103" href="#/media/" class="mainnavitems" ><b>MEDIA GALLERY</b></a><span class="spacer">|</span>
 	<div id="f" class="{{navigationItems[5].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
 

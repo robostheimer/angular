@@ -902,7 +902,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 								var post_title = post_url.replace('http://teacheratsea.wordpress.com/','').split('/')[3];
 								post_title = toTitleCase(post_title.replace(/-/g, ' '));
 								post_title = post_title.replace(' 20', ', 20');
-								ImagesArr.push(jQuery.parseJSON('{"src":"' + gallery_src + '","id":"' + ImagesArr.length + '","caption":"' + gallery_caption.replace(/&#39;;/g, '\'').replace(/&quos;/g, '\'') + '", "parent":"' + WPdata.gallery_images[k].parent[0] + '","post_url":"' + post_url + '", "post_title":"' + post_title + '"}'));
+								ImagesArr.push(jQuery.parseJSON('{"src":"' + gallery_src + '","id":"' + ImagesArr.length + '","tabIndex":"'+ImagesArr.length+250+'","caption":"' + gallery_caption.replace(/&#39;;/g, '\'').replace(/&quos;/g, '\'') + '", "parent":"' + WPdata.gallery_images[k].parent[0] + '","post_url":"' + post_url + '", "post_title":"' + post_title + '"}'));
 								images_url += posturl.replace(/\W/g, '') + ',';
 							}
 
@@ -1211,6 +1211,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 						for (var o = 0; o < result.data.rows.length; o++) {
 						teachers.push({
 							lastname : result.data.rows[o][0],
+							lastname_forDOM : DigPatt(result.data.rows[o][0].replace(' ', '')),
 							firstname : result.data.rows[o][1].replace(' ', ''),
 							shiptype: result.data.rows[o][2],
 							ship : result.data.rows[o][3],
@@ -1233,7 +1234,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							school2 : result.data.rows[o][9].split('&&')[1],
 							schoolurl1 : result.data.rows[o][14].split('&&')[0],
 							schoolurl2 : result.data.rows[o][14].split('&&')[1],
-							
+							tabIndex:150+o,
 							checkContents : true
 
 						});
@@ -1561,7 +1562,8 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							post_title:result.data.rows[i][6],
 							date: result.data.rows[i][7],
 							keywords : result.data.rows[i][8],
-							dataloaded: true
+							dataloaded: true,
+							tabIndex: (150+(i+7))
 							});
 						}
 					
@@ -1609,7 +1611,9 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							region : result.data.rows[i][7],
 							more_url:result.data.rows[i][5].replace(/ /g, '_'),
 							hash: '/indiv_spotlight/'+result.data.rows[i][0].replace(/ /g, '_')+'_'+result.data.rows[i][1].replace(/ /g,'_'),
-							dataloaded: true
+							dataloaded: true,
+							tabIndex : 150+i
+							
 							});
 						}
 					

@@ -91,13 +91,13 @@
 		<div class="main_left">
 
 			<div class="main_box" id="home_currentbox" >
-				<h6 >2014 <span class="green">SEASON</span></h6><div class="border2"></div>
+				<h6 tabindex="108">2014 <span class="green">SEASON</span></h6><div class="border2"></div>
 				<!--<div class="preloader" ng-hide="data[0].hider ==false"></div>-->
 
 				<div class="main_box_inner" id="current"   >
 
 					
-					<carou-sel service="HomePageCurrent" type="current" length="{{teachers.length}}" width="202"></carou-sel>
+					<carou-sel tabindex  service="HomePageCurrent" type="current" length="{{teachers.length}}" width="202"></carou-sel>
 					
 
 					<div class="scrollbar-container"></div>
@@ -105,13 +105,13 @@
 					
 					<div class="clear"></div>
 					
-					<a href="#/2014/">All Teachers<span class="chevron">»»</span></a>
+					<a href="#/2014/" tabindex="110">  All Teachers<span class="chevron">»»</span></a>
 				</div>
 
 			</div>
 
 			<div class="main_box" id="home_alumnibox">
-				<h6 >ALUMNI <span class="green">SPOTLIGHT</span></h6>
+				<h6 tabindex="111" >ALUMNI <span class="green">SPOTLIGHT</span></h6>
 				<div class="border2"></div>
 				<div  class="main_box_inner" id="alumni">
 					<!--<div class="preloader" ng-hide="alumniHider ==false"></div>-->
@@ -121,15 +121,15 @@
 						<carou-sel service="HomePageAlumni" type='alumni' length="{{spotlights.length}}" width="{{windowWidth}}" resize-home></carou-sel>
 						<div class="clear"></div>
 
-						<a href="#/alumni_spotlight/">All Spotlights<span class="chevron">»»</span></a>
+						<a tabindex="113" href="#/alumni_spotlight/">All Spotlights<span class="chevron">»»</span></a>
 						<br>
-						<a class="feed_link more" href="/alumni/alumni_spotlight.xml" target="_blank"><img src="/images/feed-icon-22x22.png" width="10" height="10" class="icon" alt="rss feed"> Subscribe to Feed <span class="chevron">»»</span></a>
+						<a tabindex = "114" class="feed_link more" href="/alumni/alumni_spotlight.xml" target="_blank"><img src="/images/feed-icon-22x22.png" width="10" height="10" class="icon" alt="rss feed icon"> Subscribe to Alumni Spotlight Feed <span class="chevron">»»</span></a>
 
 					</div>
 				</div>
 			</div>
 			<div class="main_box2" id="home_photoofweekbox" >
-				<h6>PHOTO<span class="green"> OF THE WEEK</span></h6>
+				<h6 tabindex="115"><a>PHOTO<span class="green"> OF THE WEEK</a></span></h6>
 				<div class="border2"></div>
 				<!--<div style="margin-top:0px;" class="preloader" ng-hide="powHider ==false"></div>-->
 				<div  class="main_box_inner" id="alumni">
@@ -139,32 +139,32 @@
 						<carou-sel service="HomePagePOW" type='pow' length="{{pows.length}}" width="{{windowWidth}}" resize-home ></carou-sel>
 						<div class="clear"></div>
 
-						<a href="#/alumni_spotlight/">All Photos of the Week<span class="chevron">»»</span></a>
+						<a tabindex="116" href="#/alumni_spotlight/">All Photos of the Week<span class="chevron">»»</span></a>
 						<br>
-						<a class="feed_link more" href="/media/photo_of_week.xml" target="_blank"><img src="/images/feed-icon-22x22.png" width="10" height="10" class="icon" alt="rss feed"> Subscribe to Feed <span class="chevron">»»</span></a>
+						<a tabindex="117" class="feed_link more" href="/media/photo_of_week.xml" target="_blank"><img src="/images/feed-icon-22x22.png" width="10" height="10" class="icon" alt="rss feed icon"> Subscribe to Photo fo the Week Feed <span class="chevron">»»</span></a>
 					</div>
 				</div>
 			</div>
 			<div id="clear_box" style="clear:both"></div>
 
 			<div class="main_box_sm " id="home_blogsbox" >
-				<h6 >FROM <span class="green">THE BLOG</span></h6>
+				<h6 tabindex="118" >FROM <span class="green">THE BLOG</span></h6>
 				<div class="border2"></div>
 
 				<div  class="main_box_sm_inner blogpostsbox" id="blogs" >
 
 					<ul>
 						<li id="blogpost{{wp.id}}"  class="padding10" ng-repeat="wp in wpMinus">
-							<a href="{{wp.item.BlogUrl[0]}}" target="_blank">{{wp.item.BlogTitle}}</a>
+							<a tabindex="118" href="{{wp.item.BlogUrl[0]}}" target="_blank">{{wp.item.BlogTitle}}</a>
 							<br>
-							<span class="caption">{{wp.item.ind_date}}</span>
+							<span class="caption" >{{wp.item.ind_date}}</span>
 							<span class="chevron">»»</span>
 						</li>
 
 					</ul>
-					<p></p><a href="http://teacheratsea.wordpress.com" target="_blank">View All Posts <span class="chevron">»»</span></a></p>
+					<p></p><a tabindex="118" href="http://teacheratsea.wordpress.com" target="_blank">View All Posts <span class="chevron">»»</span></a></p>
 					<p>
-						<a href="http://teacheratsea.wordpress.com/feed" target="_blank">Subscribe to Feed <span class="chevron">»»</span></a>
+						<a tabindex="118" href="http://teacheratsea.wordpress.com/feed" target="_blank">Subscribe to Feed <span class="chevron">»»</span></a>
 					</p>
 				</div>
 
@@ -172,56 +172,56 @@
 			<div class="border" id="second_border" style="margin-right:15px; margin-left:15px"></div>
 
 			<div class="main_box_sm" id="home_dykbox">
-				<h6 >DID <span class="green">YOU KNOW?</span></h6>
+				<h6 tabindex="119" >DID <span class="green">YOU KNOW?</span></h6>
 				<div class="border2"></div>
 				<div class="preloader" style="margin-top:0" ng-hide="dykHider ==false"></div>
 				<div  class="main_box_sm_inner" id="dyk">
 					<div class="main_box_inner_sm_list" ng-repeat="dyk in dyks" >
-						<a href="/dyk/#box{{dyk1.num}}_text"> {{dyk.gsx$shortdescription.$t}} <span class="chevron">»»</span> </a>
+						<a tabindex="119" href="/dyk/#box{{dyk1.num}}_text"> {{dyk.gsx$shortdescription.$t}} <span class="chevron">»»</span> </a>
 					</div>
 
-					<a href="/dyk/">More Facts from Sea<span class="chevron">»»</span></a>
+					<a href="/dyk/" tabindex="119">More Facts from Sea<span class="chevron">»»</span></a>
 				</div>
 
 			</div>
 
 			<div class="main_box_sm" id="highlights">
-				<h6 >TAS <span class="green">HIGHLIGHTS</span></h6>
+				<h6 tabindex="120" >TAS <span class="green">HIGHLIGHTS</span></h6>
 				<div class="border2"></div>
 				<div  class="main_box_inner_sm">
 					<ul >
-						<li class="main_box_inner_list_bullet">
+						<li tabindex="120" class="main_box_inner_list_bullet">
 							Teacher at Sea has accepted teachers from all 50 states, American Samoa, Puerto Rico and Guam
 						</li>
-						<li class="main_box_inner_list_bullet">
+						<li  tabindex="120" class="main_box_inner_list_bullet">
 							Teacher at Sea has sent over 600 teachers out on NOAA Research cruises.
 						</li>
 
-						<li class="main_box_inner_list_bullet">
+						<li tabindex="120" class="main_box_inner_list_bullet">
 							Over 7000 Students Reached
 						</li>
-						<li c;ass="main_box_inner_list_bullet">
+						<li tabindex="120" class="main_box_inner_list_bullet">
 							Graduate Credits Awarded: 16
 						</li>
 					</ul>
 					<br/>
 
-					<a href="/about/highlights.html">More Highlights <span class="chevron">»»</span></a>
+					<a  tabindex="120" href="/about/highlights.html">More Highlights <span class="chevron">»»</span></a>
 				</div>
 
 			</div>
 			<div class="main_box_sm2" id="newsbox_main">
-				<h6 >TAS <span class="green">NEWS</span></h6>
+				<h6 tabindex="121">TAS <span class="green">NEWS</span></h6>
 				<div class="border2"></div>
 				<div class="preloader" style="margin-top:0" ng-hide="dykHider ==false"></div>
 
 				<div class="main_box_sm_inner">
 					<div  id="news">
 						<div class="main_box_inner_sm_list" ng-repeat="new in news">
-							<a href="{{new.articleurl}}" target="_blank">{{new.article}}<span class="chevron">»»</span></a>
+							<a  tabindex="120" href="{{new.articleurl}}" target="_blank">{{new.article}}<span class="chevron">»»</span></a>
 						</div>
 					</div>
-					<a href="#/news/">More News Articles <span class="chevron">»»</span></a>
+					<a  tabindex="122"href="#/news/">More News Articles <span class="chevron">»»</span></a>
 
 				</div>
 				<div style="clear:both"></div>
@@ -232,22 +232,22 @@
 		<div class="bottom_right" id="from-blog">
 			<div class="right_column_box">
 
-				<h6>FROM THE <span class="green">TAS BLOG</span></h6>
+				<h6 tabindex="122">FROM THE <span class="green">TAS BLOG</span></h6>
 				<div class="border2" style="margin-left:15px;"></div>
 				<div class="preloader" style="margin-top:0" ng-hide="wpHider==false"></div>
 				<div id="blogpostsbox" class="blogpostsbox">
 					<ul>
 						<li   class="padding10" ng-repeat="wp in wpMinus">
-							<a href="{{wp.item.BlogUrl[0]}}" target="_blank">{{wp.item.BlogTitle}}</a>
+							<a tabindex="122" href="{{wp.item.BlogUrl[0]}}" target="_blank">{{wp.item.BlogTitle}}</a>
 							<br>
 							<span class="caption">{{wp.item.ind_date}}</span>
 							<span class="chevron">»»</span>
 						</li>
 
 					</ul>
-					<p></p><a href="http://teacheratsea.wordpress.com" target="_blank">View All Posts <span class="chevron">»»</span></a></p>
+					<p></p><a  tabindex="122" href="http://teacheratsea.wordpress.com" target="_blank">View All Posts <span class="chevron">»»</span></a></p>
 					<p>
-						<a href="http://teacheratsea.wordpress.com/feed" target="_blank">Subscribe to Feed <span class="chevron">»»</span></a>
+						<a  tabindex="122" href="http://teacheratsea.wordpress.com/feed" target="_blank">Subscribe to Feed <span class="chevron">»»</span></a>
 					</p>
 				</div>
 				<div style="clear:both; margin-top:15px;"></div>
@@ -265,7 +265,7 @@
 
 					<ul ol role = "social_media_tabs">
 
-						<li id=“tweets” ng-model="tweets.state"  class="{{tweets.state}}" role="tweets_tab" >
+						<li  id=“tweets” ng-model="tweets.state"  class="{{tweets.state}}" role="tweets_tab" >
 							<a  ng-model = "tweets"  class="cursor" ng-click="buttonChange(tweets.name)">Tweets</a>
 						</li>
 						<li id=“photos” ng-model="photos.state"  class="{{photos.state}}" role="photos_tab" >

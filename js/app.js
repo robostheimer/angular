@@ -279,6 +279,12 @@ TAS_SITE.config(['$routeProvider',
         redirectTo: '/home/'
         //controller:'partials/home.html'
      });
+
+
+
+
+
+
      // use the HTML5 History API
 		
 

@@ -3,6 +3,7 @@
 angular.module('ClassPage', [])
 .controller('classPage', ['$scope','$location','$routeParams','Class', function($scope, $location, $routeParams,Class )
 {
+	$scope.tabIndex = 108;
 	$scope.bigImage=false;
 	$scope.svg = 'images/US_Map.svg';
 	$scope.currentStatus='yes';
@@ -13,6 +14,7 @@ angular.module('ClassPage', [])
 	Class.createTeacherList().then(function(data)
 	{
 		$scope.states=Class.createStateObj();
+		console.log($scope.states)
 		$scope.teachers=data;
 		if($scope.teachers.length!=0)
 		{
@@ -81,6 +83,8 @@ angular.module('ClassPage', [])
 			for(var y=0; y<$scope.states.length; y++)
 			{
 				
+				$scope.states[y].alt_num=$scope.states[y].num
+				//console.log($scope.states[y].alt_num)
 				if($scope.states[y].num==0)
 				{
 					
@@ -150,6 +154,7 @@ angular.module('BaseballCardInfo', [])
 			
 .controller('changeTab',['$scope','$location','Teacher','TeacherDataFetch','WPDataFetch','LessonsDataFetch','NewsDataFetch','ShipDataFetch', '$q','$routeParams','$rootScope','$sce', 'preloadImage', function($scope, $location,Teacher, TeacherDataFetch, WPDataFetch, LessonsDataFetch, NewsDataFetch, ShipDataFetch, $q, $routeParams, $rootScope, $sce, preloadImage){
 	$scope.buttons=Teacher.createObjects();
+
 	$scope.buttonsArr = [$scope.buttons.blogs, $scope.buttons.photos, $scope.buttons.videos, $scope.buttons.lessons, $scope.buttons.news,$scope.buttons.ship];
 	$scope.location = $location.path().split('/')[0]+'/'+$location.path().split('/')[1]+'/'+$location.path().split('/')[2];
 	$scope.bigImageHider=true;
@@ -221,6 +226,7 @@ angular.module('BaseballCardInfo', [])
 					       		$scope.wp.checkVideos=false;
 					       		$scope.wp.checkBlogs=false;
 					       		$scope.wp.checkPhotos=false;
+					       		
 					      		 if($scope.wp.VMVid.length>0||$scope.wp.WPVid.length>0||$scope.wp.YT.length>0)
 					      		 {
 					      		 	
@@ -363,7 +369,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 		
 		};
 		
-		$scope.closeBigImage = function()
+		$scope.closeBigImage2 = function()
 		{
 			$scope.bigImage=false;
 			$scope.bigImageHider=true;
@@ -715,7 +721,7 @@ angular.module('Media', [])
 	$scope.location = $location.path();
 	POW.getPOWData().then(function(result){
 		$scope.pow = result;
-		
+		console.log($scope.pow);
 		$scope.data = [];
 		$scope.filtered_data=[];
 		$scope.pow.checkContents =true;
@@ -2219,6 +2225,7 @@ angular.module('Navigation', [])
 {
 	
 	$scope.searchBox=false;
+	$scope.showNav=true;
 	$scope.navigationItems = [{name:'about', state:'hider'},{name:'current', state:'hider'}, {name:'past', state:'hider'}, {name:'alumni', state:'hider'}, {name:'resources', state:'hider'}, {name:'media', state:'hider'}];	
 	$scope.navigationToggle=function(id)
 	{
