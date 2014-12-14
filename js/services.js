@@ -15,7 +15,6 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			
 			
 			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL+%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+Year=%272014%27+ORDER%20BY+TeacherLastName%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
-				console.log(result.data.rows);
 				
 				if (result.data.rows != undefined) {
 					
@@ -434,7 +433,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			//var feed = 'http://teacheratsea.wordpress.com/category/'+$routeParams.teachername.split('*')[0].toLowerCase()+'-'+$routeParams.teachername.split('*')[1].toLowerCase()+'/feed';
 			//console.log(feed);
 
-			return $http.jsonp('/php/xml_json_home.php?q=2014&callback=JSON_CALLBACK').then(function(result) {
+			return $http.get('/php/xml_json_home.php?q=2014').then(function(result) {
 
 				WPdata = result.data;
 				WPdata.dataLoaded = false;
@@ -631,7 +630,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 				if (result.data.rows != undefined) {
 
 					teacher.lastname = result.data.rows[0][0];
-					teacher.firstname = result.data.rows[0][1].replace(' ', '');
+					teacher.firstname = result.data.rows[0][1];
 					teacher.lastname_forDOM = DigPatt(teacher.lastname, '-')
 					teacher.shiptype = result.data.rows[0][2];
 					teacher.ship = result.data.rows[0][3];
@@ -691,14 +690,18 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							state : result.data.rows[o][2],
 							year : result.data.rows[o][3],
 							grades : result.data.rows[o][4],
+							gradesArr: result.data.rows[o][4].split(','),
 							size : result.data.rows[o][5],
 							title : result.data.rows[o][6],
 							keywords : result.data.rows[o][7],
+							keywordArr: result.data.rows[o][7].split(','),
 							objective : result.data.rows[o][8],
 							description : result.data.rows[o][9],
 							url : result.data.rows[o][10],
 							topics : result.data.rows[o][11],
-							checkContents : true
+							checkContents : true,
+							id:o,
+							favorite:'off'
 
 						});
 					}
@@ -807,7 +810,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			//var feed = 'http://teacheratsea.wordpress.com/category/'+$routeParams.teachername.split('*')[0].toLowerCase()+'-'+$routeParams.teachername.split('*')[1].toLowerCase()+'/feed';
 			//console.log(feed);
 
-			return $http.jsonp('/php/xml_json.php?q=' + year + '&n=' + name+'&callback=JSON_CALLBACK').then(function(result) {
+			return $http.get('/php/xml_json.php?q=' + year + '&n=' + name).then(function(result) {
 
 				WPdata = result.data;
 				WPdata.dataLoaded = false;
@@ -831,41 +834,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 				} else {
 					WPdata.checkForItems = true;
 				}
-				for (var x = 0; x < (WPdata.items.length); x++) {
-
-					WPdata.items[x].id=x;
-					var html = removeHTML(WPdata.items[x].MainContent);
-					WPdata.items[x].contentSnipp = Slicer(html, 380);
-					var tmpstr = '';
-					var imagesObj = {};
-					WPdata.items[x].imagesArr = [];
-					WPdata.items[x].CategoriesArr = [];
-					imagesObj.src = '';
-					imagesObj.caption = '';
-
-					if (WPdata.items[x].YouTubeVideos.split(',') != "") {
-						WPdata.YT.push($sce.trustAsResourceUrl('http://www.youtube.com/embed/' + WPdata.items[x].YouTubeVideos.split(',')[0] + '??&rel=0&showinfo=0&autohide=1'));
-					}
-					if (WPdata.items[x].WPVideos.split(',') != "") {
-						var wpvideo = WPdata.items[x].WPVideos.split(',')[0].split(' w')[0].replace(' ', '');
-						WPdata.WPVid.push(jQuery.parseJSON('{"title":"' + WPdata.items[x].BlogTitle + '","lnk":"' + WPdata.items[x].BlogUrl[0] + '", "src":"' + wpvideo + '"}'));
-
-					}
-					if (WPdata.items[x].VimeoVideos.split(',') != "") {
-						WPdata.VMVid.push($sce.trustAsResourceUrl('http://player.vimeo.com/video/' + WPdata.items[x].VimeoVideos.split(',')[0].split(' w')[0].replace(' ', '')));
-						//$sce.trustAsResourceUrl('http://player.vimeo.com/video/'+WPdata.items[x].VimeoVideos.split(',')[0].split(' w')[0]));
-					}
-
-					for (var f = 0; f < WPdata.items[x].Tags.split(',').length; f++) {
-
-						if (!tmpstr.replace(/\W/g, '').match(WPdata.items[x].Tags.split(',')[f].replace(/\W/g, ''))) {
-							WPdata.items[x].CategoriesArr.push(WPdata.items[x].Tags.split(',')[f]);
-							tmpstr = tmpstr + WPdata.items[x].Tags.split(',')[f];
-						}
-
-					}
-				}
-
+				
 				for (var k = 0; k < WPdata.gallery_images.length - 1; k++) {
 
 					var hyph_index = WPdata.gallery_images[k].post_url[0].lastIndexOf('-');
@@ -902,7 +871,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 								var post_title = post_url.replace('http://teacheratsea.wordpress.com/','').split('/')[3];
 								post_title = toTitleCase(post_title.replace(/-/g, ' '));
 								post_title = post_title.replace(' 20', ', 20');
-								ImagesArr.push(jQuery.parseJSON('{"src":"' + gallery_src + '","id":"' + ImagesArr.length + '","tabIndex":"'+ImagesArr.length+250+'","caption":"' + gallery_caption.replace(/&#39;;/g, '\'').replace(/&quos;/g, '\'') + '", "parent":"' + WPdata.gallery_images[k].parent[0] + '","post_url":"' + post_url + '", "post_title":"' + post_title + '"}'));
+								ImagesArr.push(jQuery.parseJSON('{"src":"' + gallery_src + '","id":"' + ImagesArr.length + '","tabIndex":"'+ImagesArr.length+250+'","caption":"' + gallery_caption.replace(/&#39;;/g, '\'').replace(/&quos;/g, '\'') + '", "favorite":"off","parent":"' + WPdata.gallery_images[k].parent[0] + '","post_url":"' + post_url + '", "post_title":"' + post_title + '"}'));
 								images_url += posturl.replace(/\W/g, '') + ',';
 							}
 
@@ -911,6 +880,45 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 					}
 				}
 
+				
+				for (var x = 0; x < (WPdata.items.length); x++) {
+
+					WPdata.items[x].id=x;
+					WPdata.items[x].favorite='off'
+					var html = removeHTML(WPdata.items[x].MainContent);
+					WPdata.items[x].contentSnipp = Slicer(html, 380);
+					//WPdata.items[x].src = ImagesArr[0];
+					var tmpstr = '';
+					var imagesObj = {};
+					WPdata.items[x].imagesArr = [];
+					WPdata.items[x].CategoriesArr = [];
+					imagesObj.src = '';
+					imagesObj.caption = '';
+
+					if (WPdata.items[x].YouTubeVideos.split(',') != "") {
+						WPdata.YT.push($sce.trustAsResourceUrl('http://www.youtube.com/embed/' + WPdata.items[x].YouTubeVideos.split(',')[0] + '??&rel=0&showinfo=0&autohide=1'));
+					}
+					if (WPdata.items[x].WPVideos.split(',') != "") {
+						var wpvideo = WPdata.items[x].WPVideos.split(',')[0].split(' w')[0].replace(' ', '');
+						WPdata.WPVid.push(jQuery.parseJSON('{"title":"' + WPdata.items[x].BlogTitle + '","lnk":"' + WPdata.items[x].BlogUrl[0] + '", "src":"' + wpvideo + '"}'));
+
+					}
+					if (WPdata.items[x].VimeoVideos.split(',') != "") {
+						WPdata.VMVid.push($sce.trustAsResourceUrl('http://player.vimeo.com/video/' + WPdata.items[x].VimeoVideos.split(',')[0].split(' w')[0].replace(' ', '')));
+						//$sce.trustAsResourceUrl('http://player.vimeo.com/video/'+WPdata.items[x].VimeoVideos.split(',')[0].split(' w')[0]));
+					}
+
+					for (var f = 0; f < WPdata.items[x].Tags.split(',').length; f++) {
+
+						if (!tmpstr.replace(/\W/g, '').match(WPdata.items[x].Tags.split(',')[f].replace(/\W/g, ''))) {
+							WPdata.items[x].CategoriesArr.push(WPdata.items[x].Tags.split(',')[f]);
+							tmpstr = tmpstr + WPdata.items[x].Tags.split(',')[f];
+						}
+
+					}
+				}
+
+				
 				WPdata.Videos = VideosArr;
 
 				WPdata.Images = ImagesArr;
@@ -1205,14 +1213,14 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			
 			var year = $location.path().split('/')[1].split('/')[0];
 
-			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+CruiseDates%20%20CONTAINS%20IGNORING%20CASE%27' + year + '%27+ORDER%20BY+Year+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+CruiseDates%20%20CONTAINS%20IGNORING%20CASE%27' + year + '%27+ORDER%20BY+TeacherLastName+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 					if (result.data.rows != undefined) {
 
 						for (var o = 0; o < result.data.rows.length; o++) {
 						teachers.push({
 							lastname : result.data.rows[o][0],
 							lastname_forDOM : DigPatt(result.data.rows[o][0].replace(' ', '')),
-							firstname : result.data.rows[o][1].replace(' ', ''),
+							firstname : result.data.rows[o][1],
 							shiptype: result.data.rows[o][2],
 							ship : result.data.rows[o][3],
 							shipurl : result.data.rows[0][4],
@@ -1321,7 +1329,9 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							school2 : result.data.rows[o][9].split('&&')[1],
 							schoolurl1 : result.data.rows[o][14].split('&&')[0],
 							schoolurl2 : result.data.rows[o][14].split('&&')[1],
-							checkContents : true
+							checkContents : true,
+							favorite:'off',
+							tabIndex : (150+o)
 							
 							
 							
@@ -1428,7 +1438,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							checkContents : '',
 						});
 				}
-				console.log(teachers);
+				//console.log(teachers);
 				return teachers;	
 			});
 	}
@@ -1461,7 +1471,9 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							mediaoutleturl : result.data.rows[0][4],
 							articleurl : result.data.rows[o][5],
 							image : result.data.rows[o][6],
-							checkContents : true
+							checkContents : true,
+							
+							
 							
 						});
 
@@ -1517,12 +1529,15 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							}
 							else
 							{
-								news.finalNews.push({id: news.holderNews[b].id , main: news.holderNews[b], extra:''});
+								news.finalNews.push({id: news.holderNews[b].id , main: news.holderNews[b], extra:'', tabIndex:500-b});
 							}
 						
 							teacherStr+=news.holderNews[b].id;
+							
 						}
 						
+					
+						console.log(news)
 						return news;
 			});
 					
@@ -1648,6 +1663,8 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							tabs[i].gsx$tabname.classy='shower';
 							tabs[i].gsx$tabname.rp=tabs[i].gsx$tabname.$t.replace(/ /g, '_');
 							tabs[i].image = tabs[i].gsx$image.$t.split('?')[0];
+							tabs[i].tabIndex = i+150;
+							tabs[i].caption = tabs[i].gsx$caption.$t
 						}	
 						else
 						{
@@ -1655,10 +1672,12 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							tabs[i].gsx$tabname.classy="hider";
 							tabs[i].gsx$tabname.rp=tabs[i].gsx$tabname.$t.replace(/ /g, '_');
 							tabs[i].image = tabs[i].gsx$image.$t.split('?')[0];
-							
+							tabs[i].tabIndex = i+150;
+							tabs[i].caption = tabs[i].gsx$caption.$t
 						}
 					}
 					tabs.type = type;
+					
 					return tabs;
 				});
 			},
@@ -1669,6 +1688,8 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 				top=result.data.feed.entry;
 				top.type = type;
 				top.image = result.data.feed.entry[0].gsx$image.$t;
+				top.imagealt = result.data.feed.entry[0].gsx$imagealt.$t;
+				console.log(top);
 				return top;
 				});
 			}
@@ -1689,6 +1710,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 					{
 						faq[i].id=i;
 						faq[i].gsx$answer.hideAnswer=true;
+						faq[i].tabIndex=i+150;
 					}
 					return faq;
 				});
@@ -1702,6 +1724,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 					{
 						quotes[i].id=i;
 						quotes[i].gsx$tn.$t = quotes[i].gsx$tn.$t;
+						quotes[i].tabIndex=i+200;
 					}
 					
 					return quotes;
@@ -1733,6 +1756,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 					for(var i=0; i<gallery.length; i++)
 					{
 						gallery[i].id=i;
+						gallery[i].tabIndex = i+150;
 						//faq[i].gsx$answer.hideAnswer=true;
 					}
 					return gallery;
@@ -1749,8 +1773,10 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 					teachers.states=[];
 					teachers.objArr=[];
 					teachers.finalObjArr=[];
+					
 					for(var i=0; i<teachers.length-1; i++)
 						{
+							
 							
 							if(teachers[i].gsx$state.$t!=teachers[i+1].gsx$state.$t)
 							{
@@ -1787,10 +1813,10 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 						
 					
 						}
-						teachers.finalObjArr.push({objects:objArr});
+						teachers.finalObjArr.push({objects:objArr, tabIndex:(i+130)});
 					}
-					
-					
+			
+					console.log(teachers)
 					return teachers;
 				
 				});
@@ -1941,7 +1967,7 @@ var d= new Date();
 							}
 						}
 					}
-					
+					console.log(slideshow);
 					return slideshow;
 				});	
 	}
@@ -1962,41 +1988,54 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			for(var x=0; x<blogs.length;x++)
 			{
 				blogs[x].id = x;
+				blogs[x].tabIndex=(x+40);
 			}
+			
 			return blogs;
 		});
 	},
 	searchImages:function(search_term)
 	{
 		
-		var images ={};
+		var _images={};	
+		var images =[{id:''}];
 		return $http.jsonp('/php/search_images.php?q='+search_term+'&callback=JSON_CALLBACK').then(function(result)
 		{
-			images=result.data.images;
-			for(var x=0; x<images.length; x++)
+			_images = result.data.images;
+			console.log(_images);
+			
+			for(var x=0; x<_images.length; x++)
 			{
-				if ((!images[x].src[0].match('.mov') || !images[x].src[0].match('.m4v') || !images[x].src[0].match('.ogg') || !images[x].src[0].match('.wmv') || !images[x].src[0].match('.m4a') || !images[x].src[0].match('.mp4') || !images[x].src[0].match('.avi') || !images[x].src[0].match('.doc') || !images[x].src[0].match('.docx') || !images[x].src[0].match('.pdf') || !images[x].src[0].match('.xlsx') || !images[x].src[0].match('.xls') || !images[x].src[0].match('.ppt') || !images[x].src[0].match('.pptx'))) {
-					images[x].id=x;
-					images[x].post_title = images[x].post_url[0].replace('http://teacheratsea.wordpress.com/','').split('/')[3];
-					images[x].post_title = toTitleCase(images[x].post_title.replace(/-/g, ' '));
-					images[x].post_title = images[x].post_title.replace(' 20', ', 20');
-					if(images[x].caption=="" && images[x].excerpt!="")
+				_images[x].src = _images[x].src['0'];	
+							
+				if ((!_images[x].src.match('.mov') && !_images[x].src.match('.m4v') && !_images[x].src.match('.ogg') && !_images[x].src.match('.wmv') && !_images[x].src.match('.m4a') && !_images[x].src.match('.mp4') && !_images[x].src.match('.avi') && !_images[x].src.match('.doc') && !_images[x].src.match('.docx') && !_images[x].src.match('.pdf') && !_images[x].src.match('.xlsx') && !_images[x].src.match('.xls') && !_images[x].src.match('.ppt') && !_images[x].src.match('.pptx')||!_images[x].src.match('teacheratsea.wordpress'))) {
+					console.log(_images[x].src);
+					_images[x].id=x;
+					_images[x].tabIndex=(x+40);
+					_images[x].post_title = _images[x].post_url[0].replace('http://teacheratsea.wordpress.com/','').split('/')[3];
+					_images[x].post_title = toTitleCase(_images[x].post_title.replace(/-/g, !' '));
+					_images[x].post_title = _images[x].post_title.replace(' 20', ', 20');
+					_images[x].favorite='off';
+					if(_images[x].caption=="" && _images[x].excerpt!="")
 					{
-						images[x].finalCaption =images[x].excerpt;
+						_images[x].finalCaption =_images[x].excerpt;
 					}
-					else if (images[x].caption!=""&&images[x].excerpt=="")
+					else if (_images[x].caption!=""&&_images[x].excerpt=="")
 					{
-						images[x].finalCaption=images[x].caption;
+						_images[x].finalCaption=_images[x].caption;
 					}
-					else if(images[x].caption!=""&&images[x].excerpt!="")
+					else if(_images[x].caption!=""&&_images[x].excerpt!="")
 					{
-						images[x].finalCaption=images[x].caption;
+						_images[x].finalCaption=_images[x].caption;
 					}
 					else{
-						images[x].finalCaption = 'NOAA Teacher at Sea Photo';
+						_images[x].finalCaption = 'NOAA Teacher at Sea Photo';
 					}
+					images.push(_images[x]);
+					
 				}
 			}
+			console.log(images);
 			return images;
 		});
 	},
@@ -2018,14 +2057,16 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 								grades : result.data.rows[o][4].split(', '),
 								size : result.data.rows[o][5],
 								title : result.data.rows[o][6],
-								keywords : result.data.rows[o][7].split(', '),
+								keywordArr : result.data.rows[o][7].split(', '),
 								objective : result.data.rows[o][8],
 								description : result.data.rows[o][9],
 								url : result.data.rows[o][10],
 								topics : result.data.rows[o][11],
 								checkContents : true,
 								hider:false,
-								id:o
+								tabIndex:(o+41),
+								id:o,
+								favorite:'off'
 							});
 						}
 					}
@@ -2059,23 +2100,27 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 								school: result.data.rows[o][8],
 								cruisetype: result.data.rows[o][9],
 								keywords : result.data.rows[o][10].split(', '),
-								id:o
+	
+								id:o,
+								
 							});
 							}
-							else if(result.data.rows[o][0]!="" && result.data.rows[o][1]!="" && result.data.rows[o][4].match('2014')&&result.data.rows[o][4].match('2013')&&result.data.rows[o][4].match('2012')&&result.data.rows[o][4].match('2011')&&result.data.rows[o][4].match('2010')&&result.data.rows[o][4].match('2004')){
+							else if((result.data.rows[o][0]!="" && result.data.rows[o][1]!="" && result.data.rows[o][4].match('2014')&&result.data.rows[o][4].match('2013')&&result.data.rows[o][4].match('2012')&& result.data.rows[o][4].match('2011')&&result.data.rows[o][4].match('2010')&&result.data.rows[o][4].match('2009')&&result.data.rows[o][4].match('2004'))&&result.data.rows[o][0].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][1].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][2].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][3].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][4].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][6].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][7].toLowerCase().replace(/\W/g, '').match(search_term.toLowerCase())||result.data.rows[o][8].toLowerCase().replace(/\W/g, '').match(search_term.toLowerCase())||result.data.rows[o][9].toLowerCase().match(search_term.toLowerCase())||result.data.rows[o][10].toLowerCase().match(search_term.toLowerCase())){
 							sitesearch.push({	
 								lastname : result.data.rows[o][0],
 								firstname : result.data.rows[o][1],
 								city:result.data.rows[o][2],
 								state : result.data.rows[o][3],
 								title : result.data.rows[o][4],
-								page :result.data.rows[o][1]+'*'+result.data.rows[o][0],
+								page :'#/'+result.data.rows[o][4].slice((result.data.rows[o][4].indexOf('- ')+2),(result.data.rows[o][4].indexOf('- ')+6))+'/'+result.data.rows[o][1]+'*'+result.data.rows[o][0],
 								subject :result.data.rows[o][6],
 								ship: result.data.rows[o][7],
 								school: result.data.rows[o][8],
 								cruisetype: result.data.rows[o][9],
 								keywords : result.data.rows[o][10],
-								id:o
+								id:o,
+								
+
 							});
 							}
 							else{
@@ -2091,13 +2136,18 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 								school: result.data.rows[o][8],
 								cruisetype: result.data.rows[o][9],
 								keywords : result.data.rows[o][10].split(', '),
-								id:o
+								id:o,
+								
 							});
 							}
 						}
 					}
+					for(var x=0; x<sitesearch.length;x++)
+					{
+						sitesearch[x].tabIndex=x+40;
+					}
 				}
-			console.log(sitesearch);	
+			
 			return sitesearch;
 		});
 	},
@@ -2131,10 +2181,10 @@ function(Teacher) {
 
 TAS_SITE.factory('WPDataFetch', [ 'Teacher','$location','$routeParams',
 function(Teacher, $location, $routeParams) {
-	var year = $location.path().split('/')[1].split('/')[0];
+	//var year = $location.path().split('/')[1].split('/')[0];
 	var wpdata = {};
 	var lastname = DigPatt($routeParams.teachername.split('*')[1].replace(/'/g, ''), '-');
-	wpdata.data = function(teachername) {
+	wpdata.data = function(year, teachername) {
 		
 		//Teacher.getWPData(teachersteacher.year, teachersteacher.firstname+' '+teachersteacher.lastname_forDOM).
 		wpdata = Teacher.getWPData(year, toTitleCase(teachername));
@@ -2225,6 +2275,192 @@ function(Tabs) {
 	return topdata;
 
 }]);
+
+TAS_SITE.factory('Favorites', ['$http', '$routeParams', '$location', '$rootScope', '$sce','$q',
+function($http, $routeParams, $location, $rootScope, $sce) {
+	return {
+		
+		
+		addFavorites:function()
+		{
+		var favorites={};
+			if(localStorage.getItem('BlogArr')!=null && localStorage.getItem('FavoriteArr')!='')
+			{
+				var blogFav = jQuery.parseJSON(localStorage.getItem('BlogArr'));
+				//favorites.blogHider=false;
+			}
+			else
+			{
+				blogFav=[];
+				//favorites.blogHider=true;
+			}
+		
+		if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+		{
+			var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			//favorites.imgHider=false;
+		}
+		else
+		{
+			var imgFav =[];
+			//favorites.imgHider=true;
+		}
+		
+		if(localStorage.getItem('LessonArr')!=null && localStorage.getItem('LessonArr')!='')
+			{
+				var lessonFav = jQuery.parseJSON(localStorage.getItem('LessonArr'));
+				//favorites.lessonHider=false;
+				
+			}
+			else
+			{
+				var lessonFav =[];
+				//favorites.lessonHider=true;
+			}
+
+		favorites.blogs =blogFav;
+		for(var x=0; x<favorites.blogs.length; x++)
+		{
+			favorites.blogs[x].favorite='on';
+			favorites.blogs[x].id=x;
+			
+		}
+		favorites.images=imgFav;
+		for(var y=0; y<favorites.images.length; y++)
+		{
+			favorites.images[y].favorite='on';
+			favorites.images[y].id=y;
+		}
+		favorites.lessons=lessonFav;
+		for(var z=0; z<favorites.lessons.length; z++)
+		{
+			favorites.lessons[z].favorite='on';
+			favorites.lessons[z].id=z;
+		}
+		favorites.dyks=[];
+		console.log(favorites);
+		return favorites;
+		},
+		
+		
+		
+		
+		checkFavorites:function(obj, type)
+		{
+			
+			///////compare localStorage to the blogposts, images, and lessons that exist on profile page, media page, and searchboxes////////////
+			var favorites = {};
+			if(localStorage.getItem('BlogArr')!=null && localStorage.getItem('FavoriteArr')!='')
+				{
+					var blogFav = jQuery.parseJSON(localStorage.getItem('BlogArr'));
+					
+				}
+				else
+				{
+					blogFav=[];
+				}
+				
+				if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+				{
+					var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+					
+				}
+				else
+				{
+					var imgFav =[];
+					
+				}
+				
+				if(localStorage.getItem('LessonArr')!=null && localStorage.getItem('LessonArr')!='')
+					{
+						var lessonFav = jQuery.parseJSON(localStorage.getItem('LessonArr'));
+						favorites.lessonHider=false;
+						
+					}
+					else
+					{
+						var lessonFav =[];
+						
+					}
+		
+				favorites.blogs =blogFav;
+				if(type=="blogs")
+				{
+					for(var x=0; x<favorites.blogs.length; x++)
+					{
+						//favorites.blogs[x].favorite='on';
+						favorites.blogs[x].id=x;
+						//console.log(obj.BlogUrl['0']);
+						if(favorites.blogs[x].BlogUrl['0']==obj.BlogUrl['0'])
+						{
+							obj.favorite='on';
+	
+						}
+						else{
+							obj.favorite='off'
+						}
+					}
+				}
+				favorites.images=imgFav;
+				if(type=="images")
+				{
+										for(var y=0; y<favorites.images.length; y++)
+					{
+						//favorites.images[y].favorite='on';
+						favorites.images[y].id=y;
+						if(favorites.images[y].src == obj.src)
+						{
+							
+							console.log(obj)
+
+							obj.favorite='on';
+							console.log(obj.favorite);
+							
+						}
+						else{
+							obj.favorite='off';
+						}
+					}
+				}
+				favorites.lessons=lessonFav;
+				if(type=="lessons")
+				{
+					console.log(obj)	
+					for(var z=0; z<favorites.lessons.length; z++)
+					{
+						//favorites.lessons[z].favorite='on';
+						favorites.lessons[z].id=z;
+						if(favorites.lessons[z].url==obj.url)
+						{
+							obj.favorite='on';	
+						}
+						else{
+							obj.favorite='off'
+						}
+					}
+				}
+				
+				
+				favorites.dyks=[];
+				
+				
+
+			
+		},
+		
+		getBitLy:function(url)
+		{
+			var bitly = 'http://api.bitly.com/v3/shorten?format=json&apiKey=R_06ae3d8226a246f2a0bb68afe44c8379&login=robostheimer&longUrl='+url
+			return $http.get(bitly).then(
+				function(result){
+					return result.data.data.url;
+				});
+		}
+
+	};
+
+}]);
+
 
 
 ////////////////////////////////////Class Page/////////////////////////

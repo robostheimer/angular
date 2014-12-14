@@ -44,7 +44,7 @@
 
 							<p><a href="#{{spot.hash}}"  ng-hide="spot.hideLongBody==true" tabindex="{{spot.tabIndex}}">Read More</a>
 							<br>
-							<a  tabindex="{{spot.tabIndex}}" style="cursor:pointer"ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
+							<a  tabindex="{{spot.tabIndex}}" style="cursor:pointer" ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)" ng-enter="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
 							</p>
 							</div>
 							<div style="clear:both; margin-bottom:15px;"></div><div class="border border-width"></div>
@@ -63,16 +63,15 @@
 							<h6 tabindex="{{spot.tabIndex}}">{{spot.firstname}} {{spot.lastname}}</h6>
 							<span ng-bind-html="spot.shortbody"></span>
 
-							<p><a tabindex="{{spot.tabIndex}}" href="#{{spot.hash}}" ng-click="openIndivSpot(spot.id)" ng-hide="spot.hideLongBody==true">Read More</a><br>
+							<p><a tabindex="{{spot.tabIndex}}" href="#{{spot.hash}}" ng-click="openIndivSpot(spot.id)" ng-enter="openIndivSpot(spot.id)" ng-hide="spot.hideLongBody==true">Read More</a><br>
 							
-							<a  tabindex="{{spot.tabIndex}}" style="cursor:pointer"ng-click="openBigImage(spot.url.split('?')[0]+'?w=650',spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
+							<a  tabindex="{{spot.tabIndex}}" style="cursor:pointer" ng-click="openBigImage(spot.url.split('?')[0]+'?w=650',spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)" ng-enter="openBigImage(spot.url.split('?')[0]+'?w=650',spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)">View Image</a>
 							</p>
 						</div>
 						<div style="clear:both; margin-bottom:15px;"></div><div class="border border-width"></div>
 					</div>
 				</div>
-				<pagination-routes length={{data.length}} page={{currentPage}} itemsper={{itemsPerPage}} tabindex="200"></pagination-routes>
-			</div>
+				<pagination-routes length={{data.length}} page={{currentPage}} itemsper={{itemsPerPage}} type="pow" tabindex="200" ></pagination-routes>			</div>
 			
 
 			<div style="margin:20px; margin-left:30px"><img width="15" height="15" src="/images/feed-icon-22x22.png" style="border:none;margin-top:8px;" alt="RSS Feed"/><a tabindex="201" href="/alumni/alumni_spotlight.xml" target="_blank">Subscribe to the Alumni Spotlight Feed <span style="color:#ECBD00">»</span></a>

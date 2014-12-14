@@ -1,63 +1,63 @@
 <div >
-	<div class="bigImgClose" id="alert_box_close" ng-click="closeBigImageLessons()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+	<div tabindex = "38" class="bigImgClose" id="alert_box_close" ng-click="closeBigImageLessons()" ng-rnyrt="closeBigImageLessons()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
 	</div>
 	<div id="lessonsbox" class="scrolly">
-		<div id="numberofresults">
+		<div tabindex = "39" id="numberofresults">
 			<h2> Search Results for: {{search_lessons}} </h2>
 			<br>
 			<h6>Number of Results: {{lessons.length}}</h6>
 		</div>
 		<form id="selector">
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="Kindergarten" id="Kindergarten" ng-click="lessonChecker(0)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="Kindergarten" id="Kindergarten" ng-click="lessonChecker(0)" ng-enter="lessonChecker(0)">
 					<label for="Kindergarten"><span></span>Kindergarten</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="1st" id="1st"  ng-click="lessonChecker(1)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="1st" id="1st" ng-enter="lessonChecker(1)"  ng-click="lessonChecker(1)">
 					<label for="1st"><span></span>1st Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="2nd" id="2nd"  ng-click="lessonChecker(2)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="2nd" id="2nd" ng-enter="lessonChecker(2)"  ng-click="lessonChecker(2)">
 					<label for="2nd"><span></span>2nd Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="3rd" id="3rd"  ng-click="lessonChecker(3)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="3rd" id="3rd" ng-enter="lessonChecker(3)" ng-click="lessonChecker(3)">
 					<label for="3rd"><span></span>3rd Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="4th" id="4th"  ng-click="lessonChecker(4)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="4th" id="4th"  ng-enter="lessonChecker(4)" ng-click="lessonChecker(4)">
 					<label for="4th"><span></span>4th Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="5th" id="5th"  ng-click="lessonChecker(5)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="5th" id="5th"  ng-enter="lessonChecker(5)" ng-click="lessonChecker(5)">
 					<label for="5th"><span></span>5th Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="6th" id="6th"  ng-click="lessonChecker(6)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="6th" id="6th"  ng-enter="lessonChecker(6)" ng-click="lessonChecker(6)">
 					<label for="6th"><span></span>6th Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="7th" id="7th"  ng-click="lessonChecker(7)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="7th" id="7th"  ng-enter="lessonChecker(7)" ng-click="lessonChecker(7)">
 					<label for="7th"><span></span>7th Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="8th" id="8th"  ng-click="lessonChecker(8)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="8th" id="8th" ng-enter="lessonChecker(8)"  ng-click="lessonChecker(8)">
 					<label for="8th"><span></span>8th Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="9th" id="9th"  ng-click="lessonChecker(9)">
+					<input  tabindex="40" type="checkbox" class="check" name="check[]" value="9th" id="9th" ng-enter="lessonChecker(9)" ng-click="lessonChecker(9)">
 					<label for="9th"><span></span>9th Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="10th" id="10th"  ng-click="lessonChecker(10)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="10th" id="10th" ng-enter="lessonChecker(10)" ng-click="lessonChecker(10)">
 					<label for="10th"><span></span>10th Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="11th" id="11th"  ng-click="lessonChecker(11)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="11th" id="11th" ng-enter="lessonChecker(11)" ng-click="lessonChecker(11)">
 					<label for="11th"><span></span>11th Grade</label>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" class="check" name="check[]" value="12th" id="12th"  ng-click="lessonChecker(12)">
+					<input tabindex="40" type="checkbox" class="check" name="check[]" value="12th" id="12th" ng-enter="lessonChecker(12)" ng-click="lessonChecker(12)">
 					<label for="12th"><span></span>12th Grade</label>
 				</div>
 			</form>
@@ -74,27 +74,27 @@
 			<div ng-hide="checkbox==false">
 				<div ng-repeat="lesson in lessons track by $index" class="searcher" id="searcher_search_lesson{{lesson.id}}" ng-hide ="lesson.hider==true">
 					<div id="search_searched_lesson{{lesson.id}}" style="padding-bottom:20px;list-style:none;" class="lessonsearch">
-						<b style="margin-left:0"><a target="_blank" id="titlelink{{lesson.id}}lesson_searched" class="titlelink" href="{{lesson.url}}" title="{{lesson.title}}">{{lesson.title}}</a> &nbsp;&nbsp;</b>
-						<img id="favorite_searched_lesson{{lesson.id}}" class="search_favorite off" src="/images/star.png" alt="Add to Favorites" style="border:none">
-						<div style="font-size:10px">
+						<b style="margin-left:0"><a tabindex="{{lesson.tabIndex}}" target="_blank" id="titlelink{{lesson.id}}lesson_searched" class="titlelink" href="{{lesson.url}}" title="{{lesson.title}}">{{lesson.title}}</a> &nbsp;&nbsp;</b>
+						<img tabindex="{{lesson.tabIndex}}" id="favorite_searched_lesson{{lesson.id}}" class="search_favorite" src="/images/star_{{lesson.favorite}}.png" alt="Add to Favorites" style="border:none" ng-click="switchFavorite(lesson.id, 'lesson')" ng-enter="switchFavorite(lesson.id, 'lesson')">
+						<div tabindex="{{lesson.tabIndex}}" style="font-size:10px">
 							<em>({{lesson.year}})</em>
 						</div>
 						<div>
-							<p ng-bind-html="SkipValidation(lesson.description)">
+							<p tabindex="{{lesson.tabIndex}}" ng-bind-html="SkipValidation(lesson.description)">
 
 								
 							</p>
-							<div class="author">
+							<div tabindex="{{lesson.tabIndex}}" class="author">
 								Author: <a href="#/{{lesson.year}}/{{lesson.firstname}}*{{lesson.lastname}}">{{lesson.firstname}} {{lesson.lastname}}</a>
 							</div>
-							<div class="grades">
+							<div tabindex="{{lesson.tabIndex}}" class="grades">
 								Grade Levels: <a class="caption" style="cursor:pointer" ng-click="searchLessons(grade)" ng-repeat="grade in lesson.grades">{{grade}}</a>
 							</div>
-							<div class="topics">
+							<div tabindex="{{lesson.tabIndex}}" class="topics">
 								{{lesson.topics}}
 							</div>
-							<div class="tags">
-								Tags:<a class="caption" style="cursor:pointer" ng-click="searchLessons(keyword)" ng-repeat="keyword in lesson.keywords">#{{keyword}}</a>
+							<div tabindex="{{lesson.tabIndex}}" class="tags">
+								Tags:<a tabindex="{{lesson.tabIndex}}" class="caption" style="cursor:pointer" ng-click="searchLessons(keyword)" ng-repeat="keyword in lesson.keywords">#{{keyword}}</a>
 							</div>
 						</div>
 					</div>
@@ -105,26 +105,26 @@
 			<div ng-hide="checkbox==true">
 				<div ng-repeat="lesson in lessons track by $index" class="searcher" id="searcher_search_lesson{{lesson.id}}" >
 					<div id="search_searched_lesson{{lesson.id}}" style="padding-bottom:20px;list-style:none;" class="lessonsearch">
-						<b style="margin-left:0"><a target="_blank" id="titlelink{{lesson.id}}lesson_searched" class="titlelink" href="{{lesson.url}}" title="{{lesson.title}}">{{lesson.title}}</a> &nbsp;&nbsp;</b>
-						<img id="favorite_searched_lesson{{lesson.id}}" class="search_favorite off" src="/images/star.png" alt="Add to Favorites" style="border:none">
-						<div style="font-size:10px">
+						<b tabindex="{{lesson.tabIndex}}" style="margin-left:0"><a target="_blank" id="titlelink{{lesson.id}}lesson_searched" class="titlelink" href="{{lesson.url}}" title="{{lesson.title}}">{{lesson.title}}</a> &nbsp;&nbsp;</b>
+						<img tabindex="{{lesson.tabIndex}}" id="favorite_searched_lesson{{lesson.id}}" class="search_favorite" src="/images/star_{{lesson.favorite}}.png" alt="Add to Favorites" style="border:none" ng-click="switchFavorite(lesson.id, 'lesson')" ng-enter="switchFavorite(lesson.id, 'lesson')">
+						<div tabindex="{{lesson.tabIndex}}" style="font-size:10px">
 							<em>({{lesson.year}})</em>
 						</div>
-						<div>
+						<div tabindex="{{lesson.tabIndex}}">
 							<p>
 								{{lesson.description}}
 							</p>
-							<div class="author">
+							<div class="author" tabindex="{{lesson.tabIndex}}">
 								Author: <a href="#/{{lesson.year}}/{{lesson.firstname}}*{{lesson.lastname}}">{{lesson.firstname}} {{lesson.lastname}}</a>
 							</div>
-							<div class="grades">
+							<div class="grades" tabindex="{{lesson.tabIndex}}">
 								Grade Levels: <a class="caption" style="cursor:pointer" ng-click="searchLessons(grade)" ng-repeat="grade in lesson.grades">{{grade}}</a>
 							</div>
-							<div class="topics">
+							<div class="topics" tabindex="{{lesson.tabIndex}}">
 								{{lesson.topics}}
 							</div>
-							<div class="tags">
-								Tags:<a class="caption" style="cursor:pointer" ng-click="searchLessons(keyword)" ng-repeat="keyword in lesson.keywords">#{{keyword}}</a>
+							<div class="tags" tabindex="{{lesson.tabIndex}}">
+								Tags:<a tabindex="{{lesson.tabIndex}}" class="caption" style="cursor:pointer" ng-click="searchLessons(keyword)" ng-repeat="keyword in lesson.keywords">#{{keyword}}</a>
 							</div>
 						</div>
 					</div>

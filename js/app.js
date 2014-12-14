@@ -2,7 +2,7 @@
 
 /* App Module */
 //var teachernamehash = window.location.hash.split('/')[2];
-var TAS_SITE = angular.module('TAS_SITE', ['ngRoute',  'BaseballCardInfo', 'ClassPage',  'Media', 'ngSanitize', 'ngAnimate', 'Alumni','TabPages', 'FAQs', 'TASA', 'Homepage','Highlights','ngTouch','Footer', 'SearchBox', 'Navigation', 'RespNav']);
+var TAS_SITE = angular.module('TAS_SITE', ['ngRoute',  'BaseballCardInfo', 'ClassPage',  'Media', 'ngSanitize', 'ngAnimate', 'Alumni','TabPages', 'FAQs', 'TASA', 'Homepage','Highlights','ngTouch','Footer', 'SearchBox', 'Navigation', 'RespNav','angulartics', 'angulartics.google.analytics', 'Favorites']);
 TAS_SITE.config(['$routeProvider',
   function($routeProvider) {
    $routeProvider.
@@ -274,6 +274,10 @@ TAS_SITE.config(['$routeProvider',
         templateUrl: 'partials/class.html',
         controller: 'classPage'
       }).
+    when('/2015/', {
+        templateUrl: 'partials/class.html',
+        controller: 'classPage'
+      }).  
     otherwise({
       	templateUrl: 'partials/home.html',
         redirectTo: '/home/'

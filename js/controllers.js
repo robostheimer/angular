@@ -9,6 +9,8 @@ angular.module('ClassPage', [])
 	$scope.currentStatus='yes';
 	$scope.hideMapDiv=true;
 	
+	//TeacherDataFetch.count=0;
+		
 	
 		
 	Class.createTeacherList().then(function(data)
@@ -139,22 +141,23 @@ angular.module('ClassPage', [])
 			};
 		}
 	};
-		
-		
-			
+				
 	$scope.closeRollover=function()
 	{
 		$scope.hideMapDiv=true;
 		$scope.showMapDiv=false;
-	}
+	};
 }]);	
 
 
 angular.module('BaseballCardInfo', [])	
 			
-.controller('changeTab',['$scope','$location','Teacher','TeacherDataFetch','WPDataFetch','LessonsDataFetch','NewsDataFetch','ShipDataFetch', '$q','$routeParams','$rootScope','$sce', 'preloadImage', function($scope, $location,Teacher, TeacherDataFetch, WPDataFetch, LessonsDataFetch, NewsDataFetch, ShipDataFetch, $q, $routeParams, $rootScope, $sce, preloadImage){
+.controller('changeTab',['$scope','$location','Teacher','TeacherDataFetch','WPDataFetch','LessonsDataFetch','NewsDataFetch','ShipDataFetch', '$q','$routeParams','$rootScope','$sce', 'preloadImage', 'Favorites', '$q' ,function($scope, $location,Teacher, TeacherDataFetch, WPDataFetch, LessonsDataFetch, NewsDataFetch, ShipDataFetch, $q, $routeParams, $rootScope, $sce, preloadImage, Favorites, $q){
 	$scope.buttons=Teacher.createObjects();
-
+	/*$rootScope.teacherdata={};
+	$rootScope.teacherdata.firstname='';
+	$rootScope.teacherdata.lastname='';
+	*/
 	$scope.buttonsArr = [$scope.buttons.blogs, $scope.buttons.photos, $scope.buttons.videos, $scope.buttons.lessons, $scope.buttons.news,$scope.buttons.ship];
 	$scope.location = $location.path().split('/')[0]+'/'+$location.path().split('/')[1]+'/'+$location.path().split('/')[2];
 	$scope.bigImageHider=true;
@@ -176,12 +179,14 @@ angular.module('BaseballCardInfo', [])
 						
 	
 	var teacherdatacount = TeacherDataFetch.count;
-	
 	$scope.bigImage = false;
 	
 	////////////////Gets called below to initialize data-gathering services
+	
+	
 	$scope.accessData=function()
 	{
+		
 			//////////////checks datacount to determine data needs to be re-downloaded; if teacherdatacount==0 it loads
 			if (teacherdatacount == 0)
 			{
@@ -218,10 +223,22 @@ angular.module('BaseballCardInfo', [])
 					}
 						var wpdatacount = WPDataFetch.count;
 						
-							 WPDataFetch.data($scope.teacher.firstname+' '+$scope.teacher.lastname).then(function(data) {
+							 WPDataFetch.data($location.path().split('/')[1].split('/')[0],$scope.teacher.firstname+' '+$scope.teacher.lastname).then(function(data) {
 							     
 							    $scope.wp = data;
-								$rootScope.wpdata =data;
+							    for(var x=0; x<$scope.wp.items.length; x++)
+							    {
+							    	Favorites.checkFavorites($scope.wp.items[x], 'blogs');
+							    	
+							    }
+
+							    $scope.images = $scope.wp.Images;
+							    for(var y=0; y<$scope.images.length; y++)
+							    {
+							    	Favorites.checkFavorites($scope.images[y], 'images');
+							    }
+							    
+							   	$rootScope.wpdata =$scope.wp;
 					       		$scope.wp.dataLoaded=true; 
 					       		$scope.wp.checkVideos=false;
 					       		$scope.wp.checkBlogs=false;
@@ -249,7 +266,10 @@ angular.module('BaseballCardInfo', [])
 						LessonsDataFetch.data($scope.teacher.firstname+' '+$scope.teacher.lastname).then(function(data)
 					 	 	{
 					 	 		$scope.lessons =data;
-					 	 		
+					 	 		for(var z=0; z<$scope.lessons.length; z++)
+					 	 		{
+					 	 			Favorites.checkFavorites($scope.lessons[z], 'lessons');	
+					 	 		}
 					 	 		$scope.lessons.checkContents=false;
 					 	 		$rootScope.lessonsdata =$scope.lessons;
 					 	 		if($scope.lessons[0].description!="")
@@ -261,7 +281,7 @@ angular.module('BaseballCardInfo', [])
 						NewsDataFetch.data($scope.teacher.firstname+' '+$scope.teacher.lastname).then(function(data)
 				 	 	{
 				 	 		$scope.news =data;
-				 	 						 	 		$scope.news.checkContents=false;
+				 	 		$scope.news.checkContents=false;
 				 	 		$rootScope.newsdata = $scope.news;
 				 	 		$rootScope.newsdata =data;
 				 	 		if($scope.news[0].article!="")
@@ -306,8 +326,7 @@ angular.module('BaseballCardInfo', [])
 				}
 				///////////////////If the url hasn't changed, it does not re-run the services to bring the data in
 		else if(teacherdatacount!=0){
-				
- 			$scope.teacher = {};
+			$scope.teacher = {};
 			$scope.ship={};
 			$scope.teacher = $rootScope.teacherdata;
 			$scope.ship=$rootScope.shipdata;
@@ -316,25 +335,168 @@ angular.module('BaseballCardInfo', [])
 			
 			$scope.wp={};
 			$scope.wp=$rootScope.wpdata;
+			$scope.images = $scope.wp.Images
 			
 							
 							
 			
 		}
 		teacherdatacount = TeacherDataFetch.count += 1;
-	
-
-	
-	
-	
-	
-
 };
 
 $scope.accessData();
 
-$scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
+$scope.switchFavorite=function(id, type)
+	{
+		var blogTitle=[];
+		var imgSrc=[];
+		var lessonUrl = [];
+		///////////////Blogs//////////////////
+		if(type=='blog')
 		{
+			
+			if(localStorage.getItem('BlogArr')!=null && localStorage.getItem('FavoriteArr')!='')
+					{
+						var blogFav = jQuery.parseJSON(localStorage.getItem('BlogArr'));
+						
+					}
+				else
+				{
+					var blogFav=[];
+				}
+				
+			if($scope.wp.items[id].favorite=='off')
+			{
+				$scope.wp.items[id].favorite='on';
+				blogFav.push( $scope.wp.items[id]);
+				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
+				$scope.favorites = Favorites.addFavorites();
+				console.log($scope.favorites);
+			}
+			else{
+				
+				for(var x=0; x<blogFav.length; x++)
+				{
+					blogTitle.push(blogFav[x].BlogTitle);
+				}
+				
+				$scope.wp.items[id].favorite='off';
+				var index=blogTitle.indexOf($scope.wp.items[id].BlogTitle);
+				blogFav.splice(index, 1);
+				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
+				
+			
+			}
+			
+		}	
+		////////////////PHotos//////////////////
+		if(type=='photo')
+		{
+			if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+			{
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			}
+			else
+			{
+				var imgFav =[];
+			}
+				
+		if($scope.wp.Images[id].favorite=='off')
+			{
+				$scope.images[id].favorite='on';
+				imgFav.push( $scope.wp.Images[id]);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				
+				$scope.favorites = Favorites.addFavorites();
+			}
+			else{
+				for(var y=0; y<imgFav.length; y++)
+				{
+					imgSrc.push(imgFav[y].src);
+				}
+				$scope.images.favorite='off';
+				var index=imgSrc.indexOf($scope.wp.Images[id].src);
+				imgFav.splice(index, 1);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				$scope.favorites = Favorites.addFavorites();
+			}
+			
+		}
+		
+		///////////////////Bigphoto////////////	
+		if(type=='bigphoto')
+		{
+			if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+			{
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			}
+			else
+			{
+				var imgFav =[];
+			}
+			if($scope.favorite=='off')
+				{
+					$scope.favorite='on';
+					imgFav.push( $scope.wp.Images[id]);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					$scope.favorites = Favorites.addFavorites();
+				}
+				else{
+					
+					for(var y=0; y<imgFav.length; y++)
+					{
+						imgSrc.push(imgFav[y].src);
+					}
+					$scope.favorite='off';
+					var index=imgSrc.indexOf($scope.wp.Images[id].src);
+					imgFav.splice(index, 1);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					$scope.favorites = Favorites.addFavorites();
+					}
+					
+			}	
+		
+		///////////Lessons////////////
+		
+		if(type=='lesson')
+		{
+			if(localStorage.getItem('LessonArr')!=null && localStorage.getItem('LessonArr')!='')
+			{
+				var lessonFav = jQuery.parseJSON(localStorage.getItem('LessonArr'));
+			}
+			else
+			{
+				var lessonFav =[];
+			}
+			
+			if($scope.lessons[id].favorite=='off')
+			{
+				$scope.lessons[id].favorite='on';
+				lessonFav.push( $scope.lessons[id]);
+				localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
+				$scope.favorites = Favorites.addFavorites();
+			}
+			else{
+				
+				$scope.lessons[id].favorite='off';
+				for(var y=0; y<lessonFav.length; y++)
+					{
+						lessonUrl.push(lessonFav[y].url);
+					}
+					
+					var index=lessonUrl.indexOf($scope.lessons[id].url);
+					lessonFav.splice(index, 1);
+					localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
+					$scope.favorites = Favorites.addFavorites();
+			}
+		}
+		
+	};			
+
+
+$scope.openBigImage = function(img,post_title,post_url, caption, parent, id, favorite)
+		{
+
 			$scope.bigImageHider=false;
 			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
 			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
@@ -348,6 +510,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 			$scope.post_url = post_url;
 			$scope.parent = parent;
 			$scope.id = id;
+			$scope.favorite = favorite;
 			$scope.percentLoaded = 0;
 				
 			preloadImage.preloadImages([img])
@@ -379,7 +542,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 		{
 			
 			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
-			length=$scope.wp.Images.length;
+			length=$scope.images.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
 			{
@@ -390,12 +553,14 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 			}
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
-			$scope.alt=$scope.wp.Images[prev].caption;
-			$scope.post_title = $scope.wp.Images[prev].post_title;
-			$scope.post_url = $scope.wp.Images[prev].post_url;
-			$scope.parent = $scope.wp.Images[prev].parent;
-			$scope.id = $scope.wp.Images[prev].id;
-			preloadImage.preloadImages([$scope.wp.Images[prev].src])
+			$scope.alt=$scope.images[prev].caption;
+			$scope.post_title = $scope.images[prev].post_title;
+			$scope.post_url = $scope.images[prev].post_url;
+			$scope.parent = $scope.images[prev].parent;
+			$scope.id = $scope.images[prev].id;
+			$scope.favorite = $scope.images[prev].favorite;
+			
+			preloadImage.preloadImages([$scope.images[prev].src])
 			
             .then(
                     function handleResolve( ) {
@@ -403,7 +568,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
                         // Loading was successful.
                         $scope.isLoading = false;
                         $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.wp.Images[prev].src]
+                        $scope.bigImageSrc=[$scope.images[prev].src]
                        
  
                     }
@@ -414,10 +579,12 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 		
 		$scope.nextImg = function(id)
 		{
+			
 			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
-            length=$scope.wp.Images.length;
+            length=$scope.images.length;
+            
 			var next = (parseInt(id)+1)
 			if(next<(length-1))
 			{
@@ -428,22 +595,23 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 				next=0;
 			}
 			
-			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
-			
-			preloadImage.preloadImages([$scope.wp.Images[next].src])
+			//$scope.bigImageSrc=[$scope.images[next].src];
+			$scope.favorite = $scope.images[next].favorite;
+						
+			preloadImage.preloadImages([$scope.images[next].src])
 			.then(
                     function handleResolve(  ) {
  						
                         // Loading was successful.
                         $scope.isLoading = false;
                         $scope.isSuccessful = true;
-                       $scope.bigImageSrc=[$scope.wp.Images[next].src];
-                        $scope.alt=$scope.wp.Images[next].caption;
-						$scope.post_title = $scope.wp.Images[next].post_title;
-						$scope.post_url = $scope.wp.Images[next].post_url;
-						$scope.parent = $scope.wp.Images[next].parent;
-						$scope.id = $scope.wp.Images[next].id;
- 
+                       $scope.bigImageSrc=[$scope.images[next].src];
+                        $scope.alt=$scope.images[next].caption;
+						$scope.post_title = $scope.images[next].post_title;
+						$scope.post_url = $scope.images[next].post_url;
+						$scope.parent = $scope.images[next].parent;
+						$scope.id = $scope.images[next].id;
+						
                     }
                    
                );
@@ -463,7 +631,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 
 
 angular.module('Media', [])
-.controller('mediaPage', ['$scope','$location','$routeParams','Media','Teacher','preloadImage','Slideshow', function($scope, $location, $routeParams,Media,Teacher , preloadImage, Slideshow)
+.controller('mediaPage', ['$scope','$location','$routeParams','Media','Teacher','preloadImage','Slideshow','Favorites', function($scope, $location, $routeParams,Media,Teacher , preloadImage, Slideshow, Favorites)
 {
 	myScroll  = new iScroll("wrapper", {hScrollbar:false});
 	$scope.bigImage = false;
@@ -509,6 +677,11 @@ angular.module('Media', [])
 			//$scope.name = $scope.name.replace(/'/g, "\'");
 			
 			$scope.wp = result;
+			$scope.images = $scope.wp.Images;
+			for(var x=0; x<$scope.images.length; x++)
+			{
+				Favorites.checkFavorites($scope.images[x], 'images');
+			}
 			$scope.bigImage=true;
 			$scope.bigImage2=false;
 			$scope.popup=true;
@@ -529,7 +702,7 @@ angular.module('Media', [])
 			$scope.bigImage=true;
 		};	
 		
-	$scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
+	$scope.openBigImage = function(img,post_title,post_url, caption, parent, id, favorite)
 		{
 			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
 			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
@@ -545,6 +718,7 @@ angular.module('Media', [])
 			$scope.post_url = post_url;
 			$scope.parent = parent;
 			$scope.id = id;
+			$scope.favorite=favorite;
 			$scope.percentLoaded = 0;
 				
 			preloadImage.preloadImages([img])
@@ -578,7 +752,7 @@ angular.module('Media', [])
 		{
 			
 			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
-			length=$scope.wp.Images.length;
+			length=$scope.images.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
 			{
@@ -587,14 +761,7 @@ angular.module('Media', [])
 			else{
 			prev=(length-1);	
 			}
-			$scope.isLoading = true;
-            $scope.isSuccessful = false;
-			$scope.alt=$scope.wp.Images[prev].caption;
-			$scope.post_title = $scope.wp.Images[prev].post_title;
-			$scope.post_url = $scope.wp.Images[prev].post_url;
-			$scope.parent = $scope.wp.Images[prev].parent;
-			$scope.id = $scope.wp.Images[prev].id;
-			preloadImage.preloadImages([$scope.wp.Images[prev].src])
+			preloadImage.preloadImages([$scope.images[prev].src])
 			
             .then(
                     function handleResolve( ) {
@@ -602,8 +769,16 @@ angular.module('Media', [])
                         // Loading was successful.
                         $scope.isLoading = false;
                         $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.wp.Images[prev].src]
-                       
+                        $scope.bigImageSrc=[$scope.images[prev].src]
+                       	$scope.isLoading = true;
+			            $scope.isSuccessful = false;
+						$scope.alt=$scope.images[prev].caption;
+						$scope.post_title = $scope.images[prev].post_title;
+						$scope.post_url = $scope.images[prev].post_url;
+						$scope.parent = $scope.images[prev].parent;
+						$scope.id = $scope.images[prev].id;
+						$scope.favorite = $scope.images[prev].favorite;
+
  
                     }
                     
@@ -616,9 +791,10 @@ angular.module('Media', [])
 			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
-            length=$scope.wp.Images.length;
+            length=$scope.images.length;
+            console.log(id);
 			var next = (parseInt(id)+1)
-			if(next<(length-1))
+			if(next<($scope.images.length-1))
 			{
 				next=next;
 			}
@@ -627,21 +803,22 @@ angular.module('Media', [])
 				next=0;
 			}
 			
-			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
+			//$scope.bigImageSrc=[$scope.images[next].src];
 			
-			preloadImage.preloadImages([$scope.wp.Images[next].src])
+			preloadImage.preloadImages([$scope.images[next].src])
 			.then(
                     function handleResolve(  ) {
  						
                         // Loading was successful.
                         $scope.isLoading = false;
                         $scope.isSuccessful = true;
-                       	$scope.bigImageSrc=[$scope.wp.Images[next].src];
-                        $scope.alt=$scope.wp.Images[next].caption;
-						$scope.post_title = $scope.wp.Images[next].post_title;
-						$scope.post_url = $scope.wp.Images[next].post_url;
-						$scope.parent = $scope.wp.Images[next].parent;
-						$scope.id = $scope.wp.Images[next].id;
+                       	$scope.bigImageSrc=[$scope.images[next].src];
+                        $scope.alt=$scope.images[next].caption;
+						$scope.post_title = $scope.images[next].post_title;
+						$scope.post_url = $scope.images[next].post_url;
+						$scope.parent = $scope.images[next].parent;
+						$scope.id = $scope.images[next].id;
+						$scope.favorite = $scope.images[next].favorite;
  
                     }
                    
@@ -650,6 +827,76 @@ angular.module('Media', [])
 			
 			$scope.imageLoaded=true;
 		};	
+		
+		$scope.switchFavorite=function(id, type)
+		{
+		var imgSrc=[];	
+		if(type=='photo')
+		{
+			if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+			{
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			}
+			else
+			{
+				var imgFav =[];
+			}
+			if($scope.images[id].favorite=='off')
+				{
+					$scope.images[id].favorite='on';
+					imgFav.push( $scope.wp.Images[id]);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					
+				}
+				else{
+					for(var y=0; y<imgFav.length; y++)
+					{
+						imgSrc.push(imgFav[y].src);
+					}
+
+					$scope.images[id].favorite='off';
+					var index=imgSrc.indexOf($scope.wp.Images[id].src);
+					imgFav.splice(index, 1);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					
+				}
+		}	
+		if(type=='bigphoto')
+		{
+		if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+			{
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			}
+			else
+			{
+				var imgFav =[];
+			}	
+			
+		if($scope.favorite=='off')
+			{
+				$scope.favorite='on';
+				imgFav.push( $scope.wp.Images[id]);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				
+			}
+			else{
+				
+				$scope.favorite='off';
+				for(var y=0; y<imgFav.length; y++)
+					{
+						imgSrc.push(imgFav[y].src);
+					}
+					$scope.images.favorite='off';
+					var index=imgSrc.indexOf($scope.wp.Images[id].src);
+					imgFav.splice(index, 1);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+
+				}
+		}
+		$scope.favorites = Favorites.addFavorites();	
+		
+	};			
+
 
 }])
 
@@ -860,7 +1107,7 @@ angular.module('Media', [])
 				next=0;
 			}
 			
-			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
+			//$scope.bigImageSrc=[$scope.images[next].src];
 			
 			preloadImage.preloadImages([$scope.data[next].url])
 			.then(
@@ -1765,6 +2012,9 @@ angular.module('Homepage', [])
 	
 }]);
 
+
+
+
 angular.module('Highlights', [])
 .controller('highlightsController', ['$scope','$location','$routeParams','preloadImage','$sce', '$rootScope','HomepageData', function($scope, $location, $routeParams, preloadImage,  $sce, $rootScope, HomepageData)
 {
@@ -1797,9 +2047,242 @@ angular.module('Footer', [])
 		
 }]);
 
+angular.module('Favorites', [])
+.controller('FavoriteController', ['$scope','$location','$routeParams','preloadImage','$sce', '$rootScope','Favorites', 'preloadImage', function($scope, $location, $routeParams, preloadImage,  $sce, $rootScope, Favorites, preloadImage)
+{
+	
+	$scope.openFavorites=function()
+	{
+		
+		$scope.bigImageFav=true;
+		$scope.popupHider6=false;
+		$scope.favorites =Favorites.addFavorites();
+		
+		
+	};	
+	$scope.closeFavorites = function()
+	{
+		$scope.popupHider6=true;
+		$scope.bigImageFav=false;
+	};
+	
+	$scope.openBigImage2=function(img,post_title,post_url, caption, parent, id, favorite)
+		{
+			
+			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
+			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
+			$scope.isLoading = true;
+            $scope.isSuccessful = false;
+            	
+			$scope.bigImageFav2=true;
+			$scope.bigImageFav=false;
+			$scope.popupHider7=false;
+			
+			$scope.alt=caption;
+			$scope.post_title = post_title;
+			$scope.post_url = post_url[0];
+			$scope.parent = parent[0];
+			$scope.id = id;
+			$scope.favorite = favorite;
+			$scope.percentLoaded = 0;
+				
+			preloadImage.preloadImages([img])
+			.then(
+                    function handleResolve( imageLocations ) {
+ 						
+                        // Loading was successful.
+                        $scope.isLoading = false;
+                        $scope.isSuccessful = true;
+                        $scope.bigImageSrc=[img]
+                       
+ 
+                    }
+                   
+               );
+ 
+          
+			//$scope.imageLoaded=true;
+		
+		};
+	$scope.closeBigImage2 = function()
+	{
+		$scope.popupHider7=true;
+		$scope.bigImageFav2=false;
+		$scope.popupHider6=false;
+		$scope.bigImageFav=true;
+	};
+	
+	$scope.changeClass = function(obj)
+	{
+		for(var x=0; x<$scope.favButtons.length; x++)
+		{
+			
+			if(obj.name==$scope.favButtons[x].name)
+			{
+				$scope.favButtons[x].state='on';
+				$scope.favButtons[x].classy='shower';
+			}
+			else
+			{
+				$scope.favButtons[x].state='off';
+				$scope.favButtons[x].classy='hider';
+			}
+		}
+	};
+	
+	$scope.switchFavorite=function(id, type)
+	{
+		var blogTitle=[];
+		var imgSrc=[];
+		var lessonUrl = [];
+		///////////////Blogs//////////////////
+		if(type=='blog')
+		{
+			
+			if(localStorage.getItem('BlogArr')!=null && localStorage.getItem('FavoriteArr')!='')
+					{
+						var blogFav = jQuery.parseJSON(localStorage.getItem('BlogArr'));
+						
+					}
+				else
+				{
+					var blogFav=[];
+				}
+				
+			if($scope.favorites.blogs[id].favorite=='off')
+			{
+				$scope.favorites.blogs[id].favorite='on';
+				blogFav.push( $scope.favorites.blogs[id]);
+				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
+			}
+			else{
+				
+				for(var x=0; x<blogFav.length; x++)
+				{
+					blogTitle.push(blogFav[x].BlogTitle);
+				}
+				
+				$scope.favorites.blogs[id].favorite='off';
+				//console.log($scope.blogs[id].favorite);
+				
+				var index=blogTitle.indexOf($scope.favorites.blogs[id].BlogTitle);
+				blogFav.splice(index, 1);
+				localStorage.setItem('BlogArr', JSON.stringify(blogFav));
+			}
+		}	
+		////////////////PHotos//////////////////
+		if(type=='photo')
+		{
+			if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+			{
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			}
+			else
+			{
+				var imgFav =[];
+			}
+			
+		if($scope.favorites.images[id].favorite=='off')
+			{
+				$scope.favorites.images[id].favorite='on';
+				imgFav.push( $scope.favorite.images[id]);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+			}
+			else{
+				for(var y=0; y<imgFav.length; y++)
+				{
+					imgSrc.push(imgFav[y].src);
+				}
+				$scope.favorites.images[id].favorite='off';
+				var index=imgSrc.indexOf($scope.favorites.images[id].src);
+				imgFav.splice(index, 1);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				
+			}
+			
+		}
+		////////////BigPhoto
+		if(type=='bigphoto')
+		{
+			if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+			{
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			}
+			else
+			{
+				var imgFav =[];
+			}
+		console.log($scope.favorites.images[id]);	
+		if($scope.favorites.images[id].favorite=='off')
+			{
+				$scope.favorites.images[id].favorite='on';
+				imgFav.push( $scope.favorite.images[id]);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+			}
+			else{
+				for(var y=0; y<imgFav.length; y++)
+				{
+					imgSrc.push(imgFav[y].src);
+				}
+				$scope.favorites.images[id].favorite='off';
+				var index=imgSrc.indexOf($scope.favorites.images[id].src);
+				imgFav.splice(index, 1);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				
+			}
+			
+		}
+		
+		
+		///////////Lessons////////////
+		
+		if(type=='lesson')
+		{
+			if(localStorage.getItem('LessonArr')!=null && localStorage.getItem('LessonArr')!='')
+			{
+				var lessonFav = jQuery.parseJSON(localStorage.getItem('LessonArr'));
+			}
+			else
+			{
+				var lessonFav =[];
+			}
+			
+			if($scope.favorites.lessons[id].favorite=='off')
+			{
+				$scope.favorite.lessons[id].favorite='on';
+				lessonFav.push( $scope.favorite.lessons[id]);
+				localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
+			}
+			else{
+				
+				$scope.favorites.lessons[id].favorite='off';
+				for(var y=0; y<lessonFav.length; y++)
+					{
+						lessonUrl.push(lessonFav[y].url);
+					}
+					var index=lessonUrl.indexOf($scope.favorites.lessons[id].url);
+					lessonFav.splice(index, 1);
+					localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
+					
+			}
+		}
+		$scope.favorites = Favorites.addFavorites();
+	};			
+	
+	
+	$scope.bigImageFav=false;
+	$scope.popupHider6=true;
+	$scope.popupHider7=true;
+	$scope.bigImageFav2=false;
+	
+	$scope.favButtons = [{name:'blogs', state:'on', classy: 'shower'}, {name:'images', state:'off', classy:'hider'}, {name:'lessons', state:'off', classy:'hider'}, {name:'dyks', state:'off', classy:'hider'}];
+	
+	
+
+}]);
 
 angular.module('SearchBox', [])
-.controller('SearchBox', ['$scope','SearchBox','preloadImage','$sce', function($scope, SearchBox, preloadImage, $sce)
+.controller('SearchBox', ['$scope','SearchBox','preloadImage','$sce','Favorites', function($scope, SearchBox, preloadImage, $sce, Favorites)
 {
 	
 	
@@ -1850,6 +2333,12 @@ angular.module('SearchBox', [])
 			SearchBox.searchBlogs($scope.search_blogs).then(function(result)
 			{
 				$scope.blogs = result;
+				for(var x=0; x<$scope.blogs.length; x++)
+				{
+					$scope.blogs[x].id=x;
+					//$scope.blogs[x].favorite='off';
+					Favorites.checkFavorites($scope.blogs[x], 'blogs');	
+				}
 				$scope.showBlogSearch=true;
 				//console.log($scope.blogs);
 				
@@ -1894,9 +2383,17 @@ angular.module('SearchBox', [])
 			$scope.bigImageHider3=false;
 			$scope.popupHider3=false;
 			$scope.showImageSearch=false;
+			$scope.images={};
+			
 			SearchBox.searchImages($scope.search_images).then(function(result)
 			{
 				$scope.images =result;
+				console.log($scope.images);
+				for(var x=0; x<$scope.images.length; x++)
+				{
+					$scope.images[x].id=x;
+					Favorites.checkFavorites($scope.images[x], 'images');
+				}
 				$scope.showImageSearch=true;
 			});
 
@@ -1947,6 +2444,11 @@ angular.module('SearchBox', [])
 			
 			$scope.lessons = result;
 			$scope.showLessonSearch=true;
+			for(var z=0; z<$scope.lessons.length; z++)
+			{
+				$scope.lessons[z].id=z;
+				Favorites.checkFavorites($scope.lessons[z], 'lessons');
+			}	
 			
 			
 		});
@@ -1995,6 +2497,11 @@ angular.module('SearchBox', [])
 		{
 			
 			$scope.sitesearch = result;
+			for(var x=0; x<$scope.sitesearch.length; x++)
+			{
+				$scope.sitesearch[x].id=x;
+			}
+			
 			$scope.showSiteSearch=true;
 			
 			
@@ -2083,7 +2590,7 @@ angular.module('SearchBox', [])
 			
 		};	
 		
-	$scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
+	$scope.openBigImage = function(img,post_title,post_url, caption, parent, id, favorite)
 		{
 			
 			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
@@ -2100,6 +2607,7 @@ angular.module('SearchBox', [])
 			$scope.post_url = post_url[0];
 			$scope.parent = parent[0];
 			$scope.id = id;
+			$scope.favorite = favorite;
 			$scope.percentLoaded = 0;
 				
 			preloadImage.preloadImages([img])
@@ -2122,7 +2630,7 @@ angular.module('SearchBox', [])
 		};
 		
 		
-		$scope.prevImg = function(id)
+		$scope.prevImg = function(id, favorite)
 		{
 			
 			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
@@ -2150,7 +2658,16 @@ angular.module('SearchBox', [])
                         // Loading was successful.
                         $scope.isLoading = false;
                         $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.images[prev].src[0]]
+                        $scope.bigImageSrc=[$scope.images[prev].src[0]];
+                        $scope.isLoading = true;
+			            $scope.isSuccessful = false;
+						$scope.alt=$scope.images[prev].caption;
+						$scope.post_title = $scope.images[prev].post_title;
+						$scope.post_url = $scope.images[prev].post_url[0];
+						$scope.parent = $scope.images[prev].parent[0];
+						$scope.id = $scope.images[prev].id;
+						$scope.favorite = $scope.images[prev].favorite;
+						preloadImage.preloadImages([$scope.images[prev].src[0]])
                        
  
                     }
@@ -2188,6 +2705,7 @@ angular.module('SearchBox', [])
                         $scope.alt=$scope.images[next].caption;
 						$scope.post_title = $scope.images[next].post_title;
 						$scope.post_url = $scope.images[next].post_url[0];
+						$scope.favorite = $scope.images[next].favorite;
 						
 						$scope.parent = $scope.images[next].parent[0];
 						$scope.id = $scope.images[next].id;
@@ -2204,6 +2722,142 @@ angular.module('SearchBox', [])
 	{
 	  return $sce.trustAsHtml(value);
 	};
+	
+	
+	$scope.switchFavorite=function(id, type)
+	{
+		var blogTitle=[];
+		var imgSrc=[];
+		var lessonUrl = [];
+		if(type=='blog')
+		{
+			if(localStorage.getItem('BlogArr')!=null && localStorage.getItem('FavoriteArr')!='')
+			{
+				var blogFav = jQuery.parseJSON(localStorage.getItem('BlogArr'));
+				
+			}
+			else
+			{
+				var blogFav=[];
+			}
+
+			if($scope.blogs[id].favorite=='off')
+			{
+				$scope.blogs[id].favorite='on';
+				blogFav.push( $scope.blogs[id]);
+				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
+				//console.log($scope.wp.items[id].favorite);
+			}
+			else{
+				for(var x=0; x<blogFav.length; x++)
+				{
+					blogTitle.push(blogFav[x].BlogTitle);
+				}
+				var index=blogTitle.indexOf($scope.blogs[id].BlogTitle);
+				blogFav.splice(index, 1);
+				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
+	
+				$scope.blogs[id].favorite='off';
+				//console.log($scope.wp.items[id].favorite);
+			}
+		}	
+		if(type=='photo')
+		{
+		if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+			{
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			}
+			else
+			{
+				var imgFav =[];
+			}
+	
+		if($scope.images[id].favorite=='off')
+			{
+				$scope.images[id].favorite='on';
+				imgFav.push( $scope.images[id]);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				
+			}
+			else{
+				for(var y=0; y<imgFav.length; y++)
+				{
+					imgSrc.push(imgFav[y].src);
+				}
+				$scope.images[id].favorite='off';
+				var index=imgSrc.indexOf($scope.images[id].src);
+				imgFav.splice(index, 1);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				
+			}
+		}	
+		if(type=='bigphoto')
+		{
+		if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+			{
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+			}
+			else
+			{
+				var imgFav =[];
+			}	
+		if($scope.favorite=='off')
+			{
+				$scope.favorite='on';
+				imgFav.push( $scope.images[id]);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+
+			}
+			else{
+				
+				$scope.favorite='off';
+				for(var y=0; y<imgFav.length; y++)
+					{
+						imgSrc.push(imgFav[y].src);
+					}
+				$scope.images.favorite='off';
+				var index=imgSrc.indexOf($scope.images[id].src);
+				imgFav.splice(index, 1);
+				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+
+				}
+		}	
+		if(type=='lesson')
+		{
+			if(localStorage.getItem('LessonArr')!=null && localStorage.getItem('LessonArr')!='')
+			{
+				var lessonFav = jQuery.parseJSON(localStorage.getItem('LessonArr'));
+			}
+			else
+			{
+				var lessonFav =[];
+			}
+			if($scope.lessons[id].favorite=='off')
+			{
+				$scope.lessons[id].favorite='on';
+				$scope.lessons[id].favorite='on';
+				lessonFav.push( $scope.lessons[id]);
+				localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
+
+			}
+			else{
+				
+				$scope.lessons[id].favorite='off';
+				for(var y=0; y<lessonFav.length; y++)
+					{
+						lessonUrl.push(lessonFav[y].url);
+					}
+				$scope.images.favorite='off';
+				var index=lessonUrl.indexOf($scope.lessons[id].url);
+				lessonFav.splice(index, 1);
+				localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
+
+				}
+		}
+		$scope.favorites = Favorites.addFavorites();
+	};			
+
+	
 	
 	$scope.bigImageHider=true;
 	$scope.popupHider=true;
@@ -2225,6 +2879,8 @@ angular.module('Navigation', [])
 {
 	
 	$scope.searchBox=false;
+	$scope.popupHider6=true;
+	$scope.bigImageFav=false;
 	$scope.showNav=true;
 	$scope.navigationItems = [{name:'about', state:'hider'},{name:'current', state:'hider'}, {name:'past', state:'hider'}, {name:'alumni', state:'hider'}, {name:'resources', state:'hider'}, {name:'media', state:'hider'}];	
 	$scope.navigationToggle=function(id)

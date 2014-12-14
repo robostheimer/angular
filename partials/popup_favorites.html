@@ -1,0 +1,105 @@
+<div>
+	<div tabindex = "38" class="bigImgClose" id="alert_box_close" ng-click="closeFavorites()" ng-enter="closeFavorites()">
+		<img tabindex="110" style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+	</div>
+	<div id="favoritesbox" class="scrolly">
+		
+		<ul class="chooser">
+			<li id="wrapper_search_favbtn" class="{{favButtons[0].state}}" ng-click="changeClass(favButtons[0])">
+				BLOGS<sup class="fav_sup" id="blog_sup"  ng-hide="favorites.blogs.length<1">{{favorites.blogs.length}}</sup>
+			</li>
+			<li id="wrapper_search_fav_imgbtn" class="{{favButtons[1].state}}" ng-click="changeClass(favButtons[1])" >
+				IMAGES<sup class="fav_sup" id="img_sup" ng-hide="favorites.images.length<1" >{{favorites.images.length}}</sup>
+			</li>
+			<li id="wrapper_search_fav_lessonsbtn" class="{{favButtons[2].state}}" ng-click="changeClass(favButtons[2])" >
+				LESSONS<sup class="fav_sup" id="lesson_sup" ng-hide="favorites.lessons.length<1">{{favorites.lessons.length}}</sup>
+			</li>
+			<li id="wrapper_search_fav_dykbtn"  class='{{favButtons[3].state}}' ng-click="changeClass(favButtons[3])" >
+				DYKs<sup class="fav_sup" id="dyk_sup" ng-hide="favorites.dyks.length<1" >{{favorites.dyks.length}}</sup>
+			</li>
+		</ul>
+		<!----Blogs--->
+		<div class="wrapper_fav {{favButtons[0].classy}}" id="wrapper_search_fav" style="overflow-y: scroll;" >
+
+			<div ng-repeat = "blog in favorites.blogs track by $index" class="searcher" id="searcher{{blog.id}}" style="">
+				<div  id="search_image{{blog.id}}_searchblog" class="search_image_blog">
+					<img tabindex="{{blog.tabIndex}}" resizesearch-blog id="search_image_img{{blog.id}}_searchblog" class="ImgClick" style="border:none;" src="{{blog.BlogImage}}?w={{search_blog}}" alt="blog.BlogTitle">
+				</div>
+				<div  id="search_image_txt{{blog.id}}_searchblog" class="search_image_text">
+					<b> <a tabindex = "{{blog.tabIndex}}" id="titlelink{{blog.id}}_blog" class="searchlink titlelink" href="{{blog.BlogUrl.0}}" target="_blank"> <span class="favtitle">{{blog.BlogTitle}}</span></a> </b> &nbsp;&nbsp;
+
+					<img tabindex="{{blog.tabIndex}}" id="favorite{{blog.id}}_searchblog" class="search_favorite {{blog.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{blog.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(blog.id, 'blog')" ng-enter="switchFavorite(blog.id, 'blog')">
+					<div style="margin-top:10px;font-weight:normal">
+						<span ng-repeat="tag in blog.CategoriesArr track by $index"><a tabindex="{{blog.tabIndex}}" class="caption" style="cursor:pointer"  ng-click="searchBlogs(tag)">#{{tag}} </a></span>
+
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!---Images--->
+
+		<div class="wrapper_fav {{favButtons[1].classy}}" id="wrapper_search_fav_img" style="overflow-y: scroll;" >
+
+			<div id="search_img_media{{src.id}}" class="search_image" ng-repeat = "src in favorites.images">
+				<img tabindex="{{src.tabIndex}}" id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite {{src.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{src.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')" >
+				<div>
+					<img tabindex="{{src.tabIndex}}" resizesearch-image ng-click ="bigImageFav2=true; openBigImage2(src.src, src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" ng-enter ="bigImage2=true; openBigImage(src.src[0], src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w={{search_image}}" alt="{{src.finalCaption}}" />
+				</div>
+			</div>
+
+		</div>
+		<div class="clear"></div>
+
+
+	<!---Lessons--->
+
+	<div class="wrapper_fav {{favButtons[2].classy}}" id="wrapper_search_fav_lessons" style="overflow-y: scroll;" >
+
+		<div ng-repeat="lesson in favorites.lessons track by $index" class="searcher" id="searcher_search_lesson{{lesson.id}}" ng-hide ="lesson.hider==true">
+			<div id="search_searched_lesson{{lesson.id}}" style="padding-bottom:20px;list-style:none;" class="lessonsearch">
+				<b style="margin-left:0"><a tabindex="{{lesson.tabIndex}}" target="_blank" id="titlelink{{lesson.id}}lesson_searched" class="titlelink" href="{{lesson.url}}" title="{{lesson.title}}">{{lesson.title}}</a> &nbsp;&nbsp;</b><br><br>{{lesson.description}}
+				<img tabindex="{{lesson.tabIndex}}" id="favorite_searched_lesson{{lesson.id}}" class="search_favorite" src="/images/star_{{lesson.favorite}}.png" alt="Add to Favorites" style="border:none" ng-click="switchFavorite(lesson.id, 'lesson')" ng-enter="switchFavorite(lesson.id, 'lesson')">
+				<div tabindex="{{lesson.tabIndex}}" style="font-size:10px">
+					<em>({{lesson.year}})</em>
+				</div>
+				<div>
+					<p tabindex="{{lesson.tabIndex}}" ng-bind-html="SkipValidation(lesson.description)">
+
+					</p>
+					<div tabindex="{{lesson.tabIndex}}" class="author">
+						Author: <a href="#/{{lesson.year}}/{{lesson.firstname}}*{{lesson.lastname}}">{{lesson.firstname}} {{lesson.lastname}}</a>
+					</div>
+					<div tabindex="{{lesson.tabIndex}}" class="grades">
+						Grade Levels: <a class="caption" style="cursor:pointer" ng-click="searchLessons(grade)" ng-repeat="grade in lesson.gradesArr">{{grade}} </a>
+					</div>
+					<div tabindex="{{lesson.tabIndex}}" class="topics">Topics:
+						{{lesson.topics}}
+					</div>
+					<div tabindex="{{lesson.tabIndex}}" class="tags">
+						Tags:<a tabindex="{{lesson.tabIndex}}" class="caption" style="cursor:pointer" ng-click="searchLessons(keyword)" ng-repeat="keyword in lesson.keywordArr">#{{keyword}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!---DYKs--->
+
+	<div class="wrapper_fav {{favButtons[3].classy}}" id="wrapper_search_fav_lessons" style="overflow-y: scroll;" >
+
+		<div class="clear"></div>
+	</div>
+	<ul id="actions">
+	<li onclick="addInfo();"><img id="info" style="border:none;" src="/images/dyk/info.png" alt="Learn about how we hold your favorites">
+		<div id="LSinfo" style="display:none"><p>To allow website users to add resources to favorites and email them, this site uses a feature of HTML5 called “Local Storage.” This feature creates a storage file on the user’s local hard drive that holds links to the resources from this website that the individual user identifies as a favorite. No information from this file is transferred to NOAA or any other website. This file can be cleared at any time by pressing the the <img src="/images/dyk/trash.png" class="no-border" width="12" height="12" alt="delete favorites"> button on your Favorite Resources page.</p><p>Your data will only be accessible in the browser you are using currently.  To make your data accessible on other devices, we reccomend you email them to yourself or use the links below to add them to a "cloud-based" application.</p></div></li><li id="mail"><img onclick="showEmailForm()" style="border:none;" src="/images/dyk/mail.png" alt="Email your favorites"><div id="mailform" style="display:none"><form target="_blank" name="emailform" id="emailform"> <div style="padding:15px; padding-bottom:5px; padding-top:0px;"> Email:<br> <input name="email" id="email" type="email" autocomplete="off" style="width:85%" required=""></div><div style="padding:15px;"></div></form><div style="padding:15px; padding-top:0px;"><button onclick="setUpSharer('email_html')" id="html">HTML Email</button>&nbsp;&nbsp;<button style="padding-right:15px" onclick="setUpSharer('email_plain')" id="plain">Plain Text Email</button></div><div id="success" style="padding:15px;display:none; color:#189E81"></div></div></li><li id="trash"><img onclick="localStorage.clear();$('.search_favorite').attr('src','/images/star.png'); $('#actions').html('');addLS();$('#numberofresults_fav').html('<h6>Number of Favorites: 0');" style="border:none;" src="/images/dyk/trash.png"></li>
+			<li></li><li></li>
+			<li id="last"></li>
+			<li id="facebook_ls"><img onclick="setUpSharer('facebook')" style="border:none;" src="/images/facebook_for_ls.png"></li>
+			<li id="twitter_ls"><img onclick="setUpSharer('twitter')" style="border:none;" src="/images/twitter_for_ls.png"></li>
+			<li id="li_ls"><img onclick="setUpSharer('linkedin')" style="border:none;" src="/images/linkedin_for_ls.png"></li>
+			<li id="google_plus"><img onclick="setUpSharer('google')" style="border:none;" src="/images/google+.png"></li>
+			<li id="evernote"><img onclick="setUpSharer('evernote')" style="border:none;" src="/images/evernote.png"></li></ul>
+</div>
+

@@ -1,24 +1,24 @@
 <div >
-			<div class="bigImgClose" id="alert_box_close" ng-click="closeBigImage()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+			<div tabindex = "38" class="bigImgClose" id="alert_box_close" ng-click="closeBigImage()" ng-enter="closeBigImage()"><img tabindex="110" style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
 			</div>
-			<div id="imagesbox" class="scrolly">
-				<div id="numberofresults"><h2> Search Results for: {{search_blogs}} </h2><br><h6>Number of Results: {{blogs.length}}</h6></div><br>
+			<div id="blogsbox" class="scrolly">
+				<div id="numberofresults" tabindex="39"><h2> Search Results for: {{search_blogs}} </h2><br><h6>Number of Results: {{blogs.length}}</h6></div><br>
 				<div class="preloader" ng-hide="showBlogSearch==true"></div>
 				<div class="wrapper_search" id="wrapper_search_blogs" style="overflow-y: scroll;" ng-show="showBlogSearch==true">
 					
 					<div ng-repeat = "blog in blogs track by $index" class="searcher" id="searcher{{blog.id}}" style="">
 						<div  id="search_image{{blog.id}}_searchblog" class="search_image_blog">
-							<img resizesearch-blog id="search_image_img{{blog.id}}_searchblog" class="ImgClick" style="border:none;" src="{{blog.BlogImage}}?w={{search_blog}}" alt="blog.BlogTitle">
+							<img tabindex="{{blog.tabIndex}}" resizesearch-blog id="search_image_img{{blog.id}}_searchblog" class="ImgClick" style="border:none;" src="{{blog.BlogImage}}?w={{search_blog}}" alt="blog.BlogTitle">
 						</div>
 						<div  id="search_image_txt{{blog.id}}_searchblog" class="search_image_text">
 							<b>
-							<a id="titlelink{{blog.id}}_blog" class="searchlink titlelink" href="{{blog.BlogUrl.0}}" target="_blank">
+							<a tabindex = "{{blog.tabIndex}}" id="titlelink{{blog.id}}_blog" class="searchlink titlelink" href="{{blog.BlogUrl.0}}" target="_blank">
 								<span class="favtitle">{{blog.BlogTitle}}</span></a>
 							</b> &nbsp;&nbsp;
 							
-							<img id="favorite1_searchblog" class="search_favorite on" style="border:none;cursor:pointer" src="/images/star.png" alt="Add to Favorites">
+							<img tabindex="{{blog.tabIndex}}" id="favorite{{blog.id}}_searchblog" class="search_favorite on" style="border:none;cursor:pointer" src="/images/star_{{blog.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(blog.id, 'blog')" ng-enter="switchFavorite(blog.id, 'blog')">
 							<div style="margin-top:10px;font-weight:normal"> 
-								<span ng-repeat="tag in blog.Tags track by $index"><a class="caption" style="cursor:pointer"  ng-click="searchBlogs(tag)">#{{tag}} </a></span>
+								<span ng-repeat="tag in blog.Tags track by $index"><a tabindex="{{blog.tabIndex}}" class="caption" style="cursor:pointer"  ng-click="searchBlogs(tag)">#{{tag}} </a></span>
 								
 							</div>
 						</div>

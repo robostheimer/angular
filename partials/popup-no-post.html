@@ -1,8 +1,8 @@
 <div>
-	<div class="bigImgClose" ng-click="closeBigImage()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+	<div class="bigImgClose" tabIndex="200" ng-click="closeBigImage()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
 	</div><img id="favorite_img_big_profile{{id}}" resize-bigimage class="search_favorite_image_off search_favorite" src="/images/star.png" border="none" alt="Add to Favorites">
-	<div style="max-width:650px; margin:auto">
-		<img id= "bigImg{{id}}" src='{{bigImageSrc[0]}}?w={{bigImageWidth}}'  alt="{{alt}}"  class="no-border" />
+	<div >
+		<img t id= "bigImg{{id}}" src='{{bigImageSrc[0]}}?w={{bigImageWidth}}'  alt="{{alt}}"  class="no-border" />
 	</div>
 	<div class="caption" id="bigCaption" style="font-size:15px">
 		{{alt}}

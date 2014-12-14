@@ -1,5 +1,5 @@
 <div id="midBlock"	>
-			<div class="resp_nav" ng-controller="RespNav" ng-hide="showNav==false">
+	<div class="resp_nav" ng-controller="RespNav" ng-hide="showNav==false">
 		<div class="icon lines" tabindex="0" ng-click="respNavToggle()" ng-enter="respNavToggle()" alt="open menu"></div>
 		<div class="resp_inner_nav animate-show-fast" ng-hide="resp_nav_shower==false">
 			<div class="resp_inner_nav_home"  >
@@ -59,7 +59,6 @@
 
 		</div>
 		<div class="close" aria-hidden="true" data-icon="l" role="close button" tabindex="20" ng-hide="resp_nav_shower==false" ng-click="respNavToggle()" ng-enter="respNavToggle()"></div>
-		
 
 	</div>
 
@@ -98,324 +97,341 @@
 		<li class="mid_alumni">
 			<a href="#/alumni" role="navigation_item" tabindex="29">Alumni<span style="color:#ECBD00">&n4sp;»</span></a>
 		</li>
-		<li><a ng-click ="showNav=false" ng-enter ="showNav=false"  style="postion:absolute;" tabindex="1" ><font color="#EBFAF7">
-		Jump to Page Content</font>
-	</a>
-</li>
+		<li>
+			<a ng-click ="showNav=false" ng-enter ="showNav=false"  style="postion:absolute;" tabindex="1" ><font color="#EBFAF7"> Jump to Page Content</font> </a>
+		</li>
 		<!--<li><a href="/about/social_media.html">Connect with Teacher at Sea </a><span style="color:#ECBD00">»</span></li>-->
 		<!-- <li><a href="/sitemap.html">Site Map <span style="color:#ECBD00">»</span></a></li> -->
 	</ul>
-	<div ng-controller="SearchBox" >	<a role="search_button" ng-click="searchToggle()" ng-enter="searchToggle()" alt="open search box"><div class="icon right search_icon" style="float:right" tabindex="30"><img src="/images/dyk/search_icon.png" alt="open search box"/></div></a>
-	<div class="popup_holder animate-show"  ng-hide ="popupHider==true">
-		<bigimage-blogs id="bigImg-blogs" class="bigImg animate-show" ng-hide="bigImageHider==true"></bigimage-repeat>
-	</div>
-	<div class="popup_holder animate-show"  ng-hide ="popupHider3==true">
-		<bigimage-images id="bigImg-images" class="bigImg animate-show" ng-hide="bigImage3==false"></bigimage-images>
-		
-	</div>
-	<div class="popup_holder animate-show"  ng-hide ="popupHider2==true">
-		<big-image id="bigImg2" class="bigImg animate-show" ng-hide="bigImage2==false"></big-image>
-	</div>
-	
-	<div class="popup_holder animate-show"  ng-hide ="popupHider4==true">
-		<bigimage-lessons id="bigImg-lessons" class="bigImg animate-show" ng-hide="bigImageHider4==true"></bigimage-lessons>
-	</div>
-	
-	<div class="popup_holder animate-show"  ng-hide ="popupHider5==true">
-		<bigimage-site id="bigImg-site" class="bigImg animate-show" ng-hide="bigImageHider5==true"></bigimage-site>
-	</div>
-	
-		
-			<div id="search_box" role="searchbox" class="animate-show-fast" ng-hide="searchBox==false"  >
-	<div style="float:right;width:30px; margin:auto; margin-top:-10px;" id="search_box_close" ng-click= "searchToggle()" ng-enter="searchTogle()">
-		<a tabindex="30" style="border:none" ng-enter="searchTog	gle()"><img ng-enter="searchToggle()" style="margin-left:10px;" alt="close search box" class="icon" src="/images/collapse_btn_bigger_search.png" height="30" width="30"/></a>
-	</div>
-	<div id="explanation_contain" style="display:block; padding-right:5px;background:white; border:1px dotted #ccc; " >
-		<img id="closeinfo" onclick="$('#explanation').hide();$('#closeinfo').hide();$('#openinfo').show();$('#explanation_contain').css('width','15px'); " src="/images/dyk/close_btn_bluedk_sm.png" alt="collapse button" width="10" height="10" class="icon" style="padding-left:5px; cursor:pointer;"/>
-		<img style="display:none; padding-left:5px;cursor:pointer" id="openinfo" onclick="$('#explanation').show();$('#closeinfo').show();$('#openinfo').hide();$('#explanation_contain').css('width','auto'); " src="/images/dyk/info_sm.png" alt="close information section" width="10" height="10" class="icon"/>
-		<p id="explanation"" style="padding:2px;font-size: .77em;font-style: italic;color: #888888;margin-left: 3px;padding-top: 2px;text-decoration: none;">As you search our site, you will notice that the blog, images, and lesson results all now have small stars beside them.   Click on this icon to "store"  your favorite Teacher at Sea resources in your browser.  Simply click on the big star icon (next to the search icon), to view, email or share your favorited resources.   For more information, click on this star and then click on the  <img src='/images/dyk/info.png' class='no-border' width='12' height='12' alt='info'/> button on the "Favorites" results page"</p>
+	<div ng-controller="SearchBox" >
+		<a role="search_button" ng-click="searchToggle()" ng-enter="searchToggle()" alt="open search box">
+		<div class="icon right search_icon" style="float:right" tabindex="30"><img src="/images/dyk/search_icon.png" alt="open search box"/>
+		</div></a>
+		<div class="popup_holder animate-show"  ng-hide ="popupHider==true">
+			<bigimage-blogs id="bigImg-blogs" class="bigImg animate-show" ng-hide="bigImageHider==true">
+				</bigimage-repeat>
+		</div>
+		<div class="popup_holder animate-show"  ng-hide ="popupHider3==true">
+			<bigimage-images id="bigImg-images" class="bigImg animate-show" ng-hide="bigImage3==false"></bigimage-images>
+
+		</div>
+		<div class="popup_holder animate-show"  ng-hide ="popupHider2==true">
+			<big-image id="bigImg2" class="bigImg animate-show" ng-hide="bigImage2==false"></big-image>
 		</div>
 
-		<div style="padding:10px; padding-top:5px; padding-bottom:10px;">
-		
-		<form  name="searchblogs" id="blogs">
-		<label>Search Blogs</label>
-		<input type="text" name="blogfield" ng-model="search_blogs" style="width: 170px" tabindex="31" placeholder="Search Blogs" value="Search Blogs" />
-		<input type="image" src="/images/search_submit.png" alt="search blogs "  ng-click="searchBlogs(search_blogs)" tabindex="32"  />
-		</form>
+		<div class="popup_holder animate-show"  ng-hide ="popupHider4==true">
+			<bigimage-lessons id="bigImg-lessons" class="bigImg animate-show" ng-hide="bigImageHider4==true"></bigimage-lessons>
 		</div>
 
-		<div style="padding:10px; padding-bottom:5px;">
-	
-		<form  name="searchmedia" id="photos"   >
+		<div class="popup_holder animate-show"  ng-hide ="popupHider5==true">
+			<bigimage-site id="bigImg-site" class="bigImg animate-show" ng-hide="bigImageHider5==true"></bigimage-site>
+		</div>
+		
+		
+		
+		<div id="search_box" role="searchbox" class="animate-show-fast" ng-hide="searchBox==false"  >
+			<div style="float:right;width:30px; margin:auto; margin-top:-10px;" id="search_box_close" ng-click= "searchToggle()" ng-enter="searchTogle()">
+				<a tabindex="30" style="border:none" ng-enter="searchToggle()"><img ng-enter="searchToggle()" style="margin-left:10px;" alt="close search box" class="icon" src="/images/collapse_btn_bigger_search.png" height="30" width="30"/></a>
+			</div>
+			<div id="explanation_contain" style="display:block; padding-right:5px;background:white; border:1px dotted #ccc; " >
+				<img id="closeinfo" onclick="$('#explanation').hide();$('#closeinfo').hide();$('#openinfo').show();$('#explanation_contain').css('width','15px'); " src="/images/dyk/close_btn_bluedk_sm.png" alt="collapse button" width="10" height="10" class="icon" style="padding-left:5px; cursor:pointer;"/>
+				<img style="display:none; padding-left:5px;cursor:pointer" id="openinfo" onclick="$('#explanation').show();$('#closeinfo').show();$('#openinfo').hide();$('#explanation_contain').css('width','auto'); " src="/images/dyk/info_sm.png" alt="close information section" width="10" height="10" class="icon"/>
+				<p id="explanation"" style="padding:2px;font-size: .77em;font-style: italic;color: #888888;margin-left: 3px;padding-top: 2px;text-decoration: none;">As you search our site, you will notice that the blog, images, and lesson results all now have small stars beside them.   Click on this icon to "store"  your favorite Teacher at Sea resources in your browser.  Simply click on the big star icon (next to the search icon), to view, email or share your favorited resources.   For more information, click on this star and then click on the  <img src='/images/dyk/info.png' class='no-border' width='12' height='12' alt='info'/> button on the "Favorites" results page"</p>
+				</div>
+
+				<div style="padding:10px; padding-top:5px; padding-bottom:10px;">
+
+				<form  name="searchblogs" id="blogs">
+				<label>Search Blogs</label>
+				<input type="text" name="blogfield" ng-model="search_blogs" style="width: 170px" tabindex="31" placeholder="Search Blogs" value="Search Blogs" />
+				<input type="image" src="/images/search_submit.png" alt="search blogs "  ng-click="searchBlogs(search_blogs)" tabindex="32"  />
+				</form>
+				</div>
+
+				<div style="padding:10px; padding-bottom:5px;">
+
+				<form  name="searchmedia" id="photos"   >
 				<label>Search Images</label>
-		<input type="text"  name="searchfield" ng-model="search_images" style="width:170px;" tabindex="33" placeholder="Search Images" alt="search Images" />
-		<input type="image" src="/images/search_submit.png"  alt="search images" ng-click="searchImages(search_images)"  tabindex="34" />
-		</form>
-		</div>
+				<input type="text"  name="searchfield" ng-model="search_images" style="width:170px;" tabindex="33" placeholder="Search Images" alt="search Images" />
+				<input type="image" src="/images/search_submit.png"  alt="search images" ng-click="searchImages(search_images)"  tabindex="34" />
+				</form>
+				</div>
 
-		<div style="padding:10px; padding-bottom:5px;">
+				<div style="padding:10px; padding-bottom:5px;">
+
+				<form  name="searchlessons" id="searchlessons"   >
+				<label>Search Lessons</label>
+				<input type="text"  name="searchfield" ng-model="search_lessons" style="width:170px;" tabindex="35"  placeholder="Search Lessons"  />
+				<input type="image" src="/images/search_submit.png" alt="search lessons" ng-click="searchLessons(search_lessons)"  tabindex="35" />
+				</form>
+				</div>
+
+				<div style="padding:10px; padding-bottom:5px;">
+
+				<form  name="searchsite" id="searchsite"   >
+				<label>Search Site</label>
+				<input type="text"  name="searchfield" ng-model="search_site" style="width:170px;" tabindex="36" placeholder="Search Lessons" />
+				<input type="image" src="/images/search_submit.png" alt="search site"   ng-click="searchSite(search_site)"  tabindex="37" />
+				</form>
+				</div>
+
+				</div>
+				</div>
+				<div ng-controller="FavoriteController">
+				<div  class="go_to_fav_icon" role="favorites button" tabindex="38" ng-click="openFavorites()" ng-enter="openFavorites()"><img style="border:none;" src="/images/fav_for_nav.png" alt="go to favorite items" />
+					
+				</div>
+				<div  class="popup_holder animate-show" ng-hide="popupHider6==true">
+				
+					<bigimage-favorite id="bigImg-favorite" class="bigImg3 animate-show" ng-hide="bigImageFav==false"></bigimage-favorite>
+				</div>
+				<div  class="popup_holder animate-show" ng-hide="popupHider7==true">
+				
+					<bigimage-favoriteindiv id="bigImg-favoriteBig" class="bigImg animate-show" ng-hide="bigImageFav2==false"></bigimage-favoriteindiv>
+				</div>
+				<!--<div class="popup_holder"  ng-hide="popupHider7==false">
+					<big-image id="bigImg" class="bigImg " ng-hide="bigImageFav2==false"></big-image>	
+				</div>-->
 	
-		<form  name="searchlessons" id="searchlessons"   >
-		<label>Search Lessons</label>
-		<input type="text"  name="searchfield" ng-model="search_lessons" style="width:170px;" tabindex="35"  placeholder="Search Lessons"  />
-		<input type="image" src="/images/search_submit.png" alt="search lessons" ng-click="searchLessons(search_lessons)"  tabindex="35" />
-		</form>
-		</div>
-		
-		<div style="padding:10px; padding-bottom:5px;">
-		
-		<form  name="searchsite" id="searchsite"   >
-		<label>Search Site</label>
-		<input type="text"  name="searchfield" ng-model="search_site" style="width:170px;" tabindex="36" placeholder="Search Lessons" />
-		<input type="image" src="/images/search_submit.png" alt="search site"   ng-click="searchSite(search_site)"  tabindex="37" />
-		</form>
-		</div>
+				<div class="clear"></div>
+				<!-- <div  style="margin-right: 10px; margin-top: 3px;" id="searchBox">
 
-		</div>
-	</div>
+				<form action="javascript:void(0)" onsubmit="document.forms['searchblogs']['blogfield'].focus()">
 
-	<div class="go_to_fav_icon" role="favorites button" tabindex="38"><img style="border:none;" src="/images/fav_for_nav.png" alt="go to favorite items" />
-	</div>
-	<div class="clear"></div>
-	<!-- <div  style="margin-right: 10px; margin-top: 3px;" id="searchBox">
+				<input type="text" name="sitefield" class="form_search" onfocus="$('#search_box').show();document.forms['searchblogs']['blogfield'].focus()"/>
 
-	<form action="javascript:void(0)" onsubmit="document.forms['searchblogs']['blogfield'].focus()">
+				<input type="image" src="/images/search_submit.png" value="Search the Site"  onclick="document.forms['searchblogs']['blogfield'].focus()" />
+				</form>
+				</div>-->
+						</div>
+				</div>
 
-	<input type="text" name="sitefield" class="form_search" onfocus="$('#search_box').show();document.forms['searchblogs']['blogfield'].focus()"/>
+				<div id="mainBlock" ng-hide="showNav==false">
+				<div id="mainNavElements">
+				<ul class="navigation" ng-controller="Navigation">
+				<li class="dropdown" ng-mouseover="navigationToggle('about')" ng-mouseout="navigationToggle('about')" ng-enter="navigationToggle('about')"><a role="navigation_item" tabindex="39" href="#/about/" class="mainnavitems"><b>ABOUT TAS</b></a><span class="spacer">|</span>
 
-	<input type="image" src="/images/search_submit.png" value="Search the Site"  onclick="document.forms['searchblogs']['blogfield'].focus()" />
-	</form>
-	</div>-->
+				<div id="a" class="{{navigationItems[0].state}}" style=" z-index:10000; position:relative; background-color:#0057a5;top:6px">
+				<div class="top">
 
-</div>
+				<p class="navigation"><a role="subnavigation_item" tabindex="40" href="#/about/Who_May_Apply" class="navitems">Who May Apply</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="41" href="#/about/cruises" class="navitems">Cruises</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="42" href="#/about/time_commitment" class="navitems">Time Commitment</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="43" href="#/about/life_at_sea" class="navitems">Life at Sea</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="44" href="#/about/obligations" class="navitems">Obligations</a></p>
 
+				<p class="navigation"><a role="subnavigation_item" tabindex="45" href="#/how_to_apply" class="navitems">How to Apply</a></p>
 
+				<p class="navigation"><a role="subnavigation_item" tabindex="46" href="#/highlights" class="navitems">Program Highlights</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="47" href="/highlights/pdfs/EvaluationReportoftheNOAATeacheratSeaProgram.pdf" class="navitems" target="_blank">Evaluation</a></p>
 
-		<div id="mainBlock" ng-hide="showNav==false">
-		<div id="mainNavElements">
-		<ul class="navigation" ng-controller="Navigation">
-		<li class="dropdown" ng-mouseover="navigationToggle('about')" ng-mouseout="navigationToggle('about')" ng-enter="navigationToggle('about')"><a role="navigation_item" tabindex="39" href="#/about/" class="mainnavitems"><b>ABOUT TAS</b></a><span class="spacer">|</span>
-		
-		<div id="a" class="{{navigationItems[0].state}}" style=" z-index:10000; position:relative; background-color:#0057a5;top:6px">
-		<div class="top">
+				<p class="navigation"><a role="subnavigation_item" tabindex="48"  href="#/faqs" class="navitems">FAQs</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="49" href="#/ships" class="navitems">NOAA Ships</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="50"  href="#/corps" class="navitems">NOAA Corps</a></p>
 
-		<p class="navigation"><a role="subnavigation_item" tabindex="40" href="#/about/Who_May_Apply" class="navitems">Who May Apply</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="41" href="#/about/cruises" class="navitems">Cruises</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="42" href="#/about/time_commitment" class="navitems">Time Commitment</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="43" href="#/about/life_at_sea" class="navitems">Life at Sea</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="44" href="#/about/obligations" class="navitems">Obligations</a></p>
+				</div>
+				</div>
 
-		<p class="navigation"><a role="subnavigation_item" tabindex="45" href="#/how_to_apply" class="navitems">How to Apply</a></p>
+				</li>
 
-		<p class="navigation"><a role="subnavigation_item" tabindex="46" href="#/highlights" class="navitems">Program Highlights</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="47" href="/highlights/pdfs/EvaluationReportoftheNOAATeacheratSeaProgram.pdf" class="navitems" target="_blank">Evaluation</a></p>
+				<li class="dropdown" ng-mouseover="navigationToggle('current')" ng-mouseout="navigationToggle('current')" id="main_current" ng-enter="navigationToggle('current')"><a role="navigation_item" tabindex="51" href="#/2014/" class="mainnavitems"><b>CURRENT SEASON</b></a><span class="spacer">|</span>
+				<div id="b"  class="{{navigationItems[1].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
 
-		<p class="navigation"><a role="subnavigation_item" tabindex="48"  href="#/faqs" class="navitems">FAQs</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="49" href="#/ships" class="navitems">NOAA Ships</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="50"  href="#/corps" class="navitems">NOAA Corps</a></p>
+				<div  class="top">
 
-		</div>
-		</div>
+				<div class="mainNavHolder">
 
-		</li>
+				<p class="navigation"><a role="subnavigation_item" tabindex="52" href="#/2014/Suzanne*Acord" class="navitems">Acord, Suzanne</a> </p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="53" href="#/2014/John*Bilotta" class="navitems">Bilotta, John</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="54" href="#/2014/Dana*Clark" class="navitems">Clark, Dana</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="55" href="#/2014/Spencer*Cody" class="navitems">Cody, Spencer</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="56" href="#/2014/Greg*Cook" class="navitems">Cook, Greg</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="57" href="#/2014/Crystal*Davis" class="navitems">Davis, Crystal</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="58" href="#/2014/Carol*Glor" class="navitems">Glor, Carol</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="59" href="#/2014/Kimberly*Gogan" class="navitems">Gogan, Kimberly</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="60" href="#/2014/Laura*Guertin" class="navitems">Guertin, Laura </a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="61" href="#/2014/Janelle*Harrier-Wilson" class="navitems">Harrier-Wilson, Janelle </a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="62" href="#/2014/Denise*Harringont" class="navitems">Harrington, Denise</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="63" href="#/2014/Chris*Henricksen" class="navitems">Henricksen, Christopher</a></p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="64" href="#/2014/*Kainoa*Higgins" class="navitems">Higgins, Kainoa</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="65" href="#/2014/Carol*Kautzer" class="navitems">Kautzer, Cassie</a>
+				</p>
 
-		<li class="dropdown" ng-mouseover="navigationToggle('current')" ng-mouseout="navigationToggle('current')" id="main_current" ng-enter="navigationToggle('current')"><a role="navigation_item" tabindex="51" href="#/2014/" class="mainnavitems"><b>CURRENT SEASON</b></a><span class="spacer">|</span>
-		<div id="b"  class="{{navigationItems[1].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
+			</div>
 
-		<div  class="top">
+			<div class="mainNavHolder">
 
-		<div class="mainNavHolder">
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="66" href="#/2014/Lynne*Kurth" class="navitems">Kurth, Lynn</a>
+				</p>
 
-		<p class="navigation"><a role="subnavigation_item" tabindex="52" href="#/2014/Suzanne*Acord" class="navitems">Acord, Suzanne</a> </p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="53" href="#/2014/John*Bilotta" class="navitems">Bilotta, John</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="54" href="#/2014/Dana*Clark" class="navitems">Clark, Dana</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="55" href="#/2014/Spencer*Cody" class="navitems">Cody, Spencer</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="56" href="#/2014/Greg*Cook" class="navitems">Cook, Greg</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="57" href="#/2014/Crystal*Davis" class="navitems">Davis, Crystal</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="58" href="#/2014/Carol*Glor" class="navitems">Glor, Carol</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="59" href="#/2014/Kimberly*Gogan" class="navitems">Gogan, Kimberly</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="60" href="#/2014/Laura*Guertin" class="navitems">Guertin, Laura </a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="61" href="#/2014/Janelle*Harrier-Wilson" class="navitems">Harrier-Wilson, Janelle </a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="62" href="#/2014/Denise*Harringont" class="navitems">Harrington, Denise</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="63" href="#/2014/Chris*Henricksen" class="navitems">Henricksen, Christopher</a></p>
-		<p class="navigation"><a role="subnavigation_item" tabindex="64" href="#/2014/*Kainoa*Higgins" class="navitems">Higgins, Kainoa</a></p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="65" href="#/2014/Carol*Kautzer" class="navitems">Kautzer, Cassie</a>
-		</p>
-
-	</div>
-
-	<div class="mainNavHolder">
-
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="66" href="#/2014/Lynne*Kurth" class="navitems">Kurth, Lynn</a>
-		</p>
-
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="67" href="#/2014/Joan*Le" class="navitems">Le, Joan</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="68" href="#/2014/Kevin*Mcmahon" class="navitems">McMahon, Kevin</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="69" href="#/2014/Emina*Mesanovic" class="navitems">Mesanovic, Emina</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="70" href="#/2014/Jamie*Morris" class="navitems">Morris, Jamie</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="71" href="#/2014/David*Murk" class="navitems">Murk, David</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="72" href="#/2014/Mary*Murrian" class="navitems">Murrian, Mary</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="73" href="#/2014/Amy*Orchard" class="navitems">Orchard, Amy</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="74" href="#/2014/Daniel*Rivera" class="navitems">Rivera, Daniel</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="75" href="#/2014/Carol*Schnaiter" class="navitems">Schnaiter, Carol</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="76" href="#/2014/Kacey*Shaffer" class="navitems">Shaffer, Kacey</a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="77" href="#/2014/Stephen*Tomasetti" class="navitems">Tomasetti, Stephen </a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="78" href="#/2014/Andi*Webb" class="navitems">Webb, Andi </a>
-		</p>
-		<p class="navigation">
-			<a role="subnavigation_item" tabindex="79" href="#/2014/Laura*Wilmoth" class="navitems">Wilmoth, Lauren</a>
-		</p>
-	</div>
-</div>
-</div>
-</li>
-
-<li class="dropdown" ng-mouseover="navigationToggle('past')" ng-mouseout="navigationToggle('past')" id="main_past" ng-enter="navigationToggle('past')">
-	<a  role="navigation_item"   tabindex="80" href="#/Past_Seasons" class="mainnavitems"><b>PAST SEASONS</b></a><span class="spacer">|</span>
-	<div id="c" class="{{navigationItems[2].state}}" style="  z-index:10000; position:relative; background-color:#0057a5;top:6px">
-
-		<div class="top">
-
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="81" href="#/2013" class="navitems">2013 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="82" href="#/2012" class="navitems">2012 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="83" href="#/2011" class="navitems">2011 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="84" href="#/2010" class="navitems">2010 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="85" href="#/2009" class="navitems">2009 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="86" target="_blank" href="/2008" class="navitems">2008 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="87" target="_blank" href="/2007" class="navitems">2007 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="88" target="_blank" href="/2006" class="navitems">2006 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="89" target="_blank" href="/2005" class="navitems">2005 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="90" target="_blank" href="/2004" class="navitems">2004 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="91" target="_blank" href="/2003" class="navitems">2003 Season</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="92" target="_blank" href="/1990_2002" class="navitems">1990-2002 Seasons</a>
-			</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="67" href="#/2014/Joan*Le" class="navitems">Le, Joan</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="68" href="#/2014/Kevin*Mcmahon" class="navitems">McMahon, Kevin</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="69" href="#/2014/Emina*Mesanovic" class="navitems">Mesanovic, Emina</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="70" href="#/2014/Jamie*Morris" class="navitems">Morris, Jamie</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="71" href="#/2014/David*Murk" class="navitems">Murk, David</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="72" href="#/2014/Mary*Murrian" class="navitems">Murrian, Mary</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="73" href="#/2014/Amy*Orchard" class="navitems">Orchard, Amy</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="74" href="#/2014/Daniel*Rivera" class="navitems">Rivera, Daniel</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="75" href="#/2014/Carol*Schnaiter" class="navitems">Schnaiter, Carol</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="76" href="#/2014/Kacey*Shaffer" class="navitems">Shaffer, Kacey</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="77" href="#/2014/Stephen*Tomasetti" class="navitems">Tomasetti, Stephen </a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="78" href="#/2014/Andi*Webb" class="navitems">Webb, Andi </a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="79" href="#/2014/Laura*Wilmoth" class="navitems">Wilmoth, Lauren</a>
+				</p>
+			</div>
 		</div>
 	</div>
+	</li>
 
-</li>
+	<li class="dropdown" ng-mouseover="navigationToggle('past')" ng-mouseout="navigationToggle('past')" id="main_past" ng-enter="navigationToggle('past')">
+		<a  role="navigation_item"   tabindex="80" href="#/Past_Seasons" class="mainnavitems"><b>PAST SEASONS</b></a><span class="spacer">|</span>
+		<div id="c" class="{{navigationItems[2].state}}" style="  z-index:10000; position:relative; background-color:#0057a5;top:6px">
 
-<li class="dropdown" ng-mouseover="navigationToggle('alumni')" ng-mouseout="navigationToggle('alumni')" id="main_alumni" ng-enter="navigationToggle('alumni')">
-	<a role="navigation_item" tabindex="93" href="#/alumni" class="mainnavitems" ><b>ALUMNI</b></a><span class="spacer">|</span>
-	<div id="d" class="{{navigationItems[3].state}}"style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
+			<div class="top">
 
-		<div class="top">
-
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="94" href="#/alumni_spotlight" class="navitems">Alumni Spotlight</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="95" href="#/NETASA" class="navitems">New England Teacher at Sea Alumni</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="96" href="#/alumni/Forms" class="navitems">Alumni Forms</a>
-			</p>
-			<!--<p class="navigation"><a class="navitems" href ="/alumni/index.html#opportunities">Opportunities</a></p>-->
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="97" href="#/alumni/Resources" class="navitems">Resources</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="98" href="#/alumni/Stay_Connected" class="navitems">Stay Connected</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="99" href="#/alumni/Alumni_Application" class="navitems">Alumni Application</a>
-			</p>
-
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="81" href="#/2013" class="navitems">2013 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="82" href="#/2012" class="navitems">2012 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="83" href="#/2011" class="navitems">2011 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="84" href="#/2010" class="navitems">2010 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="85" href="#/2009" class="navitems">2009 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="86" target="_blank" href="/2008" class="navitems">2008 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="87" target="_blank" href="/2007" class="navitems">2007 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="88" target="_blank" href="/2006" class="navitems">2006 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="89" target="_blank" href="/2005" class="navitems">2005 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="90" target="_blank" href="/2004" class="navitems">2004 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="91" target="_blank" href="/2003" class="navitems">2003 Season</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="92" target="_blank" href="/1990_2002" class="navitems">1990-2002 Seasons</a>
+				</p>
+			</div>
 		</div>
-	</div>
 
-</li>
+	</li>
 
-<li class="dropdown" ng-mouseover="navigationToggle('resources')" ng-mouseout="navigationToggle('resources')" id="main_resources" ng-enter="navigationToggle('resources')">
-	<a role="navigation_item" tabindex="100" href="#/resources/" class="mainnavitems"><b>RESOURCES</b></a><span class="spacer">|</span>
+	<li class="dropdown" ng-mouseover="navigationToggle('alumni')" ng-mouseout="navigationToggle('alumni')" id="main_alumni" ng-enter="navigationToggle('alumni')">
+		<a role="navigation_item" tabindex="93" href="#/alumni" class="mainnavitems" ><b>ALUMNI</b></a><span class="spacer">|</span>
+		<div id="d" class="{{navigationItems[3].state}}"style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
 
-	<div id="e" class="{{navigationItems[4].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
+			<div class="top">
 
-		<div class="top">
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="94" href="#/alumni_spotlight" class="navitems">Alumni Spotlight</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="95" href="#/NETASA" class="navitems">New England Teacher at Sea Alumni</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="96" href="#/alumni/Forms" class="navitems">Alumni Forms</a>
+				</p>
+				<!--<p class="navigation"><a class="navitems" href ="/alumni/index.html#opportunities">Opportunities</a></p>-->
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="97" href="#/alumni/Resources" class="navitems">Resources</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="98" href="#/alumni/Stay_Connected" class="navitems">Stay Connected</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="99" href="#/alumni/Alumni_Application" class="navitems">Alumni Application</a>
+				</p>
 
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="101" href="#/resources/" class="navitems">TAS Books</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="102" href="/dyk/" class="navitems">Did You Know?: Tweets From Sea</a>
-			</p>
+			</div>
 		</div>
-	</div>
 
-</li>
+	</li>
 
-<li class="dropdown" ng-mouseover="navigationToggle('media')" ng-mouseout="navigationToggle('media')" id="main_media" ng-enter="navigationToggle('media')">
-	<a role="navigation_item" tabindex="103" href="#/media/" class="mainnavitems" ><b>MEDIA GALLERY</b></a><span class="spacer">|</span>
-	<div id="f" class="{{navigationItems[5].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
+	<li class="dropdown" ng-mouseover="navigationToggle('resources')" ng-mouseout="navigationToggle('resources')" id="main_resources" ng-enter="navigationToggle('resources')">
+		<a role="navigation_item" tabindex="100" href="#/resources/" class="mainnavitems"><b>RESOURCES</b></a><span class="spacer">|</span>
 
-		<div class="top">
+		<div id="e" class="{{navigationItems[4].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
 
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="104" href="#/media" class="navitems">Photos &amp; Videos</a>
-			</p>
+			<div class="top">
 
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="105" href="#/news" class="navitems">News Room</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="106" href="#/photo_of_week" class="navitems">Photo of the Week</a>
-			</p>
-			<p class="navigation">
-				<a role="subnavigation_item" tabindex="107" href="#/Feeds" class="navitems">RSS Feeds</a>
-			</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="101" href="#/resources/" class="navitems">TAS Books</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="102" href="/dyk/" class="navitems">Did You Know?: Tweets From Sea</a>
+				</p>
+			</div>
 		</div>
-	</div>
-	<div style="height:2px;"></div>
 
-</li>
-</ul>
+	</li>
+
+	<li class="dropdown" ng-mouseover="navigationToggle('media')" ng-mouseout="navigationToggle('media')" id="main_media" ng-enter="navigationToggle('media')">
+		<a role="navigation_item" tabindex="103" href="#/media/" class="mainnavitems" ><b>MEDIA GALLERY</b></a><span class="spacer">|</span>
+		<div id="f" class="{{navigationItems[5].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
+
+			<div class="top">
+
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="104" href="#/media" class="navitems">Photos &amp; Videos</a>
+				</p>
+
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="105" href="#/news" class="navitems">News Room</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="106" href="#/photo_of_week" class="navitems">Photo of the Week</a>
+				</p>
+				<p class="navigation">
+					<a role="subnavigation_item" tabindex="107" href="#/Feeds" class="navitems">RSS Feeds</a>
+				</p>
+			</div>
+		</div>
+		<div style="height:2px;"></div>
+
+	</li>
+	</ul>
 </div>
 </div>

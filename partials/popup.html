@@ -1,6 +1,6 @@
 <div>
 	<div class="bigImgClose" ng-click="closeBigImage2()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
-	</div><img id="favorite_img_big_profile{{id}}" class="search_favorite_image_off search_favorite" src="/images/star.png" border="none" alt="Add to Favorites">
+	</div><img id="favorite_img_big_profile{{id}}" class="search_favorite_image_off search_favorite" src="/images/star_{{favorite}}.png" border="none" alt="Add to Favorites" ng-click="switchFavorite(id, 'bigphoto')" ng-enter="switchFavorite(id, 'bigphoto')">
 	<div style="max-width:650px; margin:auto">
 		<img resize-bigimage id= "bigImg{{id}}" src='{{bigImageSrc[0]}}?w={{bigImageWidth}}' alt="{{alt}}"  class="no-border" />
 	</div>

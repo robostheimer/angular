@@ -1,0 +1,22 @@
+<div>
+	<div class="bigImgClose" ng-click="closeBigImage2()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+	</div>
+	<div style="max-width:650px; margin:auto">
+		<img resize-bigimage id= "bigImg{{id}}" src='{{bigImageSrc[0]}}?w={{bigImageWidth}}' alt="{{alt}}"  class="no-border" />
+	</div>
+	<div class="caption" id="bigCaption" style="font-size:15px">
+		{{alt}}
+		<br>
+		From: <a href="http://teacheratsea.wordpress.com/?p={{parent}}" target="_blank">{{post_title}}</a>
+		<br>
+		<a href="{{bigImageSrc[0]}}" target="_blank">View High Resolution Image</a>
+	</div>
+
+	<div style="position:absolute;  top:50%;width:100%;margin-left:-28px;">
+		<div style="float:left;" ng-click="prevImg(id)"><img style="border:none;cursor:pointer" src="/images/left_arrow_btn.png" alt="previous photo">
+		</div>
+		<div style="float:right" ng-click="nextImg(id)"><img style="border:none;cursor:pointer" src="/images/right_arrow_btn.png" alt="next photo">
+
+		</div>
+	</div>
+</div>

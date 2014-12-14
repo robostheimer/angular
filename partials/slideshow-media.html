@@ -5,7 +5,7 @@
 				<div class="image"><a  href= "{{slide.link}}" ng-click ="nameClick(slide.publishdate, slide.title)">
 					<img src="{{slide.imageurl}}?w=620" alt="{{slide.title}}"/>
 				</a></div>
-			<div  class="text_box" ><h2 class="slideshow">{{slide.title}}</h2><p class="slideshow">{{slide.description}}   <a style="color:#ECBD00;font-weight:bold;" href="{{slide.link}}">MORE »»</a></p><div style="border:1px solid #ECBD00; margin-right: 15px;"></div></div>
+			<div  class="text_box" ><h2 class="slideshow">{{slide.title}}</h2><div class="slideshow">{{slide.description}}   </div><div style="float:left"><a style="color:#ECBD00;font-weight:bold;" href="{{slide.link}}">MORE »»</a></div>><div style="clear:both"></div><div style="border:1px solid #ECBD00; margin-right: 15px;"></div></div>
 			</li>
 			
 			
@@ -14,9 +14,9 @@
 				<ul>
 					<li style="border:none; margin-right:3px; background:none;" ng-click="prev()"><a style="color:#ECBD00;font-weight:bold" > ««</a></li>
 					
-					<li ng-repeat="slide in slides" id="{{slide.slidenumber}}" class="{{slide.classy}}" ng-click="numberClick(slide.slidenumber)"><a>{{slide.slidenumber}}</a></li>
-					<li  ng-click="playPause()" ng-enter="playPause" id="play" ng-hide="playhider==true" style="color:#ECBD00;font-weight:bold"> <img width="20" height="20" src="/images/play.gif" style="border:none;" alt="play"></a></li>
-					<li tabindex="110" id="pause" ng-click="playPause()" id="play" ng-hide="playhider==false" ><a ng-click="playPause()" style="color:#ECBD00;font-weight:bold"><img height="20" width="20" style="border:none;" src="/images/pause.gif" alt="pause"></a></li>
+					<li	tabindex="105" ng-repeat="slide in slides" id="{{slide.slidenumber}}" class="{{slide.classy}}" ng-click="numberClick(slide.slidenumber)" ng-enter="numberClick(slide.slidenumber)"><a>{{slide.slidenumber}}</a></li>
+					<li tabindex="106" ng-click="playPause()" ng-enter="playPause()" id="play" ng-hide="playhider==true" style="color:#ECBD00;font-weight:bold"> <a><img ng-enter="playPause()" width="20" height="20" src="/images/play.gif" style="border:none;" alt="play"></a></li>
+					<li tabindex="107" id="pause" ng-click="playPause()" ng-enter="playPause()" id="play" ng-hide="playhider==false" ><a  style="color:#ECBD00;font-weight:bold"><img ng-enter="playPause()" height="20" width="20" style="border:none;" src="/images/pause.gif" alt="pause"></a></li>
 					
 					<li style="border:none; margin-left:3px;background:none;" ng-click="next()"><a  style="color:#ECBD00;font-weight:bold"> »»</a></li>
 				</ul>

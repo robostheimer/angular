@@ -92,6 +92,30 @@ TAS_SITE.directive('ytVideos', function () {
   
 })
 
+.directive('bigimageFavorite', function () {
+  return {
+  
+  	restrict: 'AE',
+    scope:true,
+    templateUrl: 'partials/popup_favorites.html',
+  	
+  };
+    
+  
+})
+
+.directive('bigimageFavoriteindiv', function () {
+  return {
+  
+  	restrict: 'AE',
+    scope:true,
+    templateUrl: 'partials/popup_favorite_indiv.html',
+  	
+  };
+    
+  
+})
+
 .directive('bigimageImages', function () {
   return {
   
@@ -123,6 +147,7 @@ var Current =  '<div id="wrapper"><div id="scroller_current" class="scroller" ><
 	var Pow = '<div id="wrapper_pow"><div id="scroller_pow" class="scroller" style="transition: transform 0ms; -webkit-transition: transform 0ms; transform-origin: 0px 0px 0px; transform: translate(0px, 0px) translateZ(0px);"><ul ><li tabindex="115" ng-repeat = "pow in data"><div class="image"><img tabindex="115" resize-home class="current_image" src="{{pow.url}}?w={{windowWidth}}"" alt="{{pow.caption}}"></div><div tabindex="115" class="teacher_info"><h6 tabindex="115"><a tabindex="115"href="#/photo_of_week/" ng-bind-html="pow.titleSnippet"></a></h6><span class="caption" tabindex="115" >Photo By: {{pow.credit}}<br><a ng-href="{{pow.parent}}" target="_blank"  tabindex="115" >{{pow.post_title}}</a></div></li></ul></div></div><div><a class="navPrev3" ng-click="prev(\'pow\');">««</a><a ng-click="next(\'pow\')" class="navNext3" >»»</a></div><script>myScroll_pow  = new iScroll("wrapper_pow", {hScrollbar:false});</script>';
 	var Videos = '<div resize-social id="wrapper_videos2"><div id="scroller_videos" class="scroller"><ul><li class="wp" style="margin-left:7px " ng-repeat = "src in videosArr" ><wp-videos width="{{windowWidth2}}" height="165"></wp-videos><br><br><a href="{{src.lnk}}" target="-blank">Go to Blogpost <span class="chevron">»»</span></a></li></ul></div></div><div><a class="navPrev3" ng-click="prev(\'videos\');">««</a><a ng-click="next(\'videos\')" class="navNext3" >»»</a></div><script>myScroll_videos  = new iScroll("wrapper_videos2", {hScrollbar:false});</script>'
 	var Quotes ='<div id="wrapper_quotes"  style="height:auto; overflow:scroll"><ul class="scroller" id="scroller_quotes"><li id="quote{{quote.id}}" style="display:inline;" ng-repeat="quote in quotes"><div class="faq_quote"><img resize-social ng-src="{{quote.gsx$tn.$t}}?w={{windowWidth}}" alt="{{quotes.gsx$teacher.$t}}"></div><div class="faq_quote_text"> {{quote.gsx$quote.$t}}<br><span class="caption">{{quote.gsx$teacher.$t}}</span></div></li></ul></div><div><a class="navPrev3" ng-click="prev(\'quotes\');">««</a><a ng-click="next(\'quotes\')" class="navNext3" >»»</a></div><script>myScroll_videos  = new iScroll("wrapper_quotes", {hScrollbar:false});</script>'
+var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"><ul><li ng-repeat = "img in images" id="{{img.id}}" ng-mouseover="showTitle(img.id)" ng-mouseout="hideTitle(img.id)"><div class="containme"><div class="text_container  animate-height"  ng-hide="img.showTitle==false"><div class="fl_title_ind" >{{img.caption}}</div></div><img resize-social src="{{img.src}}?w={{windowWidth}}" alt="{{img.caption}}"/></div><br><br><a  href="{{img.src}}" target="_blank">View High Resolution Image <span class="chevron">»»</span></a><br><a  href="http://teacheratsea.wordpress.com/?p={{img.parent}}">Go to Blogpost <span class="chevron">»»</span></a></li></ul></div><div><a class="navPrev3" ng-click="prev(\'photos\');">««</a><a ng-click="next(\'photos\')" class="navNext3" >»»</a></div><script>myScroll_photos  = new iScroll("wrapper_photos2", {hScrollbar:false});</script>';
 	
 	
 	
@@ -405,8 +430,7 @@ var Current =  '<div id="wrapper"><div id="scroller_current" class="scroller" ><
 		templateUrl: 'partials/slideshow-media.html',
 		link:function(scope)
 	  	{
-	  		
-	  		/*Slideshow.loadSlideData('11INSvguka4SOHln9R4C8C96EQ1kkpoaw-EC8l7_h').then(function(data)
+	  		Slideshow.loadSlideData('11INSvguka4SOHln9R4C8C96EQ1kkpoaw-EC8l7_h').then(function(data)
 			{
 				scope.slides = data;
 				scope.slides[0].visible=true;
@@ -416,7 +440,7 @@ var Current =  '<div id="wrapper"><div id="scroller_current" class="scroller" ><
 				
 				
 				
-			});*/
+			});
 			
 	  		scope.timer;
 	  		scope.remaining=scope.timer/1000;
