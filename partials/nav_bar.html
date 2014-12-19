@@ -133,13 +133,9 @@
 			<div style="float:right;width:30px; margin:auto; margin-top:-10px;" id="search_box_close" ng-click= "searchToggle()" ng-enter="searchTogle()">
 				<a tabindex="30" style="border:none" ng-enter="searchToggle()"><img ng-enter="searchToggle()" style="margin-left:10px;" alt="close search box" class="icon" src="/images/collapse_btn_bigger_search.png" height="30" width="30"/></a>
 			</div>
-			<div id="explanation_contain" style="display:block; padding-right:5px;background:white; border:1px dotted #ccc; " >
-				<img id="closeinfo" onclick="$('#explanation').hide();$('#closeinfo').hide();$('#openinfo').show();$('#explanation_contain').css('width','15px'); " src="/images/dyk/close_btn_bluedk_sm.png" alt="collapse button" width="10" height="10" class="icon" style="padding-left:5px; cursor:pointer;"/>
-				<img style="display:none; padding-left:5px;cursor:pointer" id="openinfo" onclick="$('#explanation').show();$('#closeinfo').show();$('#openinfo').hide();$('#explanation_contain').css('width','auto'); " src="/images/dyk/info_sm.png" alt="close information section" width="10" height="10" class="icon"/>
-				<p id="explanation"" style="padding:2px;font-size: .77em;font-style: italic;color: #888888;margin-left: 3px;padding-top: 2px;text-decoration: none;">As you search our site, you will notice that the blog, images, and lesson results all now have small stars beside them.   Click on this icon to "store"  your favorite Teacher at Sea resources in your browser.  Simply click on the big star icon (next to the search icon), to view, email or share your favorited resources.   For more information, click on this star and then click on the  <img src='/images/dyk/info.png' class='no-border' width='12' height='12' alt='info'/> button on the "Favorites" results page"</p>
-				</div>
+			
 
-				<div style="padding:10px; padding-top:5px; padding-bottom:10px;">
+				<div style="padding:10px; padding-top:5px; padding-bottom:10px;margin-top:10px;">
 
 				<form  name="searchblogs" id="blogs">
 				<label>Search Blogs</label>
@@ -171,14 +167,14 @@
 				<form  name="searchsite" id="searchsite"   >
 				<label>Search Site</label>
 				<input type="text"  name="searchfield" ng-model="search_site" style="width:170px;" tabindex="36" placeholder="Search Lessons" />
-				<input type="image" src="/images/search_submit.png" alt="search site"   ng-click="searchSite(search_site)"  tabindex="37" />
+				<input type="image" src="/images/search_submit.png" alt="search site"  ng-click="searchSite(search_site)"  tabindex="37" />
 				</form>
 				</div>
 
 				</div>
 				</div>
 				<div ng-controller="FavoriteController">
-				<div  class="go_to_fav_icon" role="favorites button" tabindex="38" ng-click="openFavorites()" ng-enter="openFavorites()"><img style="border:none;" src="/images/fav_for_nav.png" alt="go to favorite items" />
+				<div  class="go_to_fav_icon" role="favorites button" tabindex="38" ng-click="openFavorites(); setUpSocial()" ng-enter="openFavorites()"><img style="border:none;" src="/images/fav_for_nav.png" alt="go to favorite items" />
 					
 				</div>
 				<div  class="popup_holder animate-show" ng-hide="popupHider6==true">

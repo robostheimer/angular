@@ -631,7 +631,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 
 					teacher.lastname = result.data.rows[0][0];
 					teacher.firstname = result.data.rows[0][1];
-					teacher.lastname_forDOM = DigPatt(teacher.lastname, '-')
+					teacher.lastname_forDOM = DigPatt(teacher.lastname, '-');
 					teacher.shiptype = result.data.rows[0][2];
 					teacher.ship = result.data.rows[0][3];
 					teacher.shipurl = result.data.rows[0][4];
@@ -923,7 +923,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 
 				WPdata.Images = ImagesArr;
 				
-				console.log((WPdata))
+				
 				return WPdata;
 			});
 
@@ -1989,6 +1989,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			{
 				blogs[x].id = x;
 				blogs[x].tabIndex=(x+40);
+				blogs[x].CategoriesArr= blogs[x].Tags;
 			}
 			
 			return blogs;
@@ -2006,11 +2007,12 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			
 			for(var x=0; x<_images.length; x++)
 			{
-				_images[x].src = _images[x].src['0'];	
-							
-				if ((!_images[x].src.match('.mov') && !_images[x].src.match('.m4v') && !_images[x].src.match('.ogg') && !_images[x].src.match('.wmv') && !_images[x].src.match('.m4a') && !_images[x].src.match('.mp4') && !_images[x].src.match('.avi') && !_images[x].src.match('.doc') && !_images[x].src.match('.docx') && !_images[x].src.match('.pdf') && !_images[x].src.match('.xlsx') && !_images[x].src.match('.xls') && !_images[x].src.match('.ppt') && !_images[x].src.match('.pptx')||!_images[x].src.match('teacheratsea.wordpress'))) {
-					console.log(_images[x].src);
-					_images[x].id=x;
+				if(_images[x].src!='undefined')
+				{
+				_images[x].src = _images[x].src['0'];
+				if ((!_images[x].src.match('.mov') && !_images[x].src.match('.m4v') && !_images[x].src.match('.ogg') && !_images[x].src.match('.wmv') && !_images[x].src.match('.m4a') && !_images[x].src.match('.mp4') && !_images[x].src.match('.avi') && !_images[x].src.match('.doc') && !_images[x].src.match('.docx') && !_images[x].src.match('.pdf') && !_images[x].src.match('.xlsx') && !_images[x].src.match('.xls') && !_images[x].src.match('.ppt') && !_images[x].src.match('.pptx'))&&!_images[x].src.match('http://teacheratsea.wordpress')) {
+					
+					_images[x].id=(_images.length-1);
 					_images[x].tabIndex=(x+40);
 					_images[x].post_title = _images[x].post_url[0].replace('http://teacheratsea.wordpress.com/','').split('/')[3];
 					_images[x].post_title = toTitleCase(_images[x].post_title.replace(/-/g, !' '));
@@ -2033,9 +2035,17 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 					}
 					images.push(_images[x]);
 					
+					
 				}
 			}
-			console.log(images);
+			
+			}
+			for(var y=0; y<images.length; y++)
+			{
+				images[y].id=y;
+				
+			}
+			
 			return images;
 		});
 	},
@@ -2281,13 +2291,13 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	return {
 		
 		
-		addFavorites:function()
+		addFavorites:function(type)
 		{
-		var favorites={};
+			//console.log(arr);
+			var favorites={};
 			if(localStorage.getItem('BlogArr')!=null && localStorage.getItem('FavoriteArr')!='')
 			{
 				var blogFav = jQuery.parseJSON(localStorage.getItem('BlogArr'));
-				//favorites.blogHider=false;
 			}
 			else
 			{
@@ -2295,54 +2305,112 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 				//favorites.blogHider=true;
 			}
 		
-		if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
-		{
-			var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
-			//favorites.imgHider=false;
-		}
-		else
-		{
-			var imgFav =[];
-			//favorites.imgHider=true;
-		}
-		
-		if(localStorage.getItem('LessonArr')!=null && localStorage.getItem('LessonArr')!='')
+			if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
 			{
-				var lessonFav = jQuery.parseJSON(localStorage.getItem('LessonArr'));
-				//favorites.lessonHider=false;
-				
+				var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+				//favorites.imgHider=false;
 			}
 			else
 			{
-				var lessonFav =[];
-				//favorites.lessonHider=true;
+				var imgFav =[];
+				//favorites.imgHider=true;
 			}
-
-		favorites.blogs =blogFav;
-		for(var x=0; x<favorites.blogs.length; x++)
-		{
-			favorites.blogs[x].favorite='on';
-			favorites.blogs[x].id=x;
 			
-		}
-		favorites.images=imgFav;
-		for(var y=0; y<favorites.images.length; y++)
-		{
-			favorites.images[y].favorite='on';
-			favorites.images[y].id=y;
-		}
-		favorites.lessons=lessonFav;
-		for(var z=0; z<favorites.lessons.length; z++)
-		{
-			favorites.lessons[z].favorite='on';
-			favorites.lessons[z].id=z;
-		}
+			if(localStorage.getItem('LessonArr')!=null && localStorage.getItem('LessonArr')!='')
+				{
+					var lessonFav = jQuery.parseJSON(localStorage.getItem('LessonArr'));
+				}
+				else
+				{
+					var lessonFav =[];
+					//favorites.lessonHider=true;
+				}
+	
+			
+			favorites.blogs =blogFav;
+			//console.log(favorites.blogs)
+			/*if(arr!=null && type=="blog")
+			{
+				for(var a=0; a<arr.length; a++)
+				{
+					arr[a].favorite='off';*/
+					
+					for(var x=0; x<favorites.blogs.length; x++)
+					{
+						favorites.blogs[x].favorite='on';
+						favorites.blogs[x].id=x;
+						
+						
+							/*if(arr[a].BlogUrl['0']==favorites.blogs[x].BlogUrl['0'])
+							{
+								arr[a].favorite='on'
+								
+								
+							}
+							
+						}*/
+					
+					
+					}
+					
+			//}
+			favorites.images=imgFav;
+			/*if(arr!=null && type=="images")
+			{
+				for(var a=0; a<arr.length; a++)
+				{
+					arr[a].favorite='off';*/					
+					for(var y=0; y<favorites.images.length; y++)
+					{
+						
+				
+						favorites.images[y].favorite='on';
+						favorites.images[y].id=y;
+					
+						
+						
+							/*if(arr[a].src==favorites.images[y].src)
+							{
+								arr[a].favorite='on'
+								
+								
+							}
+							
+						}*/
+					
+					
+					}
+			
+			
+			//}
+			favorites.lessons=lessonFav;
+			/*if(arr!=null && type=="lessons")
+			{
+			for(var a=0; a<arr.length; a++)
+				{
+					arr[a].favorite='off';*/
+					for(var z=0; z<favorites.lessons.length; z++)
+					{
+						favorites.lessons[z].favorite='on';
+						favorites.lessons[z].id=z;
+						/*if(arr[a].url==favorites.lessons[z].url)
+							{
+								arr[a].favorite='on'
+								
+								
+							}
+					}*/
+				}
+			//}		
 		favorites.dyks=[];
-		console.log(favorites);
+		
 		return favorites;
 		},
 		
-		
+		removeFavorites:function(arr, type)
+		{
+			alert('removing');
+		},
 		
 		
 		checkFavorites:function(obj, type)
@@ -2382,69 +2450,179 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 						var lessonFav =[];
 						
 					}
-		
+				
 				favorites.blogs =blogFav;
-				if(type=="blogs")
+				favorites.lessons=lessonFav;
+				favorites.images=imgFav;
+				if(type=='blogs')
 				{
-					for(var x=0; x<favorites.blogs.length; x++)
+					if( favorites.blogs.length>0)
 					{
-						//favorites.blogs[x].favorite='on';
-						favorites.blogs[x].id=x;
-						//console.log(obj.BlogUrl['0']);
-						if(favorites.blogs[x].BlogUrl['0']==obj.BlogUrl['0'])
+						
+						obj.favorite='off'
+						for(var x=0; x<favorites.blogs.length; x++)
 						{
-							obj.favorite='on';
-	
+							//favorites.blogs[x].favorite='on';
+							favorites.blogs[x].id=x;
+							console.log(obj.BlogUrl['0']+':'+obj.BlogUrl['0']);
+							
+							if(favorites.blogs[x].BlogUrl['0']==obj.BlogUrl['0'])
+							{
+								obj.favorite='on';
+								
+								
+		
+							}
+							
 						}
-						else{
+					}
+					else
+					{
+						obj.favorite='off'
+					}
+				}
+				
+					if(type=="images")
+					{
+						obj.favorite='off'
+						if( favorites.images.length>0)
+						{
+						
+						
+							for(var y=0; y<favorites.images.length; y++)
+							{
+								
+								favorites.images[y].id=y;
+								if(favorites.images[y].src == obj.src)
+								{
+									obj.favorite='on';
+									
+									
+								}
+																
+							}
+						}
+						else
+						{
 							obj.favorite='off'
 						}
-					}
-				}
-				favorites.images=imgFav;
-				if(type=="images")
-				{
-										for(var y=0; y<favorites.images.length; y++)
-					{
-						//favorites.images[y].favorite='on';
-						favorites.images[y].id=y;
-						if(favorites.images[y].src == obj.src)
-						{
-							
-							console.log(obj)
 
-							obj.favorite='on';
-							console.log(obj.favorite);
-							
-						}
-						else{
-							obj.favorite='off';
-						}
-					}
-				}
-				favorites.lessons=lessonFav;
+						
+					}	
 				if(type=="lessons")
 				{
-					console.log(obj)	
-					for(var z=0; z<favorites.lessons.length; z++)
+					if(favorites.lessons.length>0)
 					{
-						//favorites.lessons[z].favorite='on';
-						favorites.lessons[z].id=z;
-						if(favorites.lessons[z].url==obj.url)
+							
+						for(var z=0; z<favorites.lessons.length; z++)
 						{
-							obj.favorite='on';	
+							
+							//favorites.lessons[z].favorite='on';
+							favorites.lessons[z].id=z;
+							if(favorites.lessons[z].url==obj.url)
+							{
+								obj.favorite='on';	
+							}
+							
 						}
-						else{
-							obj.favorite='off'
-						}
+				
 					}
-				}
-				
-				
+					else
+					{
+						obj.favorite='off'
+					}
+				}	
 				favorites.dyks=[];
 				
-				
+				return favorites
 
+			
+		},
+		setUpEmail:function()
+		{
+			var favorites=[];
+			var emailTxt='';
+			var imagesTxt='';
+			var lessonsTxt='';
+			var finalTxt='';
+			if(localStorage.getItem('BlogArr')!=null && localStorage.getItem('FavoriteArr')!='')
+				{
+					var blogFav = jQuery.parseJSON(localStorage.getItem('BlogArr'));
+					
+				}
+				else
+				{
+					blogFav=[];
+				}
+				
+				if(localStorage.getItem('ImgArr')!=null && localStorage.getItem('ImgArr')!='')
+				{
+					var imgFav = jQuery.parseJSON(localStorage.getItem('ImgArr'));
+					
+				}
+				else
+				{
+					var imgFav =[];
+					
+				}
+				
+				if(localStorage.getItem('LessonArr')!=null && localStorage.getItem('LessonArr')!='')
+					{
+						var lessonFav = jQuery.parseJSON(localStorage.getItem('LessonArr'));
+						favorites.lessonHider=false;
+						
+					}
+				else
+				{
+					var lessonFav =[];
+					
+				}
+				
+			favorites.blogs =blogFav;
+			favorites.images=imgFav;
+			favorites.lessons=lessonFav;
+			
+			for(var x=0; x<favorites.blogs.length; x++)
+			{
+				var mailImg = favorites.blogs[x].BlogImage;
+				var mailUrl = favorites.blogs[x].BlogUrl['0'];
+				var mailTitle=favorites.blogs[x].BlogTitle;
+				emailTxt += mailImg + '**' + mailUrl + '**' + mailTitle + '@@'
+			}
+			for(var y=0; y<favorites.images.length; y++)	
+			{	
+				var mailImages = favorites.images[y].src+'?w=150';
+				var mailCaption = favorites.images[y].caption;
+				imagesTxt +=mailImages+'::'+mailCaption+'$$';
+				
+			}	
+			for(var z=0; z<favorites.lessons.length; z++)
+			{	
+				var lessonId =favorites.lessons[z].id;
+				var lessonhref=favorites.lessons[z].url;
+				var lessontitle=favorites.lessons[z].title;
+				var lessonauthorhref='/'+favorites.lessons[z].year+'/'+favorites.lessons[z].firstname+'*'+favorites.lessons[z].lastname;
+				var lessonauthor=favorites.lessons[z].firstname +' '+ favorites.lessons[z].lastname;
+				var lessongrades=favorites.lessons[z].grades;
+				lessonsTxt+=lessonhref+'**'+lessontitle+'**'+lessonauthorhref+'**'+lessonauthor+'**'+lessongrades;
+			}	
+				
+				
+				
+			finalTxt = '&message='+emailTxt+'&images='+imagesTxt+'&lessons='+lessonsTxt+'!!!'//&dyk=';	
+			
+			
+			return finalTxt;
+		},
+		
+		getLongURL:function(url)
+		{
+			
+			var deferred = $q.defer();
+			url ='http://cityblinking.com/MusicWhereYouAre/app/%23'+url.replace('--', '/');
+			url = (url);
+			deferred.resolve(url);
+			return deferred.promise;
 			
 		},
 		

@@ -186,7 +186,8 @@ angular.module('BaseballCardInfo', [])
 	
 	$scope.accessData=function()
 	{
-		
+			$rootScope.favorites = Favorites.addFavorites();
+			console.log($rootScope.favorites);
 			//////////////checks datacount to determine data needs to be re-downloaded; if teacherdatacount==0 it loads
 			if (teacherdatacount == 0)
 			{
@@ -237,7 +238,8 @@ angular.module('BaseballCardInfo', [])
 							    {
 							    	Favorites.checkFavorites($scope.images[y], 'images');
 							    }
-							    
+							    $rootScope.imagedata = $scope.images;
+							   // console.log($rootScope.imagedata);
 							   	$rootScope.wpdata =$scope.wp;
 					       		$scope.wp.dataLoaded=true; 
 					       		$scope.wp.checkVideos=false;
@@ -346,6 +348,7 @@ angular.module('BaseballCardInfo', [])
 
 $scope.accessData();
 
+
 $scope.switchFavorite=function(id, type)
 	{
 		var blogTitle=[];
@@ -370,8 +373,8 @@ $scope.switchFavorite=function(id, type)
 				$scope.wp.items[id].favorite='on';
 				blogFav.push( $scope.wp.items[id]);
 				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
-				$scope.favorites = Favorites.addFavorites();
-				console.log($scope.favorites);
+				
+			//$rootScope.favorites = Favorites.addFavorites($rootScope.wpdata.items, 'blog');
 			}
 			else{
 				
@@ -384,9 +387,13 @@ $scope.switchFavorite=function(id, type)
 				var index=blogTitle.indexOf($scope.wp.items[id].BlogTitle);
 				blogFav.splice(index, 1);
 				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
-				
+			
+			//$rootScope.favorites = Favorites.removeFavorites($rootScope.wpdata.items, 'blog');	
 			
 			}
+			
+			
+			//localStorage.setItem('BlogArr', JSON.stringify($rootScope.favorites.blog));
 			
 		}	
 		////////////////PHotos//////////////////
@@ -400,27 +407,30 @@ $scope.switchFavorite=function(id, type)
 			{
 				var imgFav =[];
 			}
+		
 				
-		if($scope.wp.Images[id].favorite=='off')
+		if($scope.images[id].favorite=='off')
 			{
 				$scope.images[id].favorite='on';
+				
 				imgFav.push( $scope.wp.Images[id]);
 				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
 				
-				$scope.favorites = Favorites.addFavorites();
+				
+				//$rootScope.favorites = Favorites.addFavorites($rootScope.imagedata, 'images');
 			}
 			else{
 				for(var y=0; y<imgFav.length; y++)
 				{
 					imgSrc.push(imgFav[y].src);
 				}
-				$scope.images.favorite='off';
+				$scope.images[id].favorite='off';
 				var index=imgSrc.indexOf($scope.wp.Images[id].src);
 				imgFav.splice(index, 1);
 				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-				$scope.favorites = Favorites.addFavorites();
+				//$rootScope.favorites = Favorites.removeFavorites($rootScope.imagedata, 'images');
 			}
-			
+			 
 		}
 		
 		///////////////////Bigphoto////////////	
@@ -439,7 +449,7 @@ $scope.switchFavorite=function(id, type)
 					$scope.favorite='on';
 					imgFav.push( $scope.wp.Images[id]);
 					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-					$scope.favorites = Favorites.addFavorites();
+					// $rootScope.favorites = Favorites.addFavorites($rootScope.imagedata, 'images');
 				}
 				else{
 					
@@ -451,7 +461,7 @@ $scope.switchFavorite=function(id, type)
 					var index=imgSrc.indexOf($scope.wp.Images[id].src);
 					imgFav.splice(index, 1);
 					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-					$scope.favorites = Favorites.addFavorites();
+					 //$rootScope.favorites = Favorites.removeFavorites($rootScope.imagedata, 'images');
 					}
 					
 			}	
@@ -474,7 +484,7 @@ $scope.switchFavorite=function(id, type)
 				$scope.lessons[id].favorite='on';
 				lessonFav.push( $scope.lessons[id]);
 				localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
-				$scope.favorites = Favorites.addFavorites();
+				//$rootScope.favorites = Favorites.addFavorites($rootScope.lessonsdata, 'lessons');
 			}
 			else{
 				
@@ -487,9 +497,27 @@ $scope.switchFavorite=function(id, type)
 					var index=lessonUrl.indexOf($scope.lessons[id].url);
 					lessonFav.splice(index, 1);
 					localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
-					$scope.favorites = Favorites.addFavorites();
+				//$rootScope.favorites = Favorites.removeFavorites($rootScope.lessonsdata, 'lessons');		
 			}
+			
 		}
+		
+		$rootScope.favorites = Favorites.addFavorites();
+		for(var i=0; i<$rootScope.wpdata.items.length;i++)
+		{
+			Favorites.checkFavorites($rootScope.wpdata.items[i], 'blogs');
+			
+		}
+		for(var j=0; j<$rootScope.imagedata.length;j++)
+		{
+			Favorites.checkFavorites($rootScope.imagedata[j], 'images');
+			
+		}
+		for(var k=0; k<$rootScope.lessonsdata.length;k++)
+		{
+			Favorites.checkFavorites($rootScope.lessonsdata[k], 'lessons');
+		}
+		
 		
 	};			
 
@@ -631,7 +659,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 
 
 angular.module('Media', [])
-.controller('mediaPage', ['$scope','$location','$routeParams','Media','Teacher','preloadImage','Slideshow','Favorites', function($scope, $location, $routeParams,Media,Teacher , preloadImage, Slideshow, Favorites)
+.controller('mediaPage', ['$scope','$rootScope','$location','$routeParams','Media','Teacher','preloadImage','Slideshow','Favorites', function($scope, $rootScope, $location, $routeParams,Media,Teacher , preloadImage, Slideshow, Favorites)
 {
 	myScroll  = new iScroll("wrapper", {hScrollbar:false});
 	$scope.bigImage = false;
@@ -846,6 +874,7 @@ angular.module('Media', [])
 					$scope.images[id].favorite='on';
 					imgFav.push( $scope.wp.Images[id]);
 					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					// $rootScope.favorites = Favorites.addFavorites($rootScope.imagedata, 'images');
 					
 				}
 				else{
@@ -858,8 +887,10 @@ angular.module('Media', [])
 					var index=imgSrc.indexOf($scope.wp.Images[id].src);
 					imgFav.splice(index, 1);
 					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					// $rootScope.favorites = Favorites.removeFavorites($rootScope.imagedata, 'images');
 					
 				}
+				
 		}	
 		if(type=='bigphoto')
 		{
@@ -877,6 +908,7 @@ angular.module('Media', [])
 				$scope.favorite='on';
 				imgFav.push( $scope.wp.Images[id]);
 				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				//$rootScope.favorites = Favorites.addFavorites($scope.wp.Images, 'images');
 				
 			}
 			else{
@@ -890,14 +922,30 @@ angular.module('Media', [])
 					var index=imgSrc.indexOf($scope.wp.Images[id].src);
 					imgFav.splice(index, 1);
 					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					//$rootScope.favorites = Favorites.removeFavorites($scope.wp.Images, 'images');
 
 				}
+				
 		}
-		$scope.favorites = Favorites.addFavorites();	
-		
-	};			
+			
+			$rootScope.favorites = Favorites.addFavorites();
+			for(var i=0; i<$rootScope.wpdata.items.length;i++)
+			{
+				Favorites.checkFavorites($rootScope.wpdata.items[i], 'blogs');
+				
+			}
+			for(var j=0; j<$rootScope.imagedata.length;j++)
+			{
+				Favorites.checkFavorites($rootScope.imagedata[j], 'images');
+				
+			}
+			for(var k=0; k<$rootScope.lessonsdata.length;k++)
+			{
+				Favorites.checkFavorites($rootScope.lessonsdata[k], 'lessons');
+				
+			}
 
-
+	};
 }])
 
 
@@ -2050,13 +2098,39 @@ angular.module('Footer', [])
 angular.module('Favorites', [])
 .controller('FavoriteController', ['$scope','$location','$routeParams','preloadImage','$sce', '$rootScope','Favorites', 'preloadImage', function($scope, $location, $routeParams, preloadImage,  $sce, $rootScope, Favorites, preloadImage)
 {
+	$scope.toggleInfo = function()
+	{
+		if($scope.LSinfo==false)
+		{
+			$scope.LSinfo=true;
+			$scope.showOption=false
+		}
+		else{
+			$scope.LSinfo=false;
+			$scope.showOption=true;
+		}
+	};
+	
+	$scope.toggleEmail = function()
+	{
+		if($scope.showEmailForm==false)
+		{
+			$scope.showEmailForm=true;
+			$scope.showOption=false
+		}
+		else
+		{
+			$scope.showEmailForm=false;
+			$scope.showOption=true;
+		}
+	};
 	
 	$scope.openFavorites=function()
 	{
 		
 		$scope.bigImageFav=true;
 		$scope.popupHider6=false;
-		$scope.favorites =Favorites.addFavorites();
+		$rootScope.favorites =Favorites.addFavorites();
 		
 		
 	};	
@@ -2148,27 +2222,40 @@ angular.module('Favorites', [])
 				{
 					var blogFav=[];
 				}
-				
-			if($scope.favorites.blogs[id].favorite=='off')
-			{
-				$scope.favorites.blogs[id].favorite='on';
-				blogFav.push( $scope.favorites.blogs[id]);
-				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
-			}
-			else{
-				
-				for(var x=0; x<blogFav.length; x++)
+			if($rootScope.favorites.blogs[id]!=null)
+			{	
+				if($rootScope.favorites.blogs[id].favorite=='off')
 				{
-					blogTitle.push(blogFav[x].BlogTitle);
+					$rootScope.favorites.blogs[id].favorite='on';
+					blogFav.push( $rootScope.favorites.blogs[id]);
+					
+					localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
+					//$rootScope.favorites = Favorites.addFavorites($rootScope.wpdata.items, 'blog');
+				}
+				else{
+					
+					for(var x=0; x<blogFav.length; x++)
+					{
+						blogTitle.push(blogFav[x].BlogTitle);
+
+					}
+					
+					$rootScope.favorites.blogs[id].favorite='off';
+					//console.log($scope.blogs[id].favorite);
+					
+					var index=blogTitle.indexOf($rootScope.favorites.blogs[id].BlogTitle);
+					blogFav.splice(index, 1);
+										localStorage.setItem('BlogArr', JSON.stringify(blogFav));
+					//$rootScope.favorites = Favorites.removeFavorites($rootScope.wpdata.items, 'blog');
 				}
 				
-				$scope.favorites.blogs[id].favorite='off';
-				//console.log($scope.blogs[id].favorite);
-				
-				var index=blogTitle.indexOf($scope.favorites.blogs[id].BlogTitle);
-				blogFav.splice(index, 1);
-				localStorage.setItem('BlogArr', JSON.stringify(blogFav));
 			}
+			else
+				{
+					blogFav=[];
+					localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
+				}
+			
 		}	
 		////////////////PHotos//////////////////
 		if(type=='photo')
@@ -2181,26 +2268,39 @@ angular.module('Favorites', [])
 			{
 				var imgFav =[];
 			}
-			
-		if($scope.favorites.images[id].favorite=='off')
-			{
-				$scope.favorites.images[id].favorite='on';
-				imgFav.push( $scope.favorite.images[id]);
-				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-			}
-			else{
-				for(var y=0; y<imgFav.length; y++)
+		if($rootScope.favorites.images[id]!=null)
+			{	
+			if($rootScope.favorites.images[id].favorite=='off')
 				{
-					imgSrc.push(imgFav[y].src);
+					$rootScope.favorites.images[id].favorite='on';
+					imgFav.push( $scope.favorite.images[id]);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					//$rootScope.favorites = Favorites.addFavorites();
+					// $rootScope.favorites = Favorites.addFavorites($rootScope.imagedata, 'images');	
 				}
-				$scope.favorites.images[id].favorite='off';
-				var index=imgSrc.indexOf($scope.favorites.images[id].src);
-				imgFav.splice(index, 1);
-				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				else{
+					for(var y=0; y<imgFav.length; y++)
+					{
+						imgSrc.push(imgFav[y].src);
+					}
+					$rootScope.favorites.images[id].favorite='off';
+					var index=imgSrc.indexOf($rootScope.favorites.images[id].src);
+					imgFav.splice(index, 1);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					//$rootScope.favorites = Favorites.addFavorites();
+					 //$rootScope.favorites = Favorites.removeFavorites($rootScope.imagedata, 'images');	
+					
 				
-			}
 			
+			
+			}
 		}
+		else
+		{
+			imgFav=[];
+			localStorage.setItem('ImgArr',imgFav );
+		}	
+	}	
 		////////////BigPhoto
 		if(type=='bigphoto')
 		{
@@ -2212,27 +2312,34 @@ angular.module('Favorites', [])
 			{
 				var imgFav =[];
 			}
-		console.log($scope.favorites.images[id]);	
-		if($scope.favorites.images[id].favorite=='off')
-			{
-				$scope.favorites.images[id].favorite='on';
-				imgFav.push( $scope.favorite.images[id]);
-				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-			}
-			else{
-				for(var y=0; y<imgFav.length; y++)
+		if($rootScope.favorites.images[id]!=null)
+			{	
+			if($rootScope.favorites.images[id].favorite=='off')
 				{
-					imgSrc.push(imgFav[y].src);
+					$rootScope.favorites.images[id].favorite='on';
+					imgFav.push( $scope.favorite.images[id]);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					 //$rootScope.favorites = Favorites.addFavorites($rootScope.imagedata, 'images');
 				}
-				$scope.favorites.images[id].favorite='off';
-				var index=imgSrc.indexOf($scope.favorites.images[id].src);
-				imgFav.splice(index, 1);
-				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+				else{
+					for(var y=0; y<imgFav.length; y++)
+					{
+						imgSrc.push(imgFav[y].src);
+					}
+					$rootScope.favorites.images[id].favorite='off';
+					var index=imgSrc.indexOf($rootScope.favorites.images[id].src);
+					imgFav.splice(index, 1);
+					localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
+					 //$rootScope.favorites = Favorites.removeFavorites($rootScope.imagedata, 'images');
+				}
 				
 			}
-			
+			else
+			{
+				imgFav=[];
+				localStorage.setItem('ImgArr',imgFav );
+			}
 		}
-		
 		
 		///////////Lessons////////////
 		
@@ -2246,36 +2353,123 @@ angular.module('Favorites', [])
 			{
 				var lessonFav =[];
 			}
-			
-			if($scope.favorites.lessons[id].favorite=='off')
+			if($rootScope.favorites.lessons[id]!=null)
 			{
-				$scope.favorite.lessons[id].favorite='on';
-				lessonFav.push( $scope.favorite.lessons[id]);
-				localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
-			}
-			else{
-				
-				$scope.favorites.lessons[id].favorite='off';
-				for(var y=0; y<lessonFav.length; y++)
-					{
-						lessonUrl.push(lessonFav[y].url);
-					}
-					var index=lessonUrl.indexOf($scope.favorites.lessons[id].url);
-					lessonFav.splice(index, 1);
+				if($rootScope.favorites.lessons[id].favorite=='off')
+				{
+					$scope.favorite.lessons[id].favorite='on';
+					lessonFav.push( $scope.favorite.lessons[id]);
 					localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
+					//$rootScope.favorites = Favorites.addFavorites($rootScope.lessonsdata, 'lessons');
+				}
+				else{
 					
+					$rootScope.favorites.lessons[id].favorite='off';
+					for(var y=0; y<lessonFav.length; y++)
+						{
+							lessonUrl.push(lessonFav[y].url);
+						}
+						var index=lessonUrl.indexOf($rootScope.favorites.lessons[id].url);
+						lessonFav.splice(index, 1);
+						localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
+						//$rootScope.favorites = Favorites.removeFavorites($rootScope.lessonsdata, 'lessons');
+				}
 			}
+			else
+			{
+				lessonFav=[];
+				localStorage.setItem('LessonArr',lessonFav );
+			}	
 		}
-		$scope.favorites = Favorites.addFavorites();
+			$rootScope.favorites = Favorites.addFavorites();
+			for(var i=0; i<$rootScope.wpdata.items.length;i++)
+			{
+				Favorites.checkFavorites($rootScope.wpdata.items[i], 'blogs');	
+			}
+			
+			for(var j=0; j<$rootScope.imagedata.length;j++)
+			{
+				Favorites.checkFavorites($rootScope.imagedata[j], 'images');
+				
+			}
+			for(var k=0; k<$rootScope.lessonsdata.length;k++)
+			{
+				Favorites.checkFavorites($rootScope.lessonsdata[k], 'lessons');
+				
+			}
 	};			
+	
+	$scope.setUpEmail = function()
+
+	{
+		$scope.email =Favorites.setUpEmail();
+		$scope.address = $('#email').val();
+		$scope.url = encodeURIComponent('http://teacheratsea.noaa.gov/php/send_html.php?email='+$scope.address+$scope.email);
+		$scope.url = $scope.url.replace(/ /g, '%20');
+		console.log($scope.url);
+		if($scope.address==''||$scope.address==undefined)
+		{
+		alert('Please enter a valid email address');
+		}
+		else
+		{
+			Favorites.getBitLy($scope.url).then(function(result){
+				console.log(result);
+			});
+		}
+		
+		
+	};
+	
+	
+	$scope.setUpPlainEmail = function()
+
+	{
+		$scope.email =Favorites.setUpEmail();
+		$scope.address = $('#email').val();
+		$scope.url = encodeURIComponent('http://teacheratsea.noaa.gov/php/send_plain.php?email='+$scope.address+$scope.email);
+		$scope.url = $scope.url.replace(/ /g, '%20');
+		console.log($scope.url);
+		if($scope.address==''||$scope.address==undefined)
+		{
+		alert('Please enter a valid email address');
+		}
+		else
+		{
+			Favorites.getBitLy($scope.url).then(function(result){
+				console.log(result);
+			});
+		}
+	};	
+	$scope.setUpSocial = function()
+	{
+		$scope.email =Favorites.setUpEmail();
+		$scope.address = 'tas@noaa';
+		$scope.image='http://teacheratsea.files.wordpress.com/2012/05/logo3.jpg?w=100'
+		$scope.url = encodeURIComponent('http://teacheratsea.noaa.gov/php/send_html.php?email='+$scope.address+$scope.email);
+		$scope.url = $scope.url.replace(/ /g, '%20');
+		console.log($scope.url);
+		Favorites.getBitLy($scope.url).then(function(result){
+				$scope.social=result;
+				
+			});
+		
+	};	
+		
+		
+	
 	
 	
 	$scope.bigImageFav=false;
 	$scope.popupHider6=true;
 	$scope.popupHider7=true;
 	$scope.bigImageFav2=false;
+	$scope.LSinfo=false;
+	$scope.showEmailForm=false;
+	$scope.showOptions =true;
 	
 	$scope.favButtons = [{name:'blogs', state:'on', classy: 'shower'}, {name:'images', state:'off', classy:'hider'}, {name:'lessons', state:'off', classy:'hider'}, {name:'dyks', state:'off', classy:'hider'}];
+	
 	
 	
 
@@ -2388,12 +2582,14 @@ angular.module('SearchBox', [])
 			SearchBox.searchImages($scope.search_images).then(function(result)
 			{
 				$scope.images =result;
-				console.log($scope.images);
+				$scope.images.shift();
 				for(var x=0; x<$scope.images.length; x++)
 				{
 					$scope.images[x].id=x;
+					console.log($scope.images[x]);
 					Favorites.checkFavorites($scope.images[x], 'images');
 				}
+				
 				$scope.showImageSearch=true;
 			});
 
@@ -2747,6 +2943,7 @@ angular.module('SearchBox', [])
 				blogFav.push( $scope.blogs[id]);
 				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
 				//console.log($scope.wp.items[id].favorite);
+				//$rootScope.favorites = Favorites.addFavorites($rootScope.wpdata.items, 'blog');
 			}
 			else{
 				for(var x=0; x<blogFav.length; x++)
@@ -2756,10 +2953,11 @@ angular.module('SearchBox', [])
 				var index=blogTitle.indexOf($scope.blogs[id].BlogTitle);
 				blogFav.splice(index, 1);
 				localStorage.setItem('BlogArr',  JSON.stringify(blogFav));
-	
 				$scope.blogs[id].favorite='off';
 				//console.log($scope.wp.items[id].favorite);
+				//$rootScope.favorites = Favorites.removeFavorites($rootScope.wpdata.items, 'blog');
 			}
+			
 		}	
 		if(type=='photo')
 		{
@@ -2777,7 +2975,7 @@ angular.module('SearchBox', [])
 				$scope.images[id].favorite='on';
 				imgFav.push( $scope.images[id]);
 				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-				
+				//$rootScope.favorites = Favorites.addFavorites($rootScope.imagedata, 'images');
 			}
 			else{
 				for(var y=0; y<imgFav.length; y++)
@@ -2788,8 +2986,9 @@ angular.module('SearchBox', [])
 				var index=imgSrc.indexOf($scope.images[id].src);
 				imgFav.splice(index, 1);
 				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-				
+				//$rootScope.favorites = Favorites.removeFavorites($rootScope.imagedata, 'images');
 			}
+			 
 		}	
 		if(type=='bigphoto')
 		{
@@ -2806,7 +3005,7 @@ angular.module('SearchBox', [])
 				$scope.favorite='on';
 				imgFav.push( $scope.images[id]);
 				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-
+				//$rootScope.favorites = Favorites.addFavorites($rootScope.imagedata, 'images');
 			}
 			else{
 				
@@ -2819,8 +3018,9 @@ angular.module('SearchBox', [])
 				var index=imgSrc.indexOf($scope.images[id].src);
 				imgFav.splice(index, 1);
 				localStorage.setItem('ImgArr',  JSON.stringify(imgFav));
-
+				//$rootScope.favorites = Favorites.removeFavorites($rootScope.imagedata, 'images');
 				}
+				 
 		}	
 		if(type=='lesson')
 		{
@@ -2838,8 +3038,8 @@ angular.module('SearchBox', [])
 				$scope.lessons[id].favorite='on';
 				lessonFav.push( $scope.lessons[id]);
 				localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
-
-			}
+				//$rootScope.favorites = Favorites.addFavorites($rootScope.lessonsdata, 'lessons');
+				}
 			else{
 				
 				$scope.lessons[id].favorite='off';
@@ -2851,10 +3051,27 @@ angular.module('SearchBox', [])
 				var index=lessonUrl.indexOf($scope.lessons[id].url);
 				lessonFav.splice(index, 1);
 				localStorage.setItem('LessonArr',  JSON.stringify(lessonFav));
-
+				//$rootScope.favorites = Favorites.removeFavorites($rootScope.lessonsdata, 'lessons');
+				
 				}
+				
 		}
-		$scope.favorites = Favorites.addFavorites();
+			$rootScope.favorites = Favorites.addFavorites();
+			for(var i=0; i<$rootScope.wpdata.items.length;i++)
+			{
+				Favorites.checkFavorites($rootScope.wpdata.items[i], 'blogs');
+				
+			}
+			for(var j=0; j<$rootScope.imagedata.length;j++)
+			{
+				Favorites.checkFavorites($rootScope.imagedata[j], 'images');
+				
+			}
+			for(var k=0; k<$rootScope.lessonsdata.length;k++)
+			{
+				Favorites.checkFavorites($rootScope.lessonsdata[k], 'lessons');
+				
+			}
 	};			
 
 	

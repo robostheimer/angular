@@ -85,7 +85,7 @@
 				<div id="blogpostsbox"  class="{{buttons.blogs.classy}}" aria-labelledby="blogposts" aria-hidden="{{buttons.blogs.state}}" >
 					<div class="profile-wrapper" id="wrapper_blogposts" style="overflow: scroll;">
 						<div class="scroller_profile" id="scroller_blogs">
-							<div class="searcher" id="searcher_profile{{index}}"  ng-repeat="item in wp.items">
+							<div class="searcher" id="searcher_profile{{index}}"  ng-repeat="item in wpdata.items">
 								<div style="display:none;" id="search_image1profile" class="search_image_blog"><img id="search_image_img_profile{{index}}" class="ImgClick" style="border:none;" ng-src="{{item.BlogImage}}?w=100" alt="{{item.title}}">
 								</div>
 								<div id="search_image_txt{{item.id}}_profile" class="search_image_text">
@@ -113,7 +113,7 @@
 					<div class="profile-wrapper" id="wrapper_photos" style="overflow: scroll;" ">
 					<div class="scroller_profile" id="scroller_photos"  >
 					<div id="searcher_image_profile{{index}}">
-					<div id="search_img_profile{{src.id}}" class="blogphotos" ng-repeat = "src in images"><img tabindex="{{src.tabIndex}}" id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite_{{src.favorite}}" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')" style="border:none;cursor:pointer" src="/images/star_{{src.favorite}}.png" alt="Add to Favorites">
+					<div id="search_img_profile{{src.id}}" class="blogphotos" ng-repeat = "src in images"><img tabindex="{{src.tabIndex}}" id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite_{{src.favorite}}" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')" style="border:none;cursor:pointer" ng-src="/images/star_{{src.favorite}}.png" alt="Add to Favorites">
 					<div><img tabindex="{{src.tabIndex}}" ng-click ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id,src.favorite)" ng-enter ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w=130" alt="{{wp.BlogTitle}}{{src.caption}}" />
 					</div>
 					</div>
