@@ -11,8 +11,10 @@
 	<div class="main_top" >
     <h1>NOAA's Teacher at Sea {{year}} Field Season</h1>
     <div class="border2" ></div>
-	  	
-	  	<div class="svg_us" ng-include="'images/US_Map.svg'" style=""></div>
+	  		
+	  	<div class="svg_us" ng-include="'images/US_Map.svg'" imgaeonload style="">
+	  			
+	  	</div>
 	  	<div class="map_txt animate-show" ng-hide="hideMapDiv==true" >
 	  		 
 		       <div class="teacherinfo" ng-repeat="teacher in teachers.forRollOver" >
@@ -38,19 +40,25 @@
          </div>
          <div class="border"></div>
          <div style="margin-left:20px;">
-         	<div class="preloader" ng-hide="dataLoaded"></div>
- 		
+         	
+         	<div  ng-hide="dataLoaded">
+         		<span class="loading">
+         			<img src="/images/NOAA-Logo.gif" alt="loading"/>
+         		<h3>While you wait...<h3><p>Did You Know? <br>{{fact}}<br><br>Learn more interesting facts about Marine Life, NOAA Ships, and Hydrography at <a href="/dyk" target="_blank">Did You Know: Tweets From Sea</a>.  </p></span>
+         			
+         		</div>
+ 			
 			
  	<div id="teacherList"  ng-hide="dataLoaded==false" >
  		
  		<div ng-repeat = "teacher in teachers">
  			<div class="class_page_image">
- 				<a tabindex="{{teacher.tabIndex}}"href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname_forDOM}}"><img tabindex="{{teacher.tabIndex}}" resize-class src="{{teacher.image}}?w={{tnWidth}}" alt="{{teacher.firstname}} {{teacher.lastname}} "></div></a>
+ 				<a tabindex="{{teacher.tabIndex}}"href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname_forDOM}}"><span class="loading"> <img  src="/images/NOAA-Logo.gif" class="no-border"/></span><img imageonload tabindex="{{teacher.tabIndex}}" resize-class src="{{teacher.image}}?w={{tnWidth}}" alt="{{teacher.firstname}} {{teacher.lastname}} " class="no-border"></div></a>
  				<div tabindex="{{teacher.tabIndex}}" class="class_page_text">
+ 					<b><a tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname_forDOM}}">{{teacher.firstname}} {{teacher.lastname_forDOM}}</a></b> ({{teacher.state}})<span ng-hide="teacher.shipHider==true">, {{teacher.shiptype}} <a href="{{teacher.shipurl}}" target="_blank"><em>{{teacher.ship}}</em></a></span>
+ 					<p tabindex="{{teacher.tabIndex}}"style="margin-top:7px;">{{teacher.firstname}} {{teacher.lastname}} teaches <span ng-show="teacher.subjects_num==1">{{teacher.subjects}} <a href="{{teacher.schoolurl}}" tabindex="{{teacher.tabIndex}}" target="_blank">{{teacher.school}}</a></span><span ng-show="teacher.subjects_num==2">{{teacher.subjects1}} at <a href="{{teacher.schoolurl1}}" target="_blank">{{teacher.school1}}</a> and {{teacher.subjects2}} at <a tabindex="{{teacher.tabIndex}}" href="{{teacher.schoolurl2}}" target="_blank">{{teacher.school2}}</a></span>
  					
- 					<b><a tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname_forDOM}}">{{teacher.firstname}} {{teacher.lastname_forDOM}}</a></b> ({{teacher.state}}), {{teacher.shiptype}} <a href="{{teacher.shipurl}}" target="_blank"><em>{{teacher.ship}}</em></a>
- 					<p tabindex="{{teacher.tabIndex}}"style="margin-top:7px;">{{teacher.firstname}} {{teacher.lastname}} teaches <span ng-show="teacher.subjects_num==1">{{teacher.subjects}} <a href="{{teacher.schoolurl}}" tabindex="{{teacher.tabIndex}}" target="_blank">{{teacher.school}}</a></span><span ng-show="teacher.subjects_num==2">{{teacher.subjects1}} at <a href="{{teacher.schoolurl1}}" target="_blank">{{teacher.school1}}</a> and {{teacher.subjects2}} at <a tabindex="{{teacher.tabIndex}}" href="{{teacher.schoolurl2}}" target="_blank">{{teacher.school2}}</a></span>  in {{teacher.city}}, {{teacher.state}}. 
- 						<span tabindex="{{teacher.tabIndex}}" ng-show="teacher.datesComp==0"> {{teacher.firstname}}  was aboard {{teacher.shiptype}} <em><a tabindex="{{teacher.tabIndex}}" href="{{teacher.shipurl}}">{{teacher.ship}}</a></em>.
+ 						<span tabindex="{{teacher.tabIndex}}" ng-show="teacher.datesComp==0">  in {{teacher.city}}, {{teacher.state}}.  {{teacher.firstname}}  was aboard {{teacher.shiptype}} <em><a tabindex="{{teacher.tabIndex}}" href="{{teacher.shipurl}}">{{teacher.ship}}</a></em>.
  							<br><br><a  tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/blogs"><em> blogs</em></a> | <a tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/photos"><em>photos</em></a> | <a tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/ship"><em>ship</em></a>
  								
  						</span>
@@ -60,6 +68,10 @@
  						</span>
  						<span ng-show="teacher.datesComp==2"> {{teacher.firstname}}  will be aboard {{teacher.shiptype}} <em><a tabindex="{{teacher.tabIndex}}" href="{{teacher.shipurl}}">{{teacher.ship}}</a></em>.
  							<br><br><a tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/blogs"><em> blogs</em></a> | <a tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/photos"><em>photos</em></a> | <a tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname}}/ship"><em>ship</em></a>
+ 								
+ 						</span>
+ 						<span ng-show="teacher.datesComp==3"> {{teacher.firstname}}  will be aboard a NOAA research cruise</em>.
+ 							
  								
  						</span></p>
  							</div>

@@ -9,7 +9,7 @@
 				We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a ng-href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.
 			</p>
 		</div>
-		<div class="preloader" ng-hide="dataLoaded==true"></div>
+	
 		<div ng-hide="dataLoaded==false">
 			<div id="intro_text">
 				<div style="background-color:#EBFAF7; border:1px dotted #ccc; float:right; margin:10px;margin-top:0; margin-bottom:0; width:100px; padding:10px;">
@@ -125,29 +125,29 @@
 
 		<div id="social_media" >
 			<ul>
-				<li ng-repeat="tab in tabs"  class="{{tab.gsx$tabname.state}}" ng-click="runtabs_no_top(tab.gsx$tabname.$t)">
+				<li ng-repeat="tab in tabs"  class="{{tab.gsx$tabname.state}}" ng-click="runtabs_no_top(tab.gsx$tabname.$t)" ng-enter="runtabs_no_top(tab.gsx$tabname.$t)">
 					<a tabindex ="{{tab.tabIndex}}"href="#{{location}}{{tab.gsx$tabname.rp}}">{{tab.gsx$tabname.$t}}</a>
 				</li>
 			</ul>
 		</div>
 	
 		<div id="social_media_body">
-			<div ng-repeat="tab in tabs" id="{{tab.gsx$tabname.$t}}" class="{{tab.gsx$tabname.classy}} animate-show">
-				<div class="tab_1">
-					<div id="wrapper1" class="wrapper_generic" style="overflow-y: scroll; overflow-x: hidden;">
-						<div tabindex="{{tab.tabIndex}}" class="scroller_generic" id="scroller1" style="">
-							<span ng-bind-html="SkipValidation(tab.gsx$body.$t)"></span>
+				<div ng-repeat="tab in tabs" id="{{tab.gsx$tabname.$t}}" class="{{tab.gsx$tabname.classy}} animate-show">
+					<div class="tab_1">
+						<div id="wrapper1" class="wrapper_generic" style="overflow-y: scroll; overflow-x: hidden;">
+							<div tabindex="{{tab.tabIndex}}" class="scroller_generic" id="scroller1" style="">
+								<span ng-bind-html="SkipValidation(tab.gsx$body.$t)"></span>
+							</div>
 						</div>
 					</div>
+					<div class="tab_2"><span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span><img imageonload tabindex="{{tabIndex}}" resize-tabs id="imageForms" src="{{tab.image}}?w={{bottomImageWidth}}" alt="{{tab.caption}}">
+						<br>
+						<span id="captionForms" style="margin-top:5px;" class="caption">{{tab.caption}}</span>
+					</div></div>
+					<div style="clear:both">
 				</div>
-				<div class="tab_2"><img  tabindex="{{tab.tabIndex}}" resize-tabs src="{{tab.image}}?w={{bottomImageWidth}}" alt="{{tab.caption}}">
-					<br>
-					
-					<span id="captionForms" style="margin-top:5px;" class="caption">{{tab.caption}}</span>
-				</div><div style="clear:both"></div>
-			</div>
 
-		</div>
+			</div>
 		<div style="clear:both"></div>
 	</div>
 </div>

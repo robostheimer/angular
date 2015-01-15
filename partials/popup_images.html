@@ -1,21 +1,24 @@
 		<div>
-			<div tabindex="38" class="bigImgClose" id="alert_box_close" ng-click="closeBigImage()" ng-enter="closeBigImage()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
+			<div tabindex="38" class="bigImgClose" id="alert_box_close" ng-click="closeBigImage()" ng-enter="closeBigImage()">
+				<img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
 			</div>
 			<div id="imagesbox" class="scrolly">
 				
 				<div tabindex="39" id="numberofresults"><h2> Search Results for: {{search_images}} </h2><br><h6>Number of Results: {{images.length}}</h6></div>
-				<div class="preloader" ng-hide="showImageSearch==true"></div>
-				<div class="wrapper_search" id="wrapper_search_images" style="overflow-y: scroll;" ng-show="showImageSearch==true"	>
-					<br><div class="scroller_search">
+				<div  ng-hide="showImageSearch==true"><img  class="no-border" src="/images/NOAA-Logo.gif" alt="loading"/>	<h3>While you wait...<h3><p>Did You Know? <br>{{fact}}<br><br>Learn more interesting facts about Marine Life, NOAA Ships, and Hydrography at <a href="/dyk" target="_blank">Did You Know: Tweets From Sea</a>.  </p></div>
+				<div class="wrapper_search" id="wrapper_search_images" style="overflow-y: scroll;"	>
+					<br><div class="scroller_search"  >
 						
 
 						<div id="searcher_image_media{{index}}">
 							
 							<div id="search_img_media{{src.id}}" class="search_image" ng-repeat = "src in images">
-								
-								<img tabindex="{{src.tabIndex}}" id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite off" style="border:none;cursor:pointer" src="/images/star_{{src.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')" >
+								<span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span>
+								<img imageonload tabindex="{{src.tabIndex}}" id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite off" style="border:none;cursor:pointer" src="/images/star_{{src.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')" >
 								<div>
-									<img tabindex="{{src.tabIndex}}" resizesearch-image ng-click ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" ng-enter ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w={{search_image}}" alt="{{src.finalCaption}}" />
+									<span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span>
+									
+									<img imageonload tabindex="{{src.tabIndex}}" resizesearch-image ng-click ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" ng-enter ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w={{search_image}}" alt="{{src.finalCaption}}" />
 								</div>
 							</div>
 						</div>

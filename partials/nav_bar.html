@@ -3,48 +3,61 @@
 		<div class="icon lines" tabindex="0" ng-click="respNavToggle()" ng-enter="respNavToggle()" alt="open menu"></div>
 		<div class="resp_inner_nav animate-show-fast" ng-hide="resp_nav_shower==false">
 			<div class="resp_inner_nav_home"  >
-				<a href="#/home" role="navigation_item"  tabindex="1">Home</a>
+				<a href="#/home" role="navigation_item"  tabindex="1" ng-click="respNavToggle()" ng-enter="respNavToggle()">Home</a>
 			</div>
-			<div class="resp_inner_nav_about">
-				<a href="#/about" role="navigation_item"  tabindex="2">About</a>
+			<div class="resp_inner_nav_about" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/about/who_may_apply" role="navigation_item"  tabindex="2">About</a>
 			</div>
-			<div class ="resp_inner_nav_current">
-				<a href="#/2014/" role="navigation_item" tabindex="3">Current Season</a>
+			<div class ="resp_inner_nav_current" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/2014/" role="navigation_item" tabindex="3" >Current Season</a>
 			</div>
-			<div class ="resp_inner_nav_past">
+			<div class ="resp_inner_nav_past" ng-click="respNavToggle()" ng-enter="respNavToggle()">
 				<a href="#/Past_Seasons" role="navigation_item" tabindex="4">Past Seasons</a>
 			</div>
-			<div class ="resp_inner_nav_media">
+			<div class ="resp_inner_nav_media" ng-click="respNavToggle()" ng-enter="respNavToggle()">
 				<a href="#/media" role="navigation_item" tabindex="5">Media Gallery</a>
 			</div>
-			<div class ="resp_inner_nav_alumni">
-				<a href="#/alumni" role="navigation_item" tabindex="6">Alumni</a>
+			<div class ="resp_inner_nav_alumni" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/alumni/Spotlight" role="navigation_item" tabindex="6">Alumni</a>
 			</div>
-			<div class ="resp_inner_nav_resources">
-				<a href="#/resources/" role="navigation_item" tabindex="6">Resources</a>
+			<div class ="resp_inner_nav_resources" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/resources/Teacher_at_Sea_Book_1/" role="navigation_item" tabindex="6">Resources</a>
 			</div>
 
-			<div class ="resp_inner_nav_faq">
+			<div class ="resp_inner_nav_faq" ng-click="respNavToggle()" ng-enter="respNavToggle()">
 				<a href="#/faqs" role="navigation_item" tabindex="7">FAQs</a>
 			</div>
-			<div class ="resp_inner_nav_how">
-				<a href="#/how_to_apply" role="navigation_item" tabindex="8">How to Apply</a>
+			<div class ="resp_inner_nav_how" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/how_to_apply/Call_for_Applications" role="navigation_item" tabindex="8">How to Apply</a>
 			</div>
-			<div class ="resp_inner_nav_contact">
+			<div class ="resp_inner_nav_contact" ng-click="respNavToggle()" ng-enter="respNavToggle()">
 				<a href="#/contact" role="navigation_item" tabindex="9">Contact Us</a>
 			</div>
-			<div class ="resp_inner_nav_photo">
+			<div class ="resp_inner_nav_photo" ng-click="respNavToggle()" ng-enter="respNavToggle()">
 				<a href="#/photo_of_week" role="navigation_item" tabindex="10">Photo of the Week</a>
 			</div>
-			<div class ="resp_inner_nav_photo">
+			<div class ="resp_inner_nav_photo" ng-click="respNavToggle()" ng-enter="respNavToggle()">
 				<a href="/dyk" role="navigation_item" tabindex="11">Did You Know?</a>
 			</div>
-			<div class ="resp_inner_nav_2012">
+			<div class ="resp_inner_nav_2012" ng-click="respNavToggle()" ng-enter="respNavToggle()">
 				<a href="#/alumni_spotlight" role="navigation_item" tabindex="12">Alumni Spotlight</a>
 			</div>
-			<div class ="resp_inner_nav_2012">
+			<div class ="resp_inner_nav_2012" ng-click="respNavToggle()" ng-enter="respNavToggle()">
 				<a href="/highlights/pdfs/TAS_for_web.pdf" role="navigation_item" tabindex="13">TAS By the Numbers</a>
 			</div>
+			<div class ="resp_inner_nav_2012" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/highlights" role="navigation_item" tabindex="13">Program Highlights</a>
+			</div>
+			<div class ="resp_inner_nav_2012" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/corps" role="navigation_item" tabindex="13">NOAA Corps</a>
+			</div>
+			<div class ="resp_inner_nav_2012" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/ships" role="navigation_item" tabindex="13">NOAA Ships</a>
+			</div>
+			<div class ="resp_inner_nav_2012" ng-click="respNavToggle()" ng-enter="respNavToggle()">
+				<a href="#/news" role="navigation_item" tabindex="13">In the News</a>
+			</div>
+			
 			<div class="social_media">
 				<div class="social_container">
 					<a href="http:/www.facebook.com/noaateacheratsea" target="_blank" role="navigation_item" tabindex="14"><div class="facebook social" aria-hidden="true" data-icon="f"></div></a>
@@ -67,7 +80,7 @@
 			<a href="#/home" role="navigation_item" tabindex="21" >Home<span style="color:#ECBD00">&nbsp;»</span></a>
 		</li>
 		<li class="mid_about">
-			<a href="#/about" role="navigation_item" tabindex="21">About<span style="color:#ECBD00">&nbsp;»</span></a>
+			<a href="#/about/who_may_apply" role="navigation_item" tabindex="21">About<span style="color:#ECBD00">&nbsp;»</span></a>
 		</li>
 		<li class="mid_current">
 			<a href="#/2014/" role="navigation_item" tabindex="22">Current Season<span style="color:#ECBD00">&nbsp;»</span></a>
@@ -77,7 +90,7 @@
 			<a href="#/faqs" role="navigation_item" tabindex="23">FAQs<span style="color:#ECBD00">&nbsp;»</span></a>
 		</li>
 		<li class="mid_how">
-			<a href="#/how_to_apply" role="navigation_item" tabindex="24">How to Apply<span style="color:#ECBD00">&nbsp;»</span></a>
+			<a href="#/how_to_apply/Call_for_Applications" role="navigation_item" tabindex="24">How to Apply<span style="color:#ECBD00">&nbsp;»</span></a>
 		</li>
 		<li class="mid_contact">
 			<a href="#/contact" role="navigation_item" tabindex="25">Contact Us<span style="color:#ECBD00">&nbsp;»</span></a>
@@ -89,13 +102,13 @@
 			<a href="#/Past_Seasons" role="navigation_item" tabindex="26">Past Seasons<span style="color:#ECBD00">&nbsp;»</span></a>
 		</li>
 		<li class="mid_resources">
-			<a href="#/resources" role="navigation_item" tabindex="27">Resources<span style="color:#ECBD00">&nbsp;»</span></a>
+			<a href="#/resources/Teacher_at_Sea_Book_1" role="navigation_item" tabindex="27">Resources<span style="color:#ECBD00">&nbsp;»</span></a>
 		</li>
 		<li class="mid_media">
 			<a href="#/media" role="navigation_item" tabindex="28">Media<span style="color:#ECBD00">&nbsp;»</span></a>
 		</li>
 		<li class="mid_alumni">
-			<a href="#/alumni" role="navigation_item" tabindex="29">Alumni<span style="color:#ECBD00">&n4sp;»</span></a>
+			<a href="#/alumni/Spotlight" role="navigation_item" tabindex="29">Alumni<span style="color:#ECBD00">&n4sp;»</span></a>
 		</li>
 		<li>
 			<a ng-click ="showNav=false" ng-enter ="showNav=false"  style="postion:absolute;" tabindex="1" ><font color="#EBFAF7"> Jump to Page Content</font> </a>
@@ -109,7 +122,7 @@
 		</div></a>
 		<div class="popup_holder animate-show"  ng-hide ="popupHider==true">
 			<bigimage-blogs id="bigImg-blogs" class="bigImg animate-show" ng-hide="bigImageHider==true">
-				</bigimage-repeat>
+				</bigimage-blogs>
 		</div>
 		<div class="popup_holder animate-show"  ng-hide ="popupHider3==true">
 			<bigimage-images id="bigImg-images" class="bigImg animate-show" ng-hide="bigImage3==false"></bigimage-images>
@@ -139,8 +152,9 @@
 
 				<form  name="searchblogs" id="blogs">
 				<label>Search Blogs</label>
+				<div class="clear"></div>
 				<input type="text" name="blogfield" ng-model="search_blogs" style="width: 170px" tabindex="31" placeholder="Search Blogs" value="Search Blogs" />
-				<input type="image" src="/images/search_submit.png" alt="search blogs "  ng-click="searchBlogs(search_blogs)" tabindex="32"  />
+				<input type="image" src="/images/search_submit.png" alt="search blogs "  ng-click="searchBlogs(search_blogs);searchToggle()" tabindex="32"  />
 				</form>
 				</div>
 
@@ -148,17 +162,19 @@
 
 				<form  name="searchmedia" id="photos"   >
 				<label>Search Images</label>
+				<div class="clear"></div>
 				<input type="text"  name="searchfield" ng-model="search_images" style="width:170px;" tabindex="33" placeholder="Search Images" alt="search Images" />
-				<input type="image" src="/images/search_submit.png"  alt="search images" ng-click="searchImages(search_images)"  tabindex="34" />
+				<input type="image" src="/images/search_submit.png"  alt="search images" ng-click="searchImages(search_images); searchToggle()"  tabindex="34" />
 				</form>
 				</div>
 
 				<div style="padding:10px; padding-bottom:5px;">
 
 				<form  name="searchlessons" id="searchlessons"   >
+					<div class="clear"></div>
 				<label>Search Lessons</label>
 				<input type="text"  name="searchfield" ng-model="search_lessons" style="width:170px;" tabindex="35"  placeholder="Search Lessons"  />
-				<input type="image" src="/images/search_submit.png" alt="search lessons" ng-click="searchLessons(search_lessons)"  tabindex="35" />
+				<input type="image" src="/images/search_submit.png" alt="search lessons" ng-click="searchLessons(search_lessons); searchToggle()"  tabindex="35" />
 				</form>
 				</div>
 
@@ -166,12 +182,12 @@
 
 				<form  name="searchsite" id="searchsite"   >
 				<label>Search Site</label>
-				<input type="text"  name="searchfield" ng-model="search_site" style="width:170px;" tabindex="36" placeholder="Search Lessons" />
-				<input type="image" src="/images/search_submit.png" alt="search site"  ng-click="searchSite(search_site)"  tabindex="37" />
+				<div class="clear"></div>				<input type="text"  name="searchfield" ng-model="search_site" style="width:170px;" tabindex="36" placeholder="Search Lessons" />
+				<input type="image" src="/images/search_submit.png" alt="search site"  ng-click="searchSite(search_site); searchToggle()"  tabindex="37" />
 				</form>
 				</div>
 
-				</div>
+			</div>
 				</div>
 				<div ng-controller="FavoriteController">
 				<div  class="go_to_fav_icon" role="favorites button" tabindex="38" ng-click="openFavorites(); setUpSocial()" ng-enter="openFavorites()"><img style="border:none;" src="/images/fav_for_nav.png" alt="go to favorite items" />
@@ -205,18 +221,18 @@
 				<div id="mainBlock" ng-hide="showNav==false">
 				<div id="mainNavElements">
 				<ul class="navigation" ng-controller="Navigation">
-				<li class="dropdown" ng-mouseover="navigationToggle('about')" ng-mouseout="navigationToggle('about')" ng-enter="navigationToggle('about')"><a role="navigation_item" tabindex="39" href="#/about/" class="mainnavitems"><b>ABOUT TAS</b></a><span class="spacer">|</span>
+				<li class="dropdown" ng-mouseover="navigationToggle('about')" ng-mouseout="navigationToggle('about')" ng-enter="navigationToggle('about')"><a role="navigation_item" tabindex="39" href="#/about/who_may_apply/" class="mainnavitems"><b>ABOUT TAS</b></a><span class="spacer">|</span>
 
 				<div id="a" class="{{navigationItems[0].state}}" style=" z-index:10000; position:relative; background-color:#0057a5;top:6px">
 				<div class="top">
 
-				<p class="navigation"><a role="subnavigation_item" tabindex="40" href="#/about/Who_May_Apply" class="navitems">Who May Apply</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="40" href="#/about/who_may_apply" class="navitems">Who May Apply</a></p>
 				<p class="navigation"><a role="subnavigation_item" tabindex="41" href="#/about/cruises" class="navitems">Cruises</a></p>
 				<p class="navigation"><a role="subnavigation_item" tabindex="42" href="#/about/time_commitment" class="navitems">Time Commitment</a></p>
 				<p class="navigation"><a role="subnavigation_item" tabindex="43" href="#/about/life_at_sea" class="navitems">Life at Sea</a></p>
-				<p class="navigation"><a role="subnavigation_item" tabindex="44" href="#/about/obligations" class="navitems">Obligations</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="44" href="#/about/who_may_apply/obligations" class="navitems">Obligations</a></p>
 
-				<p class="navigation"><a role="subnavigation_item" tabindex="45" href="#/how_to_apply" class="navitems">How to Apply</a></p>
+				<p class="navigation"><a role="subnavigation_item" tabindex="45" href="#/how_to_apply/Call_for_Applications" class="navitems">How to Apply</a></p>
 
 				<p class="navigation"><a role="subnavigation_item" tabindex="46" href="#/highlights" class="navitems">Program Highlights</a></p>
 				<p class="navigation"><a role="subnavigation_item" tabindex="47" href="/highlights/pdfs/EvaluationReportoftheNOAATeacheratSeaProgram.pdf" class="navitems" target="_blank">Evaluation</a></p>
@@ -261,7 +277,7 @@
 			<div class="mainNavHolder">
 
 				<p class="navigation">
-					<a role="subnavigation_item" tabindex="66" href="#/2014/Lynne*Kurth" class="navitems">Kurth, Lynn</a>
+					<a role="subnavigation_item" tabindex="66" href="#/2014/Lynn*Kurth" class="navitems">Kurth, Lynn</a>
 				</p>
 
 				<p class="navigation">
@@ -301,7 +317,7 @@
 					<a role="subnavigation_item" tabindex="78" href="#/2014/Andi*Webb" class="navitems">Webb, Andi </a>
 				</p>
 				<p class="navigation">
-					<a role="subnavigation_item" tabindex="79" href="#/2014/Laura*Wilmoth" class="navitems">Wilmoth, Lauren</a>
+					<a role="subnavigation_item" tabindex="79" href="#/2014/Lauren*Wilmoth" class="navitems">Wilmoth, Lauren</a>
 				</p>
 			</div>
 		</div>
@@ -356,7 +372,7 @@
 	</li>
 
 	<li class="dropdown" ng-mouseover="navigationToggle('alumni')" ng-mouseout="navigationToggle('alumni')" id="main_alumni" ng-enter="navigationToggle('alumni')">
-		<a role="navigation_item" tabindex="93" href="#/alumni" class="mainnavitems" ><b>ALUMNI</b></a><span class="spacer">|</span>
+		<a role="navigation_item" tabindex="93" href="#/alumni/Spotlight" class="mainnavitems" ><b>ALUMNI</b></a><span class="spacer">|</span>
 		<div id="d" class="{{navigationItems[3].state}}"style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
 
 			<div class="top">
@@ -387,14 +403,14 @@
 	</li>
 
 	<li class="dropdown" ng-mouseover="navigationToggle('resources')" ng-mouseout="navigationToggle('resources')" id="main_resources" ng-enter="navigationToggle('resources')">
-		<a role="navigation_item" tabindex="100" href="#/resources/" class="mainnavitems"><b>RESOURCES</b></a><span class="spacer">|</span>
+		<a role="navigation_item" tabindex="100" href="#/resources/Teacher_at_Sea_Book_1/" class="mainnavitems"><b>RESOURCES</b></a><span class="spacer">|</span>
 
 		<div id="e" class="{{navigationItems[4].state}}" style=" z-index: 10000; position: relative; background-color: rgb(0, 87, 165); top:6px;">
 
 			<div class="top">
 
 				<p class="navigation">
-					<a role="subnavigation_item" tabindex="101" href="#/resources/" class="navitems">TAS Books</a>
+					<a role="subnavigation_item" tabindex="101" href="#/resources/Teacher_at_Sea_Book_1/" class="navitems">TAS Books</a>
 				</p>
 				<p class="navigation">
 					<a role="subnavigation_item" tabindex="102" href="/dyk/" class="navitems">Did You Know?: Tweets From Sea</a>

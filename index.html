@@ -21,7 +21,8 @@
 	</head>
 	<body>
 
-		 
+		<section id="loader" ng-show="checkContents==false" ng-controller="Facts" style="width:111px; margin-left:auto; margin-right:auto;;height:107px; position: relative; background-repeat:no-repeat; background-image:url(/images/NOAA-Logo.gif);  margin-top: 20%;" /></section>
+		
 
 </div>
 <div style="clear:both"></div>
@@ -29,7 +30,7 @@
 </div>
 
  </div>
-
+ 	
  
 <div id="contain" ng-hide="checkContents==false" >
 <script type="text/javascript">
@@ -48,7 +49,7 @@
   
 <div  ng-include="'partials/nav_bar.html'"></div> 
   <div ng-view view-animation >
-  	<div style="width:75px; margin-left:auto; margin-right:auto; margin-top:40%;margin-bottom:60%; background:none;" ng-hide="checkContents ==true"><img style="border:none" src="/images/NOAA-Logo.gif"/></div>		
+ 	
 
   </div>
 			

@@ -1,18 +1,18 @@
 <div id="top">
 	<div class="main" >
-		<h1 style="margin-left:25px;" tabindex="129">NOAA Teacher at Sea: NOAA Ships</h1>
-		<div class="border2" style="margin-left:25px;"></div>
-		<div ng-show="dataLoaded==false" style="margin:15px">
+		<h1 tabindex="129">NOAA Teacher at Sea: NOAA Ships</h1>
+		<div class="border2" ></div>
+		<div ng-show="dataLoaded==false" >
 			<h1>Uh Oh!  The Information you requested was not found.</h1>
 			<p>
 				We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a ng-href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.
 			</p>
 		</div>
 		<div ng-hide-"dataLoaded==false">
-			<div id="image"><img tabindex="130" resize-tabs ng-src="{{top[0].gsx$image.$t.split('?')[0]}}?w={{topImageWidth}}" alt="{{top[0].gsx$imagealt}}"/></div>
+			<div id="image"><span class="loading" ng-show="loadHider==false"> <img ng-src="/images/NOAA-Logo_200.gif" class="no-border" /></span><img ng-hide="loadHider==false" imageonloadtabs tabindex="140" class="no-border" resize-tabs ng-src="{{top.finalImage}}?w={{topImageWidth}}" alt="{{top.imagealt}}"/></div>
 			<div class="main_text">
 
-				<div id="intro_text" tabindex="131">
+				<div id="intro_text" tabindex="140">
 					<span ng-bind-html="SkipValidation(top[0].gsx$text.$t)"></span>
 				</div>
 			</div>
@@ -22,8 +22,8 @@
 
 			<div id="social_media" >
 				<ul>
-					<li ng-repeat="tab in tabs"  class="{{tab.gsx$tabname.state}}" ng-click="runTabs(tab.gsx$tabname.$t)">
-						<a  tabindex="{{tab.tabIndex}}" href="#{{location}}{{tab.gsx$tabname.rp}}">{{tab.gsx$tabname.$t}}</a>
+					<li ng-repeat="tab in tabs"  class="{{tab.gsx$tabname.state}}" ng-click="runTabs()" ng-enter="runTabs()" >
+						<a tabindex = "{{tab.tabIndex}}" href="#{{location}}{{tab.gsx$tabname.rp}}">{{tab.gsx$tabname.$t}}</a>
 					</li>
 				</ul>
 			</div>
@@ -37,13 +37,16 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab_2"><img tabindex="{{tab.tabIndex}}" resize-tabs id="imageForms" src="{{tab.gsx$image.$t.split('?')[0]}}?w={{bottomImageWidth}}" alt="{{tab.caption}}">
+					<div class="tab_2"><span class="loading" ng-show="loadHider==false"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span><img imageonloadtabs ng-hide="loadHider==false" tabindex="{{tabIndex}}" resize-tabs id="imageForms" src="{{tab.image}}?w={{bottomImageWidth}}" alt="{{tab.caption}}">
 						<br>
 						<span id="captionForms" style="margin-top:5px;" class="caption">{{tab.caption}}</span>
-					</div><div style="clear:both"></div>
+					</div></div>
+					<div style="clear:both">
 				</div>
 
 			</div>
 			<div style="clear:both"></div>
+			</div>
+
 		</div>
 	</div>

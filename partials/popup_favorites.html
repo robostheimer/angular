@@ -18,6 +18,7 @@
 				DYKs<sup class="fav_sup" id="dyk_sup" ng-hide="favorites.dyks.length<1" >{{favorites.dyks.length}}</sup>
 		</li>-->
 		</ul>
+		<div class="clear" style="margin-bottom:10px"></div>
 		<div ng-show="favorites.blogs.length==0 && favorites.images.length==0 && favorites.lessons.length==0">As you search our site, you will notice that the blog, images, and lesson results all now have small stars beside them. Click on this icon to "store" your favorite Teacher at Sea resources in your browser. Simply click on the big star icon (next to the search icon), to view, email or share your favorited resources. For more information, click on the info button on the "Favorites" results page.</div>
 		<!----Blogs--->
 		
@@ -30,7 +31,7 @@
 				<div  id="search_image_txt{{blog.id}}_searchblog" class="search_image_text">
 					<b> <a tabindex = "{{blog.tabIndex}}" id="titlelink{{blog.id}}_blog" class="searchlink titlelink" href="{{blog.BlogUrl.0}}" target="_blank"> <span class="favtitle">{{blog.BlogTitle}}</span></a> </b> &nbsp;&nbsp;
 
-					{{blog.favorite}}<img tabindex="{{blog.tabIndex}}" id="favorite{{blog.id}}_searchblog" class="search_favorite {{blog.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{blog.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(blog.id, 'blog')" ng-enter="switchFavorite(blog.id, 'blog')">
+					<img tabindex="{{blog.tabIndex}}" id="favorite{{blog.id}}_searchblog" class="search_favorite {{blog.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{blog.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(blog.id, 'blog')" ng-enter="switchFavorite(blog.id, 'blog')">
 					<div style="margin-top:10px;font-weight:normal">
 						<span ng-repeat="tag in blog.CategoriesArr track by $index"><a tabindex="{{blog.tabIndex}}" class="caption" style="cursor:pointer"  ng-click="searchBlogs(tag)">#{{tag}} </a></span>
 
@@ -51,7 +52,7 @@
 			</div>
 
 		</div>
-		<div class="clear"></div>
+		<div class="clear" ></div>
 
 
 	<!---Lessons--->
@@ -116,7 +117,8 @@
 			</form><div style="padding:15px; padding-top:0px;" >
 				<button ng-click="setUpEmail()" id="html">HTML Email</button>&nbsp;&nbsp;<button style="padding-right:15px" ng-click="setUpPlainEmail()" id="plain">Plain Text Email</button>
 			</div>
-			<div id="success" style="padding:15px;display:none; color:#189E81"></div></div></li><li ng-hide="showOption==false" ng-show="showOption==true" id="trash"><img onclick="localStorage.clear();" style="border:none;" src="/images/dyk/trash.png">
+			<div id="success" style="padding:15px; color:#189E81" ng-show="success==true;">An email has been sent to: rob@yah.com. <a href="{{short_url}}" target="_blank">View that email in your browser</a></div></div></li>
+			<li ng-hide="showOption==false" ng-show="showOption==true" id="trash"><img onclick="localStorage.clear();" style="border:none;" src="/images/dyk/trash.png">
 	</li>
 	<li></li>
 	<li></li>

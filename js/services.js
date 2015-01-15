@@ -6,19 +6,11 @@ TAS_SITE.factory('HomePageCurrent', ['$http', '$routeParams', '$location', '$roo
 function($http, $routeParams, $location, $rootScope, $sce) {
 
 	return {
-		
-
-		getCarouselData : function() {
+			getCarouselData : function() {
 			var teacher = [];
-			
-			
-			
-			
 			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL+%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+WHERE+Year=%272014%27+ORDER%20BY+TeacherLastName%22&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
 				
 				if (result.data.rows != undefined) {
-					
-							
 					for (var o = 0; o < result.data.rows.length; o++) {
 					var d = new Date();
     				var td = d.valueOf();
@@ -130,6 +122,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 					
 					}
 				}
+				
 				return teacher;
 
 			});
@@ -167,7 +160,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							lastname : result.data.rows[i][1],
 							shortbody :result.data.rows[i][2],
 							longbody :result.data.rows[i][3],
-							url : result.data.rows[i][4].split('?')[0],
+							image : result.data.rows[i][4].split('?')[0],
 							caption:result.data.rows[i][5],
 							date: result.data.rows[i][6],
 							region : result.data.rows[i][7],
@@ -176,6 +169,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							dataloaded: true,
 							hider:true
 							});
+							
 						}
 					
 					}
@@ -211,7 +205,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 							pow.push(
 							{
 							id:i,
-							url:result.data.rows[i][0],
+							image:result.data.rows[i][0],
 							caption : result.data.rows[i][1],
 							description :result.data.rows[i][2].replace(/<p>/g, '').replace(/<\/p>/g, ''),
 							shortdescription :result.data.rows[i][3].replace(/<p>/g, '').replace(/<\/p>/g, ''),
@@ -534,9 +528,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 									gallery_caption =gallery_caption.replace(/&#39;;/g, '\'').replace(/&quos;/g, '\'');
 								}
 								var post_url = WPdata.gallery_images[k].post_url[0];
-								var post_title = post_url.replace('http://teacheratsea.wordpress.com/','').split('/')[3];
-								post_title = toTitleCase(post_title.replace(/-/g, ' '));
-								post_title = post_title.replace(' 20', ', 20');
+								var post_title = createTitleFromURL(post_url);
 								ImagesArr.push(jQuery.parseJSON('{"src":"' + gallery_src + '","id":"' + ImagesArr.length + '","caption":"' +gallery_caption + '", "parent":"' + WPdata.gallery_images[k].parent[0] + '","post_url":"' + post_url + '", "post_title":"' + post_title + '"}'));
 								images_url += posturl.replace(/\W/g, '') + ',';
 							}
@@ -868,9 +860,9 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 								gallery_caption = gallery_caption.replace(/'/g, '&#39;;');
 								gallery_caption = gallery_caption.replace(/\n/g, '');
 								var post_url = WPdata.gallery_images[k].post_url[0];
-								var post_title = post_url.replace('http://teacheratsea.wordpress.com/','').split('/')[3];
-								post_title = toTitleCase(post_title.replace(/-/g, ' '));
-								post_title = post_title.replace(' 20', ', 20');
+								var post_title = createTitleFromURL(post_url);
+								
+							
 								ImagesArr.push(jQuery.parseJSON('{"src":"' + gallery_src + '","id":"' + ImagesArr.length + '","tabIndex":"'+ImagesArr.length+250+'","caption":"' + gallery_caption.replace(/&#39;;/g, '\'').replace(/&quos;/g, '\'') + '", "favorite":"off","parent":"' + WPdata.gallery_images[k].parent[0] + '","post_url":"' + post_url + '", "post_title":"' + post_title + '"}'));
 								images_url += posturl.replace(/\W/g, '') + ',';
 							}
@@ -934,12 +926,19 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 
 TAS_SITE.factory('preloadImage', ['$q', '$rootScope',
 function($q, $rootScope) {
-
-	// I manage the preloading of image objects. Accepts an array of image URLs.
+	
+	function runPreloader(classy)
+	{
+		$('.'+classy).bind('load', function() {	
+				alert('loading');
+				$scope.isLoading=false;
+			});
+	}
+	/*// I manage the preloading of image objects. Accepts an array of image URLs.
 	function Preloader(imageLocations) {
 		// I am the image SRC values to preload.
 		this.imageLocations = imageLocations;
-
+		
 		// As the images load, we'll need to keep track of the load/error
 		// counts when announing the progress on the loading.
 		this.imageCount = this.imageLocations.length;
@@ -1007,7 +1006,7 @@ function($q, $rootScope) {
 
 		// I determine if the preloader has successfully loaded all of the images.
 		isResolved : function isResolved() {
-
+			console.log('isResolved');
 			return (this.state === this.states.RESOLVED );
 
 		},
@@ -1061,7 +1060,7 @@ function($q, $rootScope) {
 		handleImageLoad : function handleImageLoad(imageLocation) {
 
 			this.loadCount++;
-
+			
 			// If the preload action has already failed, ignore further action.
 			if (this.isRejected()) {
 
@@ -1077,15 +1076,16 @@ function($q, $rootScope) {
 				imageLocation : imageLocation
 			});
 
+			
 			// If all of the images have loaded, we can resolve the deferred
 			// value that we returned to the calling context.
 			if (this.loadCount === this.imageCount) {
 
 				this.state = this.states.RESOLVED;
-
+				
 				this.deferred.resolve(this.imageLocations);
 
-			}
+			}	
 
 		},
 
@@ -1106,7 +1106,7 @@ function($q, $rootScope) {
 				// Since the load event is asynchronous, we have to
 				// tell AngularJS that something changed.
 				$rootScope.$apply(function() {
-
+					
 					preloader.handleImageLoad(event.target.src);
 
 					// Clean up object reference to help with the
@@ -1135,9 +1135,12 @@ function($q, $rootScope) {
 	};
 
 	// Return the factory instance.
-	return (Preloader );
+	return (Preloader );*/
 
 }]);
+
+
+
 
 
 
@@ -1290,7 +1293,7 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			
 			
 
-			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+ORDER%20BY+TeacherLastName+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK').then(function(result) {
+			return $http.jsonp('https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+TeacherLastName%2CTeacherFirstName%2CShipType%2C+Ship%2C+ShipUrl%2C+CruiseURL%2C+Mission%2C+CruiseDates%2C+SubjectsTaught%2C+School%2C+City%2C+State%2C+Image%2C+Grades%2C+SchoolURL%2C+WordPressURL%2C+Year+FROM+1Xh5kWI_ZHd-PZRuPcgrV_oS13HHN6JGtRK4s75Mn+ORDER%20BY+TeacherLastName+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0&callback=JSON_CALLBACK&ORDER%20BY+CruiseDates').then(function(result) {
 					if (result.data.rows != undefined) {
 						teachers.yearsArr=[];
 						teachers.finalYearsArr=[];
@@ -1300,45 +1303,53 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 						teachers.group3=[];
 						teachers.buttons =[];
 					
+							var d = new Date();
+    						var td = d.valueOf();
 
 
 						for (var o = 0; o < result.data.rows.length; o++) {
-						
-							teachers.push({
-							lastname : result.data.rows[o][0],
-							lastname_forDOM : DigPatt(result.data.rows[o][0].replace(' ', '')),
-							firstname : result.data.rows[o][1].replace(' ', ''),
-							shiptype: result.data.rows[o][2],
-							ship : result.data.rows[o][3],
-							shipurl : result.data.rows[0][4],
-							cruiseurl : result.data.rows[o][5],
-							mission:result.data.rows[o][6],
-							dates : result.data.rows[o][7],
-							subjects : result.data.rows[o][8],
-							school : result.data.rows[o][9],
-							city : result.data.rows[o][10],
-							state : result.data.rows[o][11],					
-							image : result.data.rows[o][12].split('?')[0] + '?w=100' ,
-							grades : result.data.rows[o][13],
-							schoolurl : result.data.rows[o][14],
-							wordpressurl : result.data.rows[o][15],
-							year: result.data.rows[o][16],
-							subjects1 : result.data.rows[o][8].split('&&')[0],
-							subjects2 : result.data.rows[o][8].split('&&')[1],
-							school1 : result.data.rows[o][9].split('&&')[0],
-							school2 : result.data.rows[o][9].split('&&')[1],
-							schoolurl1 : result.data.rows[o][14].split('&&')[0],
-							schoolurl2 : result.data.rows[o][14].split('&&')[1],
-							checkContents : true,
-							favorite:'off',
-							tabIndex : (150+o)
-							
-							
-							
-
-						});	
-							teachers.yearsArr.push(result.data.rows[o][16]);
+							var pd = new Date(result.data.rows[o][7].split('-')[0]);
+							var tpd=pd.valueOf();
 								
+									if(td>=tpd)
+									{
+								
+									teachers.push({
+									lastname : result.data.rows[o][0],
+									lastname_forDOM : DigPatt(result.data.rows[o][0].replace(' ', '')),
+									firstname : result.data.rows[o][1].replace(' ', ''),
+									shiptype: result.data.rows[o][2],
+									ship : result.data.rows[o][3],
+									shipurl : result.data.rows[0][4],
+									cruiseurl : result.data.rows[o][5],
+									mission:result.data.rows[o][6],
+									dates : result.data.rows[o][7],
+									subjects : result.data.rows[o][8],
+									school : result.data.rows[o][9],
+									city : result.data.rows[o][10],
+									state : result.data.rows[o][11],					
+									image : result.data.rows[o][12].split('?')[0] + '?w=100' ,
+									grades : result.data.rows[o][13],
+									schoolurl : result.data.rows[o][14],
+									wordpressurl : result.data.rows[o][15],
+									year: result.data.rows[o][16],
+									subjects1 : result.data.rows[o][8].split('&&')[0],
+									subjects2 : result.data.rows[o][8].split('&&')[1],
+									school1 : result.data.rows[o][9].split('&&')[0],
+									school2 : result.data.rows[o][9].split('&&')[1],
+									schoolurl1 : result.data.rows[o][14].split('&&')[0],
+									schoolurl2 : result.data.rows[o][14].split('&&')[1],
+									checkContents : true,
+									favorite:'off',
+									tabIndex : (150+o)
+									
+									
+									
+		
+									});	
+									teachers.yearsArr.push(result.data.rows[o][16]);
+									}	
+									
 							}
 							teachers.yearsArr.sort().reverse();
 							for(var x=0; x<teachers.yearsArr.length-1; x++)
@@ -1987,9 +1998,10 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 			blogs=result.data.items;
 			for(var x=0; x<blogs.length;x++)
 			{
-				blogs[x].id = x;
+				blogs[x].id = x;U
 				blogs[x].tabIndex=(x+40);
 				blogs[x].CategoriesArr= blogs[x].Tags;
+				
 			}
 			
 			return blogs;
@@ -1998,12 +2010,12 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 	searchImages:function(search_term)
 	{
 		
-		var _images={};	
+		var _images={};
 		var images =[{id:''}];
 		return $http.jsonp('/php/search_images.php?q='+search_term+'&callback=JSON_CALLBACK').then(function(result)
 		{
 			_images = result.data.images;
-			console.log(_images);
+			
 			
 			for(var x=0; x<_images.length; x++)
 			{
@@ -2014,10 +2026,10 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 					
 					_images[x].id=(_images.length-1);
 					_images[x].tabIndex=(x+40);
-					_images[x].post_title = _images[x].post_url[0].replace('http://teacheratsea.wordpress.com/','').split('/')[3];
-					_images[x].post_title = toTitleCase(_images[x].post_title.replace(/-/g, !' '));
-					_images[x].post_title = _images[x].post_title.replace(' 20', ', 20');
-					_images[x].favorite='off';
+					_images[x].post_title = createTitleFromURL(_images[x].post_url[0]);
+					
+					
+										_images[x].favorite='off';
 					if(_images[x].caption=="" && _images[x].excerpt!="")
 					{
 						_images[x].finalCaption =_images[x].excerpt;

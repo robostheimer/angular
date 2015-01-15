@@ -15,6 +15,7 @@ angular.module('ClassPage', [])
 		
 	Class.createTeacherList().then(function(data)
 	{
+		
 		$scope.states=Class.createStateObj();
 		console.log($scope.states)
 		$scope.teachers=data;
@@ -78,8 +79,19 @@ angular.module('ClassPage', [])
 				{
 					$scope.teachers[i].datesComp=2;
 				}
+				if($scope.teachers[i].dates.split('-')[0].match('12/30/'))
+				{
+					$scope.teachers[i].datesComp=3;
+				}
 				
-				
+			if($scope.teachers[i].ship='#')
+			{
+				$scope.teachers[i].shipHider=true;
+			}	
+			else
+			{
+				shipHider=$scope.teachers[i].shipHider=true;
+			}
 				
 			}
 			for(var y=0; y<$scope.states.length; y++)
@@ -178,25 +190,29 @@ angular.module('BaseballCardInfo', [])
 			}
 						
 	
-	var teacherdatacount = TeacherDataFetch.count;
+	$scope.teacherdatacount = TeacherDataFetch.count;
+	//alert($scope.teacherdatacount)
 	$scope.bigImage = false;
 	
 	////////////////Gets called below to initialize data-gathering services
 	
-	
 	$scope.accessData=function()
-	{
+	{		
 			$rootScope.favorites = Favorites.addFavorites();
-			console.log($rootScope.favorites);
-			//////////////checks datacount to determine data needs to be re-downloaded; if teacherdatacount==0 it loads
-			if (teacherdatacount == 0)
+			//////////////checks datacount to determine data needs to be re-downloaded; if $scope.teacherdatacount==0 it loads
+			if ($scope.teacherdatacount == 0)
 			{
+				
+				$scope.number=$scope.teacherdatacount;
+				$scope.loadHider=false;
 				TeacherDataFetch.data().then(function(data) {
 				$scope.teacher = data;
 				if($scope.teacher.count!=0)
 				{
 				$scope.teacher.dataLoaded=true;	
 				$rootScope.teacherdata = $scope.teacher;
+				$scope.teacher.finalImage= $scope.teacher.image
+				
 				var date_beg=new Date($scope.teacher.dates.split('-')[0]).valueOf();
 				var date_end = new Date($scope.teacher.dates.split('-')[0]).valueOf();
 				var d= new Date();
@@ -234,6 +250,8 @@ angular.module('BaseballCardInfo', [])
 							    }
 
 							    $scope.images = $scope.wp.Images;
+							    
+							    console.log($scope.images);
 							    for(var y=0; y<$scope.images.length; y++)
 							    {
 							    	Favorites.checkFavorites($scope.images[y], 'images');
@@ -306,45 +324,47 @@ angular.module('BaseballCardInfo', [])
 						//$scope.$apply();			
 								
 			     	 	});
-				preloadImage.preloadImages([$scope.teacher.image]).then(function handleResolve() {
-	
-					// Loading was successful.
-					$scope.isLoading = false;
-					$scope.isSuccessful = true;
-					$scope.bigImageSrc = [$scope.teacher.image];
-	
-				});
+				
 				}
 			else{
 				$scope.teacher.dataLoaded=true;	
 			}
 			});
 			
-		/////////////////////If the url changes it changes the teacherdatacount number back to 0 and runs the data again	
-		} else if($routeParams.teachername.replace('*', ' ').toLowerCase()!=$rootScope.teacherdata.firstname.toLowerCase()+' '+$rootScope.teacherdata.lastname.toLowerCase()&&teacherdatacount!=0) 
+		/////////////////////If the url changes it changes the $scope.teacherdatacount number back to 0 and runs the data again	
+		} else if($routeParams.teachername.replace('*', ' ').toLowerCase()!=$rootScope.teacherdata.firstname.toLowerCase()+' '+$rootScope.teacherdata.lastname.toLowerCase()&&$scope.teacherdatacount!=0) 
 				{
-				teacherdatacount = 0;
+					
+				$scope.teacherdatacount = 0;
+				$scope.number=$scope.teacherdatacount;
 				$scope.accessData();
+								
 				}
 				///////////////////If the url hasn't changed, it does not re-run the services to bring the data in
-		else if(teacherdatacount!=0){
+		else if($scope.teacherdatacount!=0){
+			
+			
 			$scope.teacher = {};
 			$scope.ship={};
 			$scope.teacher = $rootScope.teacherdata;
 			$scope.ship=$rootScope.shipdata;
 			$scope.news = $rootScope.newsdata;
 			$scope.lessons = $rootScope.lessonsdata;
-			
+			$scope.number=TeacherDataFetch.count
 			$scope.wp={};
 			$scope.wp=$rootScope.wpdata;
 			$scope.images = $scope.wp.Images
-			
-							
+			$scope.number=$scope.teacherdatacount;							
 							
 			
 		}
-		teacherdatacount = TeacherDataFetch.count += 1;
+		$scope.teacherdatacount = TeacherDataFetch.count += 1;
 };
+
+$scope.runtabs=function()
+	{
+		window.scrollTo(0,1000);
+	};
 
 $scope.accessData();
 
@@ -524,43 +544,39 @@ $scope.switchFavorite=function(id, type)
 
 $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, favorite)
 		{
-
-			$scope.bigImageHider=false;
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
-			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
-			$scope.isLoading = true;
-            $scope.isSuccessful = false;
-            	
-			$scope.bigImage=true;
 			
+			if(post_title=='undefined')
+			{
+				
+				$scope.titleHider=true;
+				console.log($scope.titleHider);
+			}
+			else
+			{
+				$scope.titleHider=false;
+			}
+			
+			window.scrollTo(0,0);
+			$scope.bigImageSrc='';
+			$scope.bigImageHider=false;
+			$scope.bigImageSrc=img
+			$scope.bigImage=true;
 			$scope.alt=caption;
 			$scope.post_title = post_title;
 			$scope.post_url = post_url;
 			$scope.parent = parent;
 			$scope.id = id;
 			$scope.favorite = favorite;
-			$scope.percentLoaded = 0;
+			
 				
-			preloadImage.preloadImages([img])
-			.then(
-                    function handleResolve( imageLocations ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[img]
-                       
- 
-                    }
-                   
-               );
+			
  
           
 			//$scope.imageLoaded=true;
 		
 		};
 		
-		$scope.closeBigImage2 = function()
+		$scope.closeBigBigImage = function()
 		{
 			$scope.bigImage=false;
 			$scope.bigImageHider=true;
@@ -569,7 +585,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 		$scope.prevImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			
 			length=$scope.images.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
@@ -579,36 +595,32 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 			else{
 			prev=(length-1);	
 			}
-			$scope.isLoading = true;
-            $scope.isSuccessful = false;
+			
 			$scope.alt=$scope.images[prev].caption;
 			$scope.post_title = $scope.images[prev].post_title;
+			if(post_title=='undefined')
+			{
+				
+				$scope.titleHider=true;
+				console.log($scope.titleHider);
+			}
+			else
+			{
+				$scope.titleHider=false;
+			}
 			$scope.post_url = $scope.images[prev].post_url;
 			$scope.parent = $scope.images[prev].parent;
 			$scope.id = $scope.images[prev].id;
 			$scope.favorite = $scope.images[prev].favorite;
+			 $scope.bigImageSrc=$scope.images[prev].src
 			
-			preloadImage.preloadImages([$scope.images[prev].src])
-			
-            .then(
-                    function handleResolve( ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.images[prev].src]
-                       
- 
-                    }
-                    
-               );
- 
-		};
+		}
+           
 		
 		$scope.nextImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
             length=$scope.images.length;
@@ -625,35 +637,32 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 			
 			//$scope.bigImageSrc=[$scope.images[next].src];
 			$scope.favorite = $scope.images[next].favorite;
-						
-			preloadImage.preloadImages([$scope.images[next].src])
-			.then(
-                    function handleResolve(  ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                       $scope.bigImageSrc=[$scope.images[next].src];
-                        $scope.alt=$scope.images[next].caption;
-						$scope.post_title = $scope.images[next].post_title;
-						$scope.post_url = $scope.images[next].post_url;
-						$scope.parent = $scope.images[next].parent;
-						$scope.id = $scope.images[next].id;
-						
-                    }
-                   
-               );
- 
+       $scope.bigImageSrc=$scope.images[next].src;
+        $scope.alt=$scope.images[next].caption;
+		$scope.post_title = $scope.images[next].post_title;
+		if(post_title=='undefined')
+			{
+				
+				$scope.titleHider=true;
+				console.log($scope.titleHider);
+			}
+			else
+			{
+				$scope.titleHider=false;
+			}
+		$scope.post_url = $scope.images[next].post_url;
+		$scope.parent = $scope.images[next].parent;
+		$scope.id = $scope.images[next].id;			
 			
-			$scope.imageLoaded=true;
+		
 		};
-		
-		
 		
 		$scope.SkipValidation = function(value) {
 						  return $sce.trustAsHtml(value);
 						};
-
+						
+		
+		
 
 	}]);			
 
@@ -722,8 +731,9 @@ angular.module('Media', [])
 			$scope.popup=true;
 			$scope.popup2=false;
 		};
-	$scope.closeBigImage2 = function()
+	$scope.closeBigBigImage2 = function()
 		{
+			
 			$scope.bigImage2=false;
 			$scope.popup2=false;
 			$scope.popup=true;
@@ -732,10 +742,23 @@ angular.module('Media', [])
 		
 	$scope.openBigImage = function(img,post_title,post_url, caption, parent, id, favorite)
 		{
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
-			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
 			$scope.isLoading = true;
-            $scope.isSuccessful = false;
+			if(post_title=='undefined')
+			{
+				$scope.titleHider=true;
+				console.log($scope.titleHider);
+			}
+			else
+			{
+				$scope.titleHider=false;
+			}
+			window.scrollTo(0,0);
+			$scope.bigImageSrc='';
+			
+			
+			$scope.loadHider=false;
+			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
+			
             	
 			$scope.bigImage2=true;
 			$scope.bigImage=false;
@@ -747,24 +770,10 @@ angular.module('Media', [])
 			$scope.parent = parent;
 			$scope.id = id;
 			$scope.favorite=favorite;
-			$scope.percentLoaded = 0;
-				
-			preloadImage.preloadImages([img])
-			.then(
-                    function handleResolve( imageLocations ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[img]
-                       
- 
-                    }
-                   
-               );
- 
-          
-			//$scope.imageLoaded=true;
+			$scope.bigImageSrc=img;
+			preloadImage.runPreloader('.xyzPhoto');
+			//$scope.isLoading = false;
+			
 		
 		};
 		
@@ -779,7 +788,8 @@ angular.module('Media', [])
 		$scope.prevImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			$scope.bigImageSrc='';
+			$scope.isLoading = true;
 			length=$scope.images.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
@@ -789,38 +799,43 @@ angular.module('Media', [])
 			else{
 			prev=(length-1);	
 			}
-			preloadImage.preloadImages([$scope.images[prev].src])
 			
-            .then(
-                    function handleResolve( ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.images[prev].src]
-                       	$scope.isLoading = true;
-			            $scope.isSuccessful = false;
-						$scope.alt=$scope.images[prev].caption;
-						$scope.post_title = $scope.images[prev].post_title;
-						$scope.post_url = $scope.images[prev].post_url;
-						$scope.parent = $scope.images[prev].parent;
-						$scope.id = $scope.images[prev].id;
-						$scope.favorite = $scope.images[prev].favorite;
-
- 
-                    }
-                    
-               );
+            // Loading was successful.
+          
+           
+           	$scope.isLoading = true;
+            $scope.isSuccessful = false;
+			$scope.alt=$scope.images[prev].caption;
+			$scope.post_title = $scope.images[prev].post_title;
+			if($scope.post_title=='undefined')
+			{
+				
+				$scope.titleHider=true;
+				console.log($scope.titleHider);
+			}
+			else
+			{
+				$scope.titleHider=false;
+			}
+			$scope.post_url = $scope.images[prev].post_url;
+			$scope.parent = $scope.images[prev].parent;
+			$scope.id = $scope.images[prev].id;
+			$scope.favorite = $scope.images[prev].favorite;
+			$scope.bigImageSrc=$scope.images[prev].src;
+			preloadImage.runPreloader('.xyzPhoto');
+ 			
+                   
  
 		};
 		
 		$scope.nextImg = function(id)
 		{
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			$scope.loadHider=true;
+			$scope.bigImageSrc=''
 			$scope.isLoading = true;
-            $scope.isSuccessful = false;
+			console.log($scope.isLoading);
+			
             length=$scope.images.length;
-            console.log(id);
 			var next = (parseInt(id)+1)
 			if(next<($scope.images.length-1))
 			{
@@ -830,27 +845,27 @@ angular.module('Media', [])
 				
 				next=0;
 			}
+            $scope.alt=$scope.images[next].caption;
+			$scope.post_title = $scope.images[next].post_title;
+			if($scope.post_title=='undefined')
+			{
+				
+				$scope.titleHider=true;
+				console.log($scope.titleHider);
+			}
+			else
+			{
+				$scope.titleHider=false;
+			}
+			$scope.post_url = $scope.images[next].post_url;
+			$scope.parent = $scope.images[next].parent;
+			$scope.id = $scope.images[next].id;
+			$scope.favorite = $scope.images[next].favorite;
+			$scope.bigImageSrc=$scope.images[next].src;
+			preloadImage.runPreloader('.xyzPhoto');
 			
-			//$scope.bigImageSrc=[$scope.images[next].src];
 			
-			preloadImage.preloadImages([$scope.images[next].src])
-			.then(
-                    function handleResolve(  ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                       	$scope.bigImageSrc=[$scope.images[next].src];
-                        $scope.alt=$scope.images[next].caption;
-						$scope.post_title = $scope.images[next].post_title;
-						$scope.post_url = $scope.images[next].post_url;
-						$scope.parent = $scope.images[next].parent;
-						$scope.id = $scope.images[next].id;
-						$scope.favorite = $scope.images[next].favorite;
- 
-                    }
-                   
-               );
+			
  
 			
 			$scope.imageLoaded=true;
@@ -1016,7 +1031,8 @@ angular.module('Media', [])
 	$scope.location = $location.path();
 	POW.getPOWData().then(function(result){
 		$scope.pow = result;
-		console.log($scope.pow);
+		$scope.pow[0].finalImage=$scope.pow[0].url
+				
 		$scope.data = [];
 		$scope.filtered_data=[];
 		$scope.pow.checkContents =true;
@@ -1059,11 +1075,13 @@ angular.module('Media', [])
 	
 	$scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 		{
+			window.scrollTo(0,0);
 			$scope.bigImageHider=false;
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
+			$scope.bigImageSrc='';
+			$scope.bigImageSrc=img;
+			
 			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
-			$scope.isLoading = true;
-            $scope.isSuccessful = false;
+			
             	
 			$scope.bigImage=true;
 			
@@ -1074,22 +1092,7 @@ angular.module('Media', [])
 			$scope.id = id;
 			$scope.percentLoaded = 0;
 							
-			preloadImage.preloadImages([img])
-			.then(
-                    function handleResolve( imageLocations ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[img]
-                       
- 
-                    }
-                   
-               );
- 
-          
-			//$scope.imageLoaded=true;
+			
 		
 		};
 		
@@ -1102,7 +1105,7 @@ angular.module('Media', [])
 		$scope.prevImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			$scope.bigImageSrc=''
 			length=$scope.data.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
@@ -1120,26 +1123,16 @@ angular.module('Media', [])
 			$scope.parent = $scope.data[prev].parent;
 			$scope.id = $scope.alert(id);[prev].id;
 			preloadImage.preloadImages([$scope.data[prev].ur])
+			 $scope.bigImageSrc=$scope.data[prev].url
 			
-            .then(
-                    function handleResolve( ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.data[prev].url]
-                       
- 
-                    }
-                    
-               );
+            
  
 		};
 		
 		$scope.nextImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			$scope.bigImageSrc='';
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
             length=$scope.data.length;
@@ -1154,29 +1147,21 @@ angular.module('Media', [])
 				
 				next=0;
 			}
-			
+			$scope.bigImageSrc=$scope.data[next].url;
+            $scope.alt=$scope.data[next].caption;
+			$scope.post_title = $scope.data[next].post_title;
+			$scope.post_url = $scope.data[next].post_url;
+			$scope.parent = $scope.data[next].parent;
+			$scope.id = $scope.data[next].id;
 			//$scope.bigImageSrc=[$scope.images[next].src];
 			
-			preloadImage.preloadImages([$scope.data[next].url])
-			.then(
-                    function handleResolve(  ) {
+			
  						
                         // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                       $scope.bigImageSrc=[$scope.data[next].url];
-                        $scope.alt=$scope.data[next].caption;
-						$scope.post_title = $scope.data[next].post_title;
-						$scope.post_url = $scope.data[next].post_url;
-						$scope.parent = $scope.data[next].parent;
-						$scope.id = $scope.data[next].id;
+                       
+                       
  
-                    }
-                   
-               );
- 
-			
-			$scope.imageLoaded=true;
+                  
 		};
 		
 		
@@ -1249,8 +1234,9 @@ $scope.checkLength = function(query)
 
 $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 		{
+			window.scrollTo(0,0);
 			$scope.bigImageHider=false;
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
+			$scope.bigImageSrc=''
 			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
@@ -1262,22 +1248,8 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 			$scope.post_url = post_url;
 			$scope.parent = parent;
 			$scope.id = id;
-			$scope.percentLoaded = 0;
-							
-			preloadImage.preloadImages([img])
-			.then(
-                    function handleResolve( imageLocations ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[img]
-                       
- 
-                    }
-                   
-               );
- 
+			$scope.bigImageSrc=img
+			
           
 			//$scope.imageLoaded=true;
 		
@@ -1292,7 +1264,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 		$scope.prevImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			$scope.bigImageSrc='';
 			length=$scope.data.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
@@ -1309,26 +1281,15 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 			$scope.post_url = $scope.data[prev].post_url;
 			$scope.parent = $scope.data[prev].parent;
 			$scope.id = $scope.alert(id);[prev].id;
-			preloadImage.preloadImages([$scope.data[prev].ur])
-            .then(
-                    function handleResolve( ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.data[prev].url]
-                       
- 
-                    }
-                    
-               );
+			$scope.bigImageSrc=$scope.data[prev].url
+			
  
 		};
 		
 		$scope.nextImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			$scope.bigImageSrc='';
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
             length=$scope.data.length;
@@ -1343,26 +1304,15 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 				
 				next=0;
 			}
-			
+			  $scope.alt=$scope.data[next].caption;
+				$scope.post_title = $scope.data[next].post_title;
+				$scope.post_url = $scope.data[next].post_url;
+				$scope.parent = $scope.data[next].parent;
+				$scope.id = $scope.data[next].id;
+				$scope.bigImageSrc=$scope.data[next].url;
 			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
 			
-			preloadImage.preloadImages([$scope.data[next].url])
-			.then(
-                    function handleResolve(  ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                       $scope.bigImageSrc=[$scope.data[next].url];
-                        $scope.alt=$scope.data[next].caption;
-						$scope.post_title = $scope.data[next].post_title;
-						$scope.post_url = $scope.data[next].post_url;
-						$scope.parent = $scope.data[next].parent;
-						$scope.id = $scope.data[next].id;
- 
-                    }
-                   
-               );
+			
  
 			
 			$scope.imageLoaded=true;
@@ -1560,6 +1510,12 @@ angular.module('TabPages', [])
 			}
 			tabsdatacount = TabsDataFetch.count += 1;
 	};
+	$scope.runtabs_no_top=function()
+	{
+		
+		window.scrollTo(0,1000);
+	};
+	
 	
 	$scope.SkipValidation = function(value) 
 	{
@@ -1574,7 +1530,7 @@ angular.module('TabPages', [])
 .controller('Tabs', ['$scope','$location','$routeParams','preloadImage','Tabs', 'TabsDataFetch','TabsDataFetchTop', '$sce', '$rootScope', function($scope, $location, $routeParams, preloadImage, Tabs,TabsDataFetch,TabsDataFetchTop, $sce, $rootScope)
 {	
 	
-	
+
 	$scope.bigImage=false;
 	$scope.spreadsheets =[{type:'alumni', spreadsheet_id:'0Ak_vKEBczgcYdGdFNGlHZEhOUGRYQW8yOFlrQktxZGc'}, {type:'about', spreadsheet_id:'0Ak_vKEBczgcYdHpJQnNPOTZWRDlIVVZ3MV9NOGxRVEE'}, {type:'how_to_apply', spreadsheet_id:'0Ak_vKEBczgcYdDNvV29Ka1BJN1Ezd2dMcnJOOW8zY0E'}, {type:'ships', spreadsheet_id:'0Ak_vKEBczgcYdG1wa0tIWmRrU28yNVFQR29RT2tvR1E'}, {type:'resources', spreadsheet_id:'0Ak_vKEBczgcYdE13QzE0Y0xMMm1oaTh3WjFKRktsRHc'}];
 	
@@ -1590,11 +1546,14 @@ angular.module('TabPages', [])
 	}
 	var tabsdatacount = TabsDataFetch.count;
 	var topdatacount=TabsDataFetchTop.count;
+	
 	$scope.accessData = function()
 	{
 	
 		if(tabsdatacount==0 ||topdatacount==0)
 		{
+			$scope.loadHider=false;
+			
 			$rootScope.topdata ={};
 			$rootScope.tabsdata={};
 			
@@ -1602,6 +1561,9 @@ angular.module('TabPages', [])
 			{
 				
 				$scope.top=result;
+				console.log($scope.top);
+				$scope.top.finalImage=$scope.top.image.split('?')[0];
+				console.log($scope.top.finalImage)
 				
 				$rootScope.topdata=result;
 				
@@ -1629,6 +1591,7 @@ angular.module('TabPages', [])
 						$location.path($scope.location+$scope.tabs[0].gsx$tabname.rp);
 					}
 					$scope.dataLoaded=true;
+					
 				}
 				
 				}
@@ -1676,6 +1639,10 @@ angular.module('TabPages', [])
 			}
 			tabsdatacount = TabsDataFetch.count += 1;
 			topdatacount = TabsDataFetchTop.count+=1;
+	};
+	$scope.runtabs=function()
+	{
+		window.scrollTo(0,1000);
 	};
 	
 	$scope.SkipValidation = function(value) 
@@ -1763,48 +1730,31 @@ angular.module('TASA', [])
 	
 	$scope.openBigImage = function(img, caption, id)
 		{
+			window.scrollTo(0,0);
 			$scope.bigImageHider=false;
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
-			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
-			$scope.isLoading = true;
-            $scope.isSuccessful = false;
-            	
 			$scope.bigImage=true;
-			
+			$scope.bigImageSrc=''
+			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
 			$scope.alt=caption;
 			$scope.id = id;
 			$scope.percentLoaded = 0;
-							
-			preloadImage.preloadImages([img])
-			.then(
-                    function handleResolve( imageLocations ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[img]
-                       
- 
-                    }
-                   
-               );
- 
-          
-			//$scope.imageLoaded=true;
+			 $scope.bigImageSrc=img;			
+			
 		
 		};
 		
-		$scope.closeBigImage = function()
+		$scope.closeBigImage2 = function()
 		{
 			$scope.bigImage=false;
 			$scope.bigImageHider=true;
+			goToByScrollTop('gallery');
 		};
 		
 		$scope.prevImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
-			length=$scope.data.length;
+			$scope.bigImageSrc='';
+			length=$scope.gallery.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
 			{
@@ -1813,33 +1763,20 @@ angular.module('TASA', [])
 			else{
 			prev=(length-1);	
 			}
-			$scope.isLoading = true;
-            $scope.isSuccessful = false;
-			$scope.alt=$scope.data[prev].caption;
-			$scope.id = $scope.alert(id);[prev].id;
-			preloadImage.preloadImages([$scope.data[prev].ur])
-            .then(
-                    function handleResolve( ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.data[prev].url]
-                       
- 
-                    }
-                    
-               );
- 
+			
+			$scope.alt=$scope.gallery[prev].gsx$caption.$t;
+			$scope.id = $scope.gallery[prev].id.$t;
+			$scope.bigImageSrc=$scope.gallery[prev].gsx$photourl.$t;
+			
 		};
 		
 		$scope.nextImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			$scope.bigImageSrc=''
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
-            length=$scope.data.length;
+            length=$scope.gallery.length;
 			
 			var next = (parseInt(id)+1)
 			
@@ -1851,27 +1788,15 @@ angular.module('TASA', [])
 				
 				next=0;
 			}
+			 $scope.isLoading = false;
+            $scope.isSuccessful = true;
+           $scope.bigImageSrc=$scope.gallery[next].gsx$photourl.$t;
+            $scope.alt=$scope.gallery[next].gsx$caption.$t;
 			
+			$scope.id = $scope.gallery[next].id.$t;
 			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
 			
-			preloadImage.preloadImages([$scope.data[next].url])
-			.then(
-                    function handleResolve(  ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                       $scope.bigImageSrc=[$scope.data[next].url];
-                        $scope.alt=$scope.data[next].caption;
-						$scope.post_title = $scope.data[next].post_title;
-						$scope.id = $scope.data[next].id;
- 
-                    }
-                   
-               );
- 
 			
-			$scope.imageLoaded=true;
 		};
 		
 	
@@ -1990,7 +1915,7 @@ angular.module('Homepage', [])
 	$scope.bigImageHider=true;
 	$scope.popupHider=true;
 	$scope.searchBox=false;
-
+	$scope.currentLoader =true;
 	
 /*	HomepageData.getTeacherData().then(function(data)
 	{
@@ -2051,7 +1976,7 @@ angular.module('Homepage', [])
 			//$scope.videos[n].id=n;
 		}
 		$scope.wpHider=false;
-		$scope.checkContents = true;
+		$scope.checkContents = false;
 			
 	});
 	
@@ -2142,8 +2067,9 @@ angular.module('Favorites', [])
 	
 	$scope.openBigImage2=function(img,post_title,post_url, caption, parent, id, favorite)
 		{
-			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
+			window.scrollTo(0,0);
+			$scope.bigImageSrc='';
+			$scope.bigImageSrc=img
 			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
@@ -2158,26 +2084,16 @@ angular.module('Favorites', [])
 			$scope.parent = parent[0];
 			$scope.id = id;
 			$scope.favorite = favorite;
-			$scope.percentLoaded = 0;
+			
 				
-			preloadImage.preloadImages([img])
-			.then(
-                    function handleResolve( imageLocations ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[img]
-                       
- 
-                    }
-                   
-               );
+			
  
           
 			//$scope.imageLoaded=true;
 		
 		};
+		
+		
 	$scope.closeBigImage2 = function()
 	{
 		$scope.popupHider7=true;
@@ -2402,6 +2318,8 @@ angular.module('Favorites', [])
 	$scope.setUpEmail = function()
 
 	{
+		$scope.success=true;
+
 		$scope.email =Favorites.setUpEmail();
 		$scope.address = $('#email').val();
 		$scope.url = encodeURIComponent('http://teacheratsea.noaa.gov/php/send_html.php?email='+$scope.address+$scope.email);
@@ -2414,10 +2332,9 @@ angular.module('Favorites', [])
 		else
 		{
 			Favorites.getBitLy($scope.url).then(function(result){
-				console.log(result);
+				$scope.short_url=result;
 			});
 		}
-		
 		
 	};
 	
@@ -2425,6 +2342,7 @@ angular.module('Favorites', [])
 	$scope.setUpPlainEmail = function()
 
 	{
+		$scope.success=true;
 		$scope.email =Favorites.setUpEmail();
 		$scope.address = $('#email').val();
 		$scope.url = encodeURIComponent('http://teacheratsea.noaa.gov/php/send_plain.php?email='+$scope.address+$scope.email);
@@ -2437,9 +2355,10 @@ angular.module('Favorites', [])
 		else
 		{
 			Favorites.getBitLy($scope.url).then(function(result){
-				console.log(result);
+				$scope.short_url=result;
 			});
 		}
+				
 	};	
 	$scope.setUpSocial = function()
 	{
@@ -2581,16 +2500,17 @@ angular.module('SearchBox', [])
 			
 			SearchBox.searchImages($scope.search_images).then(function(result)
 			{
+				$scope.showImageSearch=true;
 				$scope.images =result;
 				$scope.images.shift();
 				for(var x=0; x<$scope.images.length; x++)
 				{
 					$scope.images[x].id=x;
-					console.log($scope.images[x]);
+					
 					Favorites.checkFavorites($scope.images[x], 'images');
 				}
 				
-				$scope.showImageSearch=true;
+				
 			});
 
 		}
@@ -2758,9 +2678,8 @@ angular.module('SearchBox', [])
 	};
 	
 	
-	$scope.closeBigImage2 = function()
+	$scope.closeBigBigImage = function()
 	{
-		
 		$scope.popupHider2=true;
 	};
 	
@@ -2788,12 +2707,22 @@ angular.module('SearchBox', [])
 		
 	$scope.openBigImage = function(img,post_title,post_url, caption, parent, id, favorite)
 		{
+			if(post_title=='undefined')
+			{
+				$scope.titleHider=true;
+				console.log($scope.titleHider);
+			}
+			else
+			{
+				$scope.titleHider=false;
+			}
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif']
+			window.scrollTo(0,0);
+			$scope.bigImageSrc=img
 			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
-            	
+            $scope.favorite=favorite;	
 			$scope.bigImage2=true;
 			$scope.bigImage=false;
 			$scope.popupHider2=false;
@@ -2803,22 +2732,9 @@ angular.module('SearchBox', [])
 			$scope.post_url = post_url[0];
 			$scope.parent = parent[0];
 			$scope.id = id;
-			$scope.favorite = favorite;
-			$scope.percentLoaded = 0;
+			
 				
-			preloadImage.preloadImages([img])
-			.then(
-                    function handleResolve( imageLocations ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[img]
-                       
- 
-                    }
-                   
-               );
+		
  
           
 			//$scope.imageLoaded=true;
@@ -2826,10 +2742,18 @@ angular.module('SearchBox', [])
 		};
 		
 		
-		$scope.prevImg = function(id, favorite)
+	
+		
+		$scope.closeBigImage2 = function()
+		{
+			$scope.bigImage=false;
+			$scope.bigImageHider=true;
+		};
+		
+		$scope.prevImg = function(id)
 		{
 			
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
+			
 			length=$scope.images.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
@@ -2843,41 +2767,23 @@ angular.module('SearchBox', [])
             $scope.isSuccessful = false;
 			$scope.alt=$scope.images[prev].caption;
 			$scope.post_title = $scope.images[prev].post_title;
-			$scope.post_url = $scope.images[prev].post_url[0];
-			$scope.parent = $scope.images[prev].parent[0];
+			$scope.post_url = $scope.images[prev].post_url;
+			$scope.parent = $scope.images[prev].parent;
 			$scope.id = $scope.images[prev].id;
-			preloadImage.preloadImages([$scope.images[prev].src[0]])
-			
-            .then(
-                    function handleResolve( ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                        $scope.bigImageSrc=[$scope.images[prev].src[0]];
-                        $scope.isLoading = true;
-			            $scope.isSuccessful = false;
-						$scope.alt=$scope.images[prev].caption;
-						$scope.post_title = $scope.images[prev].post_title;
-						$scope.post_url = $scope.images[prev].post_url[0];
-						$scope.parent = $scope.images[prev].parent[0];
-						$scope.id = $scope.images[prev].id;
-						$scope.favorite = $scope.images[prev].favorite;
-						preloadImage.preloadImages([$scope.images[prev].src[0]])
+			$scope.favorite = $scope.images[prev].favorite;
+			$scope.bigImageSrc=$scope.images[prev].src
                        
  
-                    }
-                    
-               );
+                  
  
 		};
 		
 		$scope.nextImg = function(id)
 		{
-			$scope.bigImageSrc=['/images/NOAA-Logo.gif'];
-			$scope.isLoading = true;
-            $scope.isSuccessful = false;
+			
+			
             length=$scope.images.length;
+            
 			var next = (parseInt(id)+1)
 			if(next<(length-1))
 			{
@@ -2888,31 +2794,22 @@ angular.module('SearchBox', [])
 				next=0;
 			}
 			
-			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
 			
-			preloadImage.preloadImages([$scope.images[next].src[0]])
-			.then(
-                    function handleResolve(  ) {
- 						
-                        // Loading was successful.
-                        $scope.isLoading = false;
-                        $scope.isSuccessful = true;
-                       	$scope.bigImageSrc=[$scope.images[next].src[0]];
-                        $scope.alt=$scope.images[next].caption;
-						$scope.post_title = $scope.images[next].post_title;
-						$scope.post_url = $scope.images[next].post_url[0];
-						$scope.favorite = $scope.images[next].favorite;
-						
-						$scope.parent = $scope.images[next].parent[0];
-						$scope.id = $scope.images[next].id;
- 
-                    }
+			$scope.favorite = $scope.images[next].favorite;
+
+		    $scope.bigImageSrc=$scope.images[next].src;
+		    $scope.alt=$scope.images[next].caption;
+			$scope.post_title = $scope.images[next].post_title;
+			$scope.post_url = $scope.images[next].post_url;
+			$scope.parent = $scope.images[next].parent;
+			$scope.id = $scope.images[next].id;
+								
                    
-               );
  
 			
 			$scope.imageLoaded=true;
-		};	
+		};
+		
 
 	$scope.SkipValidation = function(value) 
 	{
@@ -3145,6 +3042,18 @@ angular.module('RespNav', [])
 		
 }]);
 
+angular.module('Facts',[])
+.controller('Facts', ['$scope', '$rootScope', function($scope, $rootScope){
+
+	$rootScope.facts=[{fact:'A sandbar shark will have around 35,000 teeth over the course of its lifetime!'}, {fact: 'The back of sharks\' eyeballs have a reflective layer of tissue called a tapetum. This helps sharks see extremely well with little light.'}, {fact:'A sea scallop\'s eyes are the black dots that line the edges of both its top and bottom shells.'}, {fact:'This fish, the polka dot batfish, is a bottom-dwelling species that uses its stubby fins to slowly "walk" along the seafloor.'}, {fact:'A "sea mouse" is not a mouse, but a marine polychaete worm.'} , {fact:'The male spoon arm octopus has a modified arm that aids in reproduction.'}, {fact: 'A scorpion fish\'s mouth has gill rakers: rows of bumpy spikes that help filter food from the water.'}, {fact:'Scallops can live up to 20 years, and a single female scallop can produce up to 270 million eggs in her lifetime.'},{fact:'Sea spiders have no lungs or other respiratory organs. Since they are so small, gasses diffuse in and out of their bodies.' }];
+		
+		
+		var randomnumber = Math.floor(Math.random()*$scope.facts.length);	
+		
+		$rootScope.fact = $scope.facts[randomnumber].fact;
+		console.log($rootScope.fact)
+}]);
+
 
 
 ////////////Helper Functions///////////////////
@@ -3189,4 +3098,35 @@ function DigPatt(str, char)
 			           return name;
 }
 
+function goToByScrollTop(id) {
+	// Remove "link" from the ID
+	id = id.replace("link", "");
+	// Scroll
+	$('#' + id).animate({
+		scrollTop : 50
+	}, 'slow');
 
+}
+
+function createTitleFromURL(str)
+{
+	var monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		
+	
+	var str = str.replace('http://teacheratsea.wordpress.com/','').split('/')[3];
+	str = toTitleCase(str.replace(/-/g, ' '));
+	var strSplitter = str.split(' ');
+	var substr = strSplitter[1];
+	var str = str.replace(substr, substr+',');
+	
+	str = str.replace(' 20', ', 20');
+	for(var z=0; z<monthArr.length; z++)
+	{
+		if(str.replace(/\W/g,'').match(monthArr[z].replace(/\W/g,'')))
+		{
+			str = str.replace(monthArr[z], ', '+monthArr[z]).replace(' , ', ', ');
+			return str;
+
+		}
+	}	
+}

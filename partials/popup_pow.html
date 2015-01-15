@@ -1,13 +1,17 @@
 <div>
 	<div class="bigImgClose" ng-click="closeBigImage2()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
-	</div><img id="favorite_img_big_profile{{id}}" class="search_favorite_image_off search_favorite" src="/images/star_{{favorite}}.png" border="none" alt="Add to Favorites" ng-click="switchFavorite(id, 'bigphoto')" ng-enter="switchFavorite(id, 'bigphoto')">
+	</div><!--<img id="favorite_img_big_profile{{id}}" class="search_favorite_image_off search_favorite" src="/images/star_{{favorite}}.png" border="none" alt="Add to Favorites" ng-click="switchFavorite(id, 'bigphoto')" ng-enter="switchFavorite(id, 'bigphoto')">-->
 	<div style="max-width:650px; margin:auto">
-		<img resize-bigimage id= "bigImg{{id}}" src='{{bigImageSrc[0]}}?w={{bigImageWidth}}' alt="{{alt}}"  class="no-border" />
+		<span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/>
+				<h3>While you wait...<h3><p>Did You Know? <br>{{fact}}<br><br>Learn more interesting facts about Marine Life, NOAA Ships, and Hydrography at <a href="/dyk" target="_blank">Did You Know: Tweets From Sea</a>.  </p>
+		</span>	
+
+		<img imageonload resize-bigimage id= "bigImg{{id}}" src='{{bigImageSrc}}?w={{bigImageWidth}}' alt="{{alt}}"  class="no-border" />
 	</div>
 	<div class="caption" id="bigCaption" style="font-size:15px">
 		{{alt}}
 		<br>
-		From: <a href="http://teacheratsea.wordpress.com/?p={{parent}}" target="_blank">{{post_title}}</a>
+		From: <a href="{{parent}}" target="_blank">{{post_title}}</a>
 		<br>
 		<a href="{{bigImageSrc[0]}}" target="_blank">View High Resolution Image</a>
 	</div>

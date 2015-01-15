@@ -1,7 +1,7 @@
 <div >
 	<div id="top" >
 	<div id="popup_holder"  class="animate-show" ng-hide="bigImage==false">
-		<big-image id="bigImg1" class="bigImg " ></big-image>
+		<big-imagepow id="bigImg1" class="bigImg " ></big-imagepow>
 
 		<div style="clear:both"></div>
 
@@ -29,7 +29,6 @@
 		
 		<div class="clear"></div>
 		<div class="border2"></div>
-	<div class="preloader" ng-hide="pow.checkContents==true"></div>
 		<div class="main_no_tab" ng-hide="pow.checkContents==false">
 
 			<h2  ng-hide="noFilter==false;" style="margin-bottom:15px; margin-top:15px;">This Week's Photo!</h2>
@@ -38,7 +37,8 @@
 				<div id="main_photo">
 
 					<div class="photo">
-						<a><img tabindex="{{pow[0].tabIndex}}" resize-list ng-click="openBigImage(pow[0].url,pow[0].post_title,pow[0].post_url, pow[0].caption, pow[0].parent, pow[0].id)"  ng-enter="openBigImage(pow[0].url,pow[0].post_title,pow[0].post_url, pow[0].caption, pow[0].parent, pow[0].id)"style="cursor:pointer;border:none" id="photo{{pow[0].id}}" src="{{pow[0].url}}?w={{bigPow}}" alt="{{pow[0].caption}}" ></a>
+							
+						<a><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span><img imageonload tabindex="{{pow[0].tabIndex}}" resize-list ng-click="openBigImage(pow[0].url,pow[0].post_title,pow[0].post_url, pow[0].caption, pow[0].parent, pow[0].id)"  ng-enter="openBigImage(pow[0].url,pow[0].post_title,pow[0].post_url, pow[0].caption, pow[0].parent, pow[0].id)"style="cursor:pointer;border:none" id="photo{{pow[0].id}}" src="{{pow[0].finalImage}}?w={{bigPow}}" alt="{{pow[0].caption}}" ></a>
 					</div>
 					<a ng-href="{{pow[0].url}}" target="_blank" class="caption">View High Resolution Image</a>
 				</div>
@@ -65,7 +65,7 @@
 				<h2 style="margin-bottom:15px;" ng-hide="noFilter==false;"> Previous Photos of the Week</h2>
 				<div ng-hide="noFilter==true;">
 					<div ng-repeat="pow in data | filter:query"  >
-						<div class="photo" id="image{{pow.id}}" ><a></a><img tabindex="{{pow.tabIndex}}" resize-list style="cursor:pointer" ng-click="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)" ng-enter="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)"  id="photo{pow.id}" src="{{pow.url}}?w={{tnWidth}}" alt="{{pow.caption}}" ></a>
+						<div class="photo" id="image{{pow.id}}" ><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>	<a></a><img onload tabindex="{{pow.tabIndex}}" resize-list style="cursor:pointer" ng-click="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)" ng-enter="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)"  id="photo{pow.id}" src="{{pow.url}}?w={{tnWidth}}" alt="{{pow.caption}}" ></a>
 							<a ng-href="{{pow.url}}" target="_blank" class="caption">View High Resolution Image</a>
 						</div>
 
@@ -97,7 +97,7 @@
 				<div ng-hide="noFilter==false;">
 
 					<div ng-repeat="pow in filtered_data" >
-						<div class="photo" id="image{{pow.id}}" ><img tabindex="{{pow.tabIndex}}" resize-list style="cursor:pointer" ng-click="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)" ng-enter="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)"  id="photo{pow.id}" src="{{pow.url}}?w={{tnWidth}}" alt="{{pow.caption}}" >
+						<div class="photo" id="image{{pow.id}}" ><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>	<img imageonload tabindex="{{pow.tabIndex}}" resize-list style="cursor:pointer" ng-click="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)" ng-enter="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)"  id="photo{pow.id}" src="{{pow.url}}?w={{tnWidth}}" alt="{{pow.caption}}" >
 							<a ng-href="{{pow.url}}" target="_blank" class="caption">View High Resolution Image</a>
 						</div>
 

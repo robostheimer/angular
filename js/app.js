@@ -2,7 +2,7 @@
 
 /* App Module */
 //var teachernamehash = window.location.hash.split('/')[2];
-var TAS_SITE = angular.module('TAS_SITE', ['ngRoute',  'BaseballCardInfo', 'ClassPage',  'Media', 'ngSanitize', 'ngAnimate', 'Alumni','TabPages', 'FAQs', 'TASA', 'Homepage','Highlights','ngTouch','Footer', 'SearchBox', 'Navigation', 'RespNav','angulartics', 'angulartics.google.analytics', 'Favorites']);
+var TAS_SITE = angular.module('TAS_SITE', ['ngRoute',  'BaseballCardInfo', 'ClassPage',  'Media', 'ngSanitize', 'ngAnimate', 'Alumni','TabPages', 'FAQs', 'TASA', 'Homepage','Highlights','ngTouch','Footer', 'SearchBox', 'Navigation', 'RespNav','angulartics', 'angulartics.google.analytics', 'Favorites', 'Facts']);
 TAS_SITE.config(['$routeProvider',
   function($routeProvider) {
    $routeProvider.

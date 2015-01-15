@@ -56,6 +56,30 @@ TAS_SITE.directive('ytVideos', function () {
   
 })
 
+.directive('bigImagepow', function () {
+  return {
+  
+  	restrict: 'AE',
+    scope:true,
+    templateUrl: 'partials/popup_pow.html',
+  	
+  };
+    
+  
+})
+
+.directive('bigImagespot', function () {
+  return {
+  
+  	restrict: 'AE',
+    scope:true,
+    templateUrl: 'partials/popup_pow.html',
+  	
+  };
+    
+  
+})
+
 .directive('bigimageBlogs', function () {
   return {
   
@@ -140,14 +164,14 @@ TAS_SITE.directive('ytVideos', function () {
   
 })
 
-.directive('carouSel', function($injector, $compile, $q )
+.directive('carouSel', function($injector, $compile, $q, preloadImage )
 {
-var Current =  '<div id="wrapper"><div id="scroller_current" class="scroller" ><ul><li tabindex="109" ng-repeat="teacher in data"><div class="image"><img tabindex="109" resize-current class="current_image" src="{{teacher.image}}?w={{windowWidth}}" alt="{{teacher.firstname}} {{teacher.lastname_forDOM}}"/></div><div tabindex="109" class="teacher_info"><h6 tabindex="109"><a tabindex="109" href="#/2014/{{teacher.firstname}}*{{teacher.lastname}}">NOAA Teacher at Sea {{teacher.firstname}} {{teacher.lastname_forDOM}} of {{teacher.city}}, {{teacher.state}} {{teacher.verb}} aboard {{teacher.shiptype}} <em>{{teacher.ship}}</em>.</a></h6></div></li></ul></div></div><div><a class="navPrev3 no" ng-click="prev(\'current\');">««</a><a ng-click="next(\'current\')" class="navNext3 no" >»»</a></div><script>myScroll  = new iScroll("wrapper", {hScrollbar:false});</script>';
-	var  Alumni = '<div id="wrapper_alumni"><div id="scroller_alumni" class="scroller" style="transition: transform 0ms; -webkit-transition: transform 0ms; transform-origin: 0px 0px 0px; transform: translate(0px, 0px) translateZ(0px);"><ul><li tabindex="112" ng-repeat = "spot in data"><div class="image"><img tabindex="112" resize-home class="current_image" src="{{spot.url}}?w={{windowWidth}}"" alt="{{spot.caption}}"></div><div class="teacher_info"><h6><a tabindex="112" href="#{{spot.hash}}">{{spot.firstname}} {{spot.lastname}}</a></h6></div></li></ul></div></div><div><a class="navPrev3" ng-click="prev(\'alumni\');">««</a><a ng-click="next(\'alumni\')" class="navNext3" >»»</a></div><script>myScroll_spotlights  = new iScroll("wrapper_alumni", {hScrollbar:false});</script>';
-	var Pow = '<div id="wrapper_pow"><div id="scroller_pow" class="scroller" style="transition: transform 0ms; -webkit-transition: transform 0ms; transform-origin: 0px 0px 0px; transform: translate(0px, 0px) translateZ(0px);"><ul ><li tabindex="115" ng-repeat = "pow in data"><div class="image"><img tabindex="115" resize-home class="current_image" src="{{pow.url}}?w={{windowWidth}}"" alt="{{pow.caption}}"></div><div tabindex="115" class="teacher_info"><h6 tabindex="115"><a tabindex="115"href="#/photo_of_week/" ng-bind-html="pow.titleSnippet"></a></h6><span class="caption" tabindex="115" >Photo By: {{pow.credit}}<br><a ng-href="{{pow.parent}}" target="_blank"  tabindex="115" >{{pow.post_title}}</a></div></li></ul></div></div><div><a class="navPrev3" ng-click="prev(\'pow\');">««</a><a ng-click="next(\'pow\')" class="navNext3" >»»</a></div><script>myScroll_pow  = new iScroll("wrapper_pow", {hScrollbar:false});</script>';
+var Current =  '<div id="wrapper"><div id="scroller_current" class="scroller" ><ul><li tabindex="109" ng-repeat="teacher in data"><div class="image"><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span><img tabindex="109" resize-current class="current_image no-border" ng-src="{{teacher.finalImage}}?w={{windowWidth}}" alt="{{teacher.firstname}} {{teacher.lastname_forDOM}}" imageonload/> </div><div tabindex="109" class="teacher_info"><h6 tabindex="109"><a tabindex="109" href="#/2014/{{teacher.firstname}}*{{teacher.lastname}}">NOAA Teacher at Sea {{teacher.firstname}} {{teacher.lastname_forDOM}} of {{teacher.city}}, {{teacher.state}} {{teacher.verb}} aboard {{teacher.shiptype}} <em>{{teacher.ship}}</em>.</a></h6></div></li></ul></div></div><div><a class="navPrev3 no" ng-click="prev(\'current\');">««</a><a ng-click="next(\'current\')" class="navNext3 no" >»»</a></div><script>myScroll  = new iScroll("wrapper", {hScrollbar:false});</script>';
+	var  Alumni = '<div id="wrapper_alumni"><div id="scroller_alumni" class="scroller" style="transition: transform 0ms; -webkit-transition: transform 0ms; transform-origin: 0px 0px 0px; transform: translate(0px, 0px) translateZ(0px);"><ul><li tabindex="112" ng-repeat = "spot in data"><div class="image"><span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span><img imageonload tabindex="112" resize-home class="current_image no-border" ng-src="{{spot.finalImage}}?w={{windowWidth}}"" alt="{{spot.caption}}"></div><div class="teacher_info"><h6><a tabindex="112" href="#{{spot.hash}}">{{spot.firstname}} {{spot.lastname}}</a></h6></div></li></ul></div></div><div><a class="navPrev3" ng-click="prev(\'alumni\');">««</a><a ng-click="next(\'alumni\')" class="navNext3" >»»</a></div><script>myScroll_spotlights  = new iScroll("wrapper_alumni", {hScrollbar:false});</script>';
+	var Pow = '<div id="wrapper_pow"><div id="scroller_pow" class="scroller" style="transition: transform 0ms; -webkit-transition: transform 0ms; transform-origin: 0px 0px 0px; transform: translate(0px, 0px) translateZ(0px);"><ul ><li tabindex="115" ng-repeat = "pow in data"><div class="image"><span class="loading"> <img class="no-border" src="/images/NOAA-Logo_200.gif"/></span><img imageonload tabindex="115" resize-home class="current_image no-border" ng-src="{{pow.finalImage}}?w={{windowWidth}}"" alt="{{pow.caption}}"></div><div tabindex="115" class="teacher_info"><h6 tabindex="115"><a tabindex="115"href="#/photo_of_week/" ng-bind-html="pow.titleSnippet"></a></h6><span class="caption" tabindex="115" >Photo By: {{pow.credit}}<br><a ng-href="{{pow.parent}}" target="_blank"  tabindex="115" >{{pow.post_title}}</a></div></li></ul></div></div><div><a class="navPrev3" ng-click="prev(\'pow\');">««</a><a ng-click="next(\'pow\')" class="navNext3" >»»</a></div><script>myScroll_pow  = new iScroll("wrapper_pow", {hScrollbar:false});</script>';
 	var Videos = '<div resize-social id="wrapper_videos2"><div id="scroller_videos" class="scroller"><ul><li class="wp" style="margin-left:7px " ng-repeat = "src in videosArr" ><wp-videos width="{{windowWidth2}}" height="165"></wp-videos><br><br><a href="{{src.lnk}}" target="-blank">Go to Blogpost <span class="chevron">»»</span></a></li></ul></div></div><div><a class="navPrev3" ng-click="prev(\'videos\');">««</a><a ng-click="next(\'videos\')" class="navNext3" >»»</a></div><script>myScroll_videos  = new iScroll("wrapper_videos2", {hScrollbar:false});</script>'
-	var Quotes ='<div id="wrapper_quotes"  style="height:auto; overflow:scroll"><ul class="scroller" id="scroller_quotes"><li id="quote{{quote.id}}" style="display:inline;" ng-repeat="quote in quotes"><div class="faq_quote"><img resize-social ng-src="{{quote.gsx$tn.$t}}?w={{windowWidth}}" alt="{{quotes.gsx$teacher.$t}}"></div><div class="faq_quote_text"> {{quote.gsx$quote.$t}}<br><span class="caption">{{quote.gsx$teacher.$t}}</span></div></li></ul></div><div><a class="navPrev3" ng-click="prev(\'quotes\');">««</a><a ng-click="next(\'quotes\')" class="navNext3" >»»</a></div><script>myScroll_videos  = new iScroll("wrapper_quotes", {hScrollbar:false});</script>'
-var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"><ul><li ng-repeat = "img in images" id="{{img.id}}" ng-mouseover="showTitle(img.id)" ng-mouseout="hideTitle(img.id)"><div class="containme"><div class="text_container  animate-height"  ng-hide="img.showTitle==false"><div class="fl_title_ind" >{{img.caption}}</div></div><img resize-social src="{{img.src}}?w={{windowWidth}}" alt="{{img.caption}}"/></div><br><br><a  href="{{img.src}}" target="_blank">View High Resolution Image <span class="chevron">»»</span></a><br><a  href="http://teacheratsea.wordpress.com/?p={{img.parent}}">Go to Blogpost <span class="chevron">»»</span></a></li></ul></div><div><a class="navPrev3" ng-click="prev(\'photos\');">««</a><a ng-click="next(\'photos\')" class="navNext3" >»»</a></div><script>myScroll_photos  = new iScroll("wrapper_photos2", {hScrollbar:false});</script>';
+	var Quotes ='<div id="wrapper_quotes"  style="height:auto; overflow:scroll"><ul class="scroller" id="scroller_quotes"><li id="quote{{quote.id}}" style="display:inline;" ng-repeat="quote in quotes"><div class="faq_quote"><span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span><img imageonload resize-social ng-src="{{quote.gsx$tn.$t}}?w={{windowWidth}}" alt="{{quotes.gsx$teacher.$t}}"></div><div class="faq_quote_text"> {{quote.gsx$quote.$t}}<br><span class="caption">{{quote.gsx$teacher.$t}}</span></div></li></ul></div><div><a class="navPrev3" ng-click="prev(\'quotes\');">««</a><a ng-click="next(\'quotes\')" class="navNext3" >»»</a></div><script>myScroll_videos  = new iScroll("wrapper_quotes", {hScrollbar:false});</script>'
+	var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"><ul><li ng-repeat = "img in images" id="{{img.id}}" ng-mouseover="showTitle(img.id)" ng-mouseout="hideTitle(img.id)"><div class="containme"><div class="text_container  animate-height"  ng-hide="img.showTitle==false"><div class="fl_title_ind" >{{img.caption}}</div></div><img imageonload resize-social ng-src="{{img.src}}?w={{windowWidth}}" alt="{{img.caption}}"/></div><br><br><a  href="{{img.src}}" target="_blank">View High Resolution Image <span class="chevron">»»</span></a><br><a  href="http://teacheratsea.wordpress.com/?p={{img.parent}}">Go to Blogpost <span class="chevron">»»</span></a></li></ul></div><div><a class="navPrev3" ng-click="prev(\'photos\');">««</a><a ng-click="next(\'photos\')" class="navNext3" >»»</a></div><script>myScroll_photos  = new iScroll("wrapper_photos2", {hScrollbar:false});</script>';
 	
 	
 	
@@ -184,16 +208,16 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 	
 	var linkFunction = function(scope, elm, attr)
 	{
-		 if(window.innerWidth>950)
+		if(window.innerWidth>950)
             {
-            scope.adder = 202;
+            scope.adder = 200;
 			}
-			else if(window.innerWidth<1000 && window.innerWidth>=790){
-				scope.adder=260;
+			else if(window.innerWidth<1000 && window.innerWidth>=800){
+				scope.adder=200;
 			}
-			else if(window.innerWidth<790 && window.innerWidth>=630){
+			else if(window.innerWidth<799 && window.innerWidth>=640){
 				scope.adder=270			}
-			else if(window.innerWidth<640&& window.innerWidth>=470)
+			else if(window.innerWidth<640&& window.innerWidth>=480)
 			{
 				scope.adder=195			}
 			else{
@@ -209,12 +233,12 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 		    	
 		    	$compile(elm.contents())(scope);
 		    	deferred.promise.then(function(){
-		    		
-		    		
+	
 		    	});
 		    	deferred.resolve();
 		    	
 				var length =attr.length;
+				console.log()
 				//$('#'+attr.type).css({'transition': 'transform 0ms', '-webkit-transition': 'transform 0ms', 'transform-origin': '0px 0px 0px', 'transform': 'translate(-'+scope.marginLeft+'px, 0px) scale(1) translateZ(0px)'});
 		    }
 		    else
@@ -223,9 +247,20 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 		     {
 		     	scope.data = data;
 				scope.data[0].hider=false;
-				//scope.width = scope.data.length*202;
+				scope.images=[];
+				//////////////Preload the first 3 images//////////////
+				
+				////////////////No preloading for image number 4 and greater///////////
+				for(var z=0; z<scope.data.length; z++)
+				{
+					scope.data[z].finalImage = scope.data[z].image;
+				}
+								
+				
+				
+				
 				elm.html(getTemplate(attr.type)); 	
-			   // scope.marginLeft=202;
+			   
 		    	$compile(elm.contents())(scope);
 		     	
 				//$('#'+attr.type).css({'transition': 'transform 0ms', '-webkit-transition': 'transform 0ms', 'transform-origin': '0px 0px 0px', 'transform': 'translate(-'+scope.marginLeft+'px, 0px) scale(1) translateZ(0px)'});
@@ -238,12 +273,13 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 			     	if(attr.length=="")
 			     	{
 			     		scope.lengthy = scope.data.length;
-			     		scope.adder=scope.adder
+			     		scope.adder=scope.adder;
 			     	}
 			     	else
 			     	{
 			     		scope.lengthy=attr.length;
 			     		scope.adder=parseInt(attr.width);
+			     		
 			     	}
 			     	
 			     	if(scope.marginLeft<(scope.lengthy-1)*scope.adder)
@@ -255,6 +291,7 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 			     	{
 			     		scope.marginLeft=0;
 			     	}
+			     	
 			     	var item = '#scroller_'+item;
 			     	$(item).css({'transition': 'transform 0ms', '-webkit-transition': 'transform 0ms', 'transform-origin': '0px 0px 0px', 'transform': 'translate(-'+scope.marginLeft+'px, 0px) scale(1) translateZ(0px)'});
 			     	
@@ -285,6 +322,10 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 			 		var item = '#scroller_'+item;
 			     	$(item).css({'transition': 'transform 0ms', '-webkit-transition': 'transform 0ms', 'transform-origin': '0px 0px 0px', 'transform': 'translate(-'+scope.marginLeft+'px, 0px) scale(1) translateZ(0px)'});
 			     };
+			     
+			    
+			
+			  
 			
 		
 	};
@@ -311,7 +352,7 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 	};
 })
 
-.directive('slideShow', function(Slideshow, $timeout){
+.directive('slideShow', function(Slideshow, $timeout, preloadImage){
 	
 	return{
 		restrict: 'AE',
@@ -322,6 +363,17 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 	  		Slideshow.loadSlideData('19uuws3BhCGqVKp1Zl1uq-e4L1bbG9vla3DDZqMiL').then(function(data)
 			{
 				scope.slides = data;
+				
+				scope.slideimages=[];
+				//////////////Preload the first 3 images//////////////
+				
+				
+				////////////////No preloading for image number 4 and greater///////////
+				for(var z=0; z<scope.slides.length; z++)
+				{
+					scope.slides[z].finalImage = scope.slides[z].imageurl;
+					console.log(scope.slides[z].finalImage)
+				}
 				scope.slides[0].visible=true;
 				scope.slides[0].classy='active';
 				scope.slideshow_width = scope.slides.length*620;
@@ -344,9 +396,9 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 			 
 			sliderFunc();
 	 
-			scope.$on('$destroy', function() {
+			/*scope.$on('$destroy', function() {
 			  $timeout.cancel(timer); // when the scope is getting destroyed, cancel the timer
-			});
+			});*/
 	  		
 	  		scope.next = function() {
 	  			for(var i=0; i<scope.slides.length; i++)
@@ -408,12 +460,14 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 	  			if(scope.playhider==false)
 	  			{
 	  				scope.playhider=true;
+	  				$timeout.cancel(scope.timer);
 	  				sliderFunc();
 	  				
 	  			}
 	  			else{
 	  				scope.playhider=false;
 	  				$timeout.cancel(scope.timer);
+	  				
 	  			}
 	  			
 	  		};
@@ -423,7 +477,7 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 	};
 })
 
-.directive('slideshowMedia', function(Slideshow, $timeout){
+.directive('slideshowMedia', function(Slideshow, $timeout, preloadImage){
 	return{
 		restrict: 'AE',
 		scope:true,
@@ -433,6 +487,20 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 	  		Slideshow.loadSlideData('11INSvguka4SOHln9R4C8C96EQ1kkpoaw-EC8l7_h').then(function(data)
 			{
 				scope.slides = data;
+				
+				scope.slideimages=[];
+				//////////////Preload the first 3 images//////////////
+				
+				
+				////////////////No preloading for image number 4 and greater///////////
+				for(var z=0; z<scope.slides.length; z++)
+				{
+					scope.slides[z].finalImage = scope.slides[z].imageurl;
+					
+				}
+			
+				
+				
 				scope.slides[0].visible=true;
 				scope.slides[0].classy='active';
 				scope.slideshow_width = scope.slides.length*620;
@@ -455,9 +523,6 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 			 
 			sliderFunc();
 	 
-			scope.$on('$destroy', function() {
-			  $timeout.cancel(timer); // when the scope is getting destroyed, cancel the timer
-			});
 	  		
 	  		scope.next = function() {
 	  			for(var i=0; i<scope.slides.length; i++)
@@ -519,14 +584,15 @@ var Photos='<div id="wrapper_photos2"><div id="scroller_photos" class="scroller"
 	  			if(scope.playhider==false)
 	  			{
 	  				scope.playhider=true;
+	  				$timeout.cancel(scope.timer);
 	  				sliderFunc();
 	  				
 	  			}
 	  			else{
 	  				scope.playhider=false;
 	  				$timeout.cancel(scope.timer);
-	  			}
-	  			
+	  				
+	  			}	  			
 	  		};
 	 
 			
@@ -680,16 +746,16 @@ return {
             scope.windowHeight = newValue.h;
             if(window.innerWidth>1000)
             {
-            scope.windowWidth = 215+'px';
+            scope.windowWidth = 215
 			}
 			else if(window.innerWidth<1000 && window.innerWidth>=800){
-				scope.windowWidth=200+'px';
+				scope.windowWidth=170
 			}
 			else if(window.innerWidth<800 && window.innerWidth>=640){
-				scope.windowWidth=175+'px';
+				scope.windowWidth=138;
 			}
 			else{
-				scope.windowWidth=150+'px';
+				scope.windowWidth=120
 			}
             scope.styles = function () {
                 return {
@@ -719,14 +785,14 @@ return {
             scope.windowHeight = newValue.h;
             if(window.innerWidth>950)
             {
-            scope.windowWidth = 202;
+            scope.windowWidth = 199;
 			}
-			else if(window.innerWidth<950 && window.innerWidth>=790){
+			else if(window.innerWidth<960 && window.innerWidth>=800){
 				scope.windowWidth=210;
 			}
-			else if(window.innerWidth<790 && window.innerWidth>=630){
+			else if(window.innerWidth<799 && window.innerWidth>=640){
 				scope.windowWidth=250			}
-			else if(window.innerWidth<640&& window.innerWidth>=470)
+			else if(window.innerWidth<639&& window.innerWidth>=480)
 			{
 				scope.windowWidth=185			}
 			else{
@@ -758,14 +824,14 @@ return {
             scope.windowHeight = newValue.h;
             if(window.innerWidth>950)
             {
-            scope.windowWidth = 202			}
+            scope.windowWidth = 200		}
 			else if(window.innerWidth<950 && window.innerWidth>=790){
-				scope.windowWidth=250			}
+				scope.windowWidth=240			}
 			else if(window.innerWidth<790 && window.innerWidth>=630){
-				scope.windowWidth=185			}
-			else if(window.innerWidth<640&& window.innerWidth>=470)
+				scope.windowWidth=175			}
+			else if(window.innerWidth<640&& window.innerWidth>=480)
 			{
-				scope.windowWidth=220			}
+				scope.windowWidth=200			}
 			else{
 				scope.windowWidth=125			}
            
@@ -800,7 +866,7 @@ return {
 				scope.windowWidth=185			}
 			else if(window.innerWidth<640&& window.innerWidth>=470)
 			{
-				scope.windowWidth=160			}
+				scope.windowWidth=300			}
 			else{
 				scope.windowWidth=190			}
           
@@ -875,11 +941,11 @@ return {
             	}
 			else if(window.innerWidth<960 && window.innerWidth>=800){
 				 scope.topImageWidth = 320;
-				 scope.video =250
+				 scope.video =200
            			}
-			else if(window.innerWidth<800 && window.innerWidth>=640){
+			else if(window.innerWidth<799 && window.innerWidth>=640){
 				 scope.topImageWidth = 220;
-				 scope.video=250
+				 scope.video=190
            		}
 			else if(window.innerWidth<640&& window.innerWidth>=470)
 			{
@@ -1077,8 +1143,8 @@ return {
             scope.bigImageWidth = 650			}
 			else if(window.innerWidth<960 && window.innerWidth>=800){
 				scope.bigImageWidth=600			}
-			else if(window.innerWidth<800 && window.innerWidth>=640){
-				scope.bigImageWidth=495			}
+			else if(window.innerWidth<799 && window.innerWidth>=640){
+				scope.bigImageWidth=485			}
 			else if(window.innerWidth<640&& window.innerWidth>=470)
 			{
 				scope.bigImageWidth=390;			}
@@ -1097,5 +1163,102 @@ return {
             scope.$apply();
         });
     };
+})
+
+.directive('imageonload', function() {
+    return {
+        restrict: 'A',
+      
+        link: function(scope, element) {
+          element.on('load', function() {
+          	
+            // Set visibility: true + remove spinner overlay
+              element.removeClass('spinner-hide');
+              element.addClass('spinner-show');
+              element.parent().find('span').remove();
+          });
+          /*scope.$watch('ngSrc', function() {
+            // Set visibility: false + inject temporary spinner overlay
+              
+              
+              element.addClass('spinner-hide');
+              element.parent().append('<span class="spinner"></span>');
+          	  
+          });*/
+        }
+    };
+})
+
+
+
+.directive('imageonloadprofile', function( TeacherDataFetch) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+        		
+        		element.bind('load', function() {
+        		if(attrs.number==0)
+        		{	
+            	$('.loading').addClass('ng-hide');
+            	$(element).removeClass('ng-hide');
+            	scope.loadHider=true;
+            	
+            	}
+
+			});
+			
+
+          
+        }
+    };
+})
+
+.directive('imageonloadpopup', function( TeacherDataFetch) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+        	
+        		scope.isLoading=true;
+        		element.bind('load', function() {	
+        		
+        			console.log('loading')
+        			scope.isLoading=false;
+	            	//$('.loading').addClass('ng-hide');
+	            	$(element).removeClass('ng-hide');
+	            	//scope.loadHider=true;
+            		
+            	
+            
+            
+
+			});
+			
+			
+          
+        }
+    };
+})
+
+.directive('imageonloadtabs', function( TabsDataFetch) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+        		
+        		element.bind('load', function() {
+        		//console.log('dir'+TabsDataFetch.count)
+        		if(TabsDataFetch.count==1)
+        		{	
+        			
+            	$('.loading').addClass('ng-hide');
+            	$(element).removeClass('ng-hide');
+            	scope.loadHider=true;
+            	}
+
+			});
+
+          
+        }
+    };
 });
+
 

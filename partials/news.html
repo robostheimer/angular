@@ -33,8 +33,8 @@
 	
 	<div ng-repeat="article in data | filter:query" ng-hide="noFilter==true;" >
 		<div class="news_image" >
-			
-			<img tabindex="{{article.tabIndex}}" class="newsimage" src="{{article.main.newsItems.image}}?w=100 alt="{{article.teacher}>
+			<span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>
+			<img imageonload tabindex="{{article.tabIndex}}" class="newsimage" src="{{article.main.newsItems.image}}?w=100 alt="{{article.teacher}>
 		</div>
 		<div class="news_info" tabindex="{{article.tabIndex}}" >
 			<h6><a tabindex="{{article.tabIndex}}" href="#/{{article.main.newsItems.articleYear}}/{{article.main.newsItems.teacher.replace(' ', '*')}}">{{article.main.newsItems.teacher}}</a></h6>
@@ -49,8 +49,8 @@
 <div ng-hide="noFilter==false;" >
 	<div  ng-repeat="article in filtered_data" ng-hide="noFilter==false;"  >
 		<div class="news_image"  ">
-			
-			<img tabindex="{{article.tabIndex}}"class="newsimage" src="{{article.main.newsItems.image}}?w=100 alt="{{article.teacher}>
+			<span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>
+			<img imageonload tabindex="{{article.tabIndex}}"class="newsimage" src="{{article.main.newsItems.image}}?w=100 alt="{{article.teacher}>
 		</div>
 		<div class="news_info" >
 			<h6><a tabindex="{{article.tabIndex}}" href="#/{{article.main.newsItems.articleYear}}/{{article.main.newsItems.teacher.replace(' ', '*')}}">{{article.main.newsItems.teacher}}</a></h6>

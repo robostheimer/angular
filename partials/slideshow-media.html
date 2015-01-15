@@ -3,9 +3,10 @@
 			
 			<li class="slideshow animate-show" ng-repeat="slide in slides" ng-hide="slide.visible==false;">
 				<div class="image"><a  href= "{{slide.link}}" ng-click ="nameClick(slide.publishdate, slide.title)">
-					<img src="{{slide.imageurl}}?w=620" alt="{{slide.title}}"/>
+					<span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span>
+					<img imageonload class="no-border" src="{{slide.finalImage}}?w=620" alt="{{slide.title}}"/>
 				</a></div>
-			<div  class="text_box" ><h2 class="slideshow">{{slide.title}}</h2><div class="slideshow">{{slide.description}}   </div><div style="float:left"><a style="color:#ECBD00;font-weight:bold;" href="{{slide.link}}">MORE »»</a></div>><div style="clear:both"></div><div style="border:1px solid #ECBD00; margin-right: 15px;"></div></div>
+			<div  class="text_box" ><h2 class="slideshow">{{slide.title}}</h2><div class="slideshow">{{slide.description}}   </div><div style="float:left; margin-top:5px;"><a style="color:#ECBD00;font-weight:bold;" href="{{slide.link}}">MORE »»</a></div><div style="clear:both"></div><div style="border:1px solid #ECBD00; margin-right: 15px;"></div></div>
 			</li>
 			
 			

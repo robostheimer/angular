@@ -23,7 +23,7 @@
 	<div id="top_right">
 		<h6 style="margin-left:15px" >QUICK LINKS <span style="color:#189E81">FOR TEACHERS</span></h6>
     <ul style="margin:0px">
-      <li class="diamond"><a href="#/progam_highligths">Program Highlights</a> »»</li>
+      <li class="diamond"><a href="#/progam_highlights">Program Highlights</a> »»</li>
       <li class="diamond"><a href="#/faqs">Frequently Asked Questions </a>»»</li>
       <li class="diamond"><a href="http://teacheratsea.wordpress.com" target="_blank">Teacher Blogs </a>»»</li>
       <li class="diamond"><a href="#/how_to_apply">How to Apply</a> »»
@@ -100,7 +100,7 @@
 				<div class="border2"></div>
 				<div  class="main_box_inner" id="alumni">
 					<!--<div class="preloader" ng-hide="alumniHider ==false"></div>-->
-					<div class="main_box_inner">
+					
 						<!--<div class="wrapper" id="wrapper_alumni">
 						<div id="scroller_alumni" class="scroller">-->
 						<carou-sel service="HomePageAlumni" type='alumni' length="{{spotlights.length}}" width="{{windowWidth}}" resize-home></carou-sel>
@@ -110,7 +110,7 @@
 						<br>
 						<a tabindex = "114" class="feed_link more" href="/alumni/alumni_spotlight.xml" target="_blank"><img src="/images/feed-icon-22x22.png" width="10" height="10" class="icon" alt="rss feed icon"> Subscribe to Alumni Spotlight Feed <span class="chevron">»»</span></a>
 
-					</div>
+					
 				</div>
 			</div>
 			<div class="main_box2" id="home_photoofweekbox" >
@@ -120,14 +120,14 @@
 				<div  class="main_box_inner" id="alumni">
 					<!--<div class="preloader" ng-hide="powHider ==false"></div>-->
 
-					<div class="main_box_inner">
+					
 						<carou-sel service="HomePagePOW" type='pow' length="{{pows.length}}" width="{{windowWidth}}" resize-home ></carou-sel>
 						<div class="clear"></div>
 
 						<a tabindex="116" href="#/alumni_spotlight/">All Photos of the Week<span class="chevron">»»</span></a>
 						<br>
 						<a tabindex="117" class="feed_link more" href="/media/photo_of_week.xml" target="_blank"><img src="/images/feed-icon-22x22.png" width="10" height="10" class="icon" alt="rss feed icon"> Subscribe to Photo fo the Week Feed <span class="chevron">»»</span></a>
-					</div>
+					
 				</div>
 			</div>
 			<div id="clear_box" style="clear:both"></div>
@@ -135,8 +135,9 @@
 			<div class="main_box_sm " id="home_blogsbox" >
 				<h6 tabindex="118" >FROM <span class="green">THE BLOG</span></h6>
 				<div class="border2"></div>
-
+				
 				<div  class="main_box_sm_inner blogpostsbox" id="blogs" >
+					<div  ng-hide="wpHider==false"><img class="no-border" src="/images/NOAA-Logo_200.gif" alt="loading"/></div>
 
 					<ul>
 						<li id="blogpost{{wp.id}}"  class="padding10" ng-repeat="wp in wpMinus">
@@ -219,7 +220,7 @@
 
 				<h6 tabindex="122">FROM THE <span class="green">TAS BLOG</span></h6>
 				<div class="border2" style="margin-left:15px;"></div>
-				<div class="preloader" style="margin-top:0" ng-hide="wpHider==false"></div>
+				<div  ng-hide="wpHider==false"><img class="no-border" src="/images/NOAA-Logo_240.gif" alt="loading"/></div>
 				<div id="blogpostsbox" class="blogpostsbox">
 					<ul>
 						<li   class="padding10" ng-repeat="wp in wpMinus">
