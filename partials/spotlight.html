@@ -1,6 +1,6 @@
 <div id="top">
 	<div id="popup_holder"  class="animate-show" ng-hide="bigImage==false">
-		<big-imagepow id="bigImg1" class="bigImg " ></big-imagepow>
+		<big-imagespot id="bigImg1" class="bigImg " ></big-imagespot>
 		<div style="clear:both"></div>
 
 	</div>
@@ -34,7 +34,7 @@
 						<div class="spot_image" id="image{{spot.id}}" tabindex="{{spot.tabIndex}}">
 							<span style="cursor:pointer"  ng-click="openBigImage(spot.url.split('?')[0],spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)" ng-enter="openBigImage(spot.url,spot.post_title,spot.post_url, spot.caption, spot.parent, spot.id)"> 
 								<span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>
-								<img imageonloadtabindex="{{spot.tabIndex}}" resize-list class="image_spot" src="{{spot.url}}?w={{tnWidth}}" alt="{{spot.caption}}"> </span>
+								<img imageonload tabindex="{{spot.tabIndex}}" resize-list class="image_spot" src="{{spot.url}}?w={{tnWidth}}" alt="{{spot.caption}}"> </span>
 
 							</span>
 							</div>

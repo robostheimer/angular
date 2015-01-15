@@ -73,7 +73,7 @@ TAS_SITE.directive('ytVideos', function () {
   
   	restrict: 'AE',
     scope:true,
-    templateUrl: 'partials/popup_pow.html',
+    templateUrl: 'partials/popup_spot.html',
   	
   };
     
@@ -1213,6 +1213,28 @@ return {
     };
 })
 
+.directive('imageonloadtabs', function( TabsDataFetch) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+        		
+        		element.bind('load', function() {
+        		//console.log('dir'+TabsDataFetch.count)
+        		if(attrs.number==0)
+        		{
+        			
+            	$('.loading').addClass('ng-hide');
+            	$(element).removeClass('ng-hide');
+            	scope.loadHider=true;
+            	}
+
+			});
+
+          
+        }
+    };
+})
+
 .directive('imageonloadpopup', function( TeacherDataFetch) {
     return {
         restrict: 'A',
@@ -1234,28 +1256,6 @@ return {
 			});
 			
 			
-          
-        }
-    };
-})
-
-.directive('imageonloadtabs', function( TabsDataFetch) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-        		
-        		element.bind('load', function() {
-        		//console.log('dir'+TabsDataFetch.count)
-        		if(TabsDataFetch.count==1)
-        		{	
-        			
-            	$('.loading').addClass('ng-hide');
-            	$(element).removeClass('ng-hide');
-            	scope.loadHider=true;
-            	}
-
-			});
-
           
         }
     };

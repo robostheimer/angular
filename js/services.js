@@ -927,13 +927,6 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 TAS_SITE.factory('preloadImage', ['$q', '$rootScope',
 function($q, $rootScope) {
 	
-	function runPreloader(classy)
-	{
-		$('.'+classy).bind('load', function() {	
-				alert('loading');
-				$scope.isLoading=false;
-			});
-	}
 	/*// I manage the preloading of image objects. Accepts an array of image URLs.
 	function Preloader(imageLocations) {
 		// I am the image SRC values to preload.
@@ -2616,27 +2609,18 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 				var lessonauthorhref='/'+favorites.lessons[z].year+'/'+favorites.lessons[z].firstname+'*'+favorites.lessons[z].lastname;
 				var lessonauthor=favorites.lessons[z].firstname +' '+ favorites.lessons[z].lastname;
 				var lessongrades=favorites.lessons[z].grades;
-				lessonsTxt+=lessonhref+'**'+lessontitle+'**'+lessonauthorhref+'**'+lessonauthor+'**'+lessongrades;
+				lessonsTxt+=lessonhref+'**'+lessontitle+'**'+lessonauthorhref+'**'+lessonauthor+'**'+lessongrades+'!!!';
 			}	
 				
 				
 				
-			finalTxt = '&message='+emailTxt+'&images='+imagesTxt+'&lessons='+lessonsTxt+'!!!'//&dyk=';	
+			finalTxt = '&message='+emailTxt+'&images='+imagesTxt+'&lessons='+lessonsTxt//&dyk=';	
 			
 			
 			return finalTxt;
 		},
 		
-		getLongURL:function(url)
-		{
-			
-			var deferred = $q.defer();
-			url ='http://cityblinking.com/MusicWhereYouAre/app/%23'+url.replace('--', '/');
-			url = (url);
-			deferred.resolve(url);
-			return deferred.promise;
-			
-		},
+		
 		
 		getBitLy:function(url)
 		{
@@ -2652,5 +2636,24 @@ function($http, $routeParams, $location, $rootScope, $sce) {
 }]);
 
 
+
+
+TAS_SITE.factory('Facts', [ '$rootScope','$q', function( $rootScope, $q){
+	return {
+		runFacts: function()
+		{
+		var deferred =$q.defer();
+		var facts=[{fact:'A sandbar shark will have around 35,000 teeth over the course of its lifetime!'}, {fact: 'The back of sharks\' eyeballs have a reflective layer of tissue called a tapetum. This helps sharks see extremely well with little light.'}, {fact:'A sea scallop\'s eyes are the black dots that line the edges of both its top and bottom shells.'}, {fact:'This fish, the polka dot batfish, is a bottom-dwelling species that uses its stubby fins to slowly "walk" along the seafloor.'}, {fact:'A "sea mouse" is not a mouse, but a marine polychaete worm.'} , {fact:'The male spoon arm octopus has a modified arm that aids in reproduction.'}, {fact: 'A scorpion fish\'s mouth has gill rakers: rows of bumpy spikes that help filter food from the water.'}, {fact:'Scallops can live up to 20 years, and a single female scallop can produce up to 270 million eggs in her lifetime.'},{fact:'Sea spiders have no lungs or other respiratory organs. Since they are so small, gasses diffuse in and out of their bodies.' }];
+			
+			
+			var randomnumber = Math.floor(Math.random()*facts.length);	
+			
+			fact =facts[randomnumber].fact;
+			deferred.resolve(fact);
+			return deferred.promise;
+			//console.log($rootScope.fact)
+		}
+	};
+}]);
 
 ////////////////////////////////////Class Page/////////////////////////

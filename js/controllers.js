@@ -1,14 +1,16 @@
 /* Controllers */
 
 angular.module('ClassPage', [])
-.controller('classPage', ['$scope','$location','$routeParams','Class', function($scope, $location, $routeParams,Class )
+.controller('classPage', ['$scope','$location','$routeParams','Class', 'Facts', function($scope, $location, $routeParams,Class, Facts )
 {
 	$scope.tabIndex = 108;
 	$scope.bigImage=false;
 	$scope.svg = 'images/US_Map.svg';
 	$scope.currentStatus='yes';
 	$scope.hideMapDiv=true;
-	
+	Facts.runFacts().then(function(result){
+		$scope.fact = result;
+	});
 	//TeacherDataFetch.count=0;
 		
 	
@@ -164,12 +166,16 @@ angular.module('ClassPage', [])
 
 angular.module('BaseballCardInfo', [])	
 			
-.controller('changeTab',['$scope','$location','Teacher','TeacherDataFetch','WPDataFetch','LessonsDataFetch','NewsDataFetch','ShipDataFetch', '$q','$routeParams','$rootScope','$sce', 'preloadImage', 'Favorites', '$q' ,function($scope, $location,Teacher, TeacherDataFetch, WPDataFetch, LessonsDataFetch, NewsDataFetch, ShipDataFetch, $q, $routeParams, $rootScope, $sce, preloadImage, Favorites, $q){
+.controller('changeTab',['$scope','$location','Teacher','TeacherDataFetch','WPDataFetch','LessonsDataFetch','NewsDataFetch','ShipDataFetch', '$q','$routeParams','$rootScope','$sce', 'preloadImage', 'Favorites', '$q' , 'Facts',function($scope, $location,Teacher, TeacherDataFetch, WPDataFetch, LessonsDataFetch, NewsDataFetch, ShipDataFetch, $q, $routeParams, $rootScope, $sce, preloadImage, Favorites, $q,Facts){
 	$scope.buttons=Teacher.createObjects();
+	Facts.runFacts().then(function(result){
+			$scope.fact = result;
+		});
 	/*$rootScope.teacherdata={};
 	$rootScope.teacherdata.firstname='';
 	$rootScope.teacherdata.lastname='';
 	*/
+	
 	$scope.buttonsArr = [$scope.buttons.blogs, $scope.buttons.photos, $scope.buttons.videos, $scope.buttons.lessons, $scope.buttons.news,$scope.buttons.ship];
 	$scope.location = $location.path().split('/')[0]+'/'+$location.path().split('/')[1]+'/'+$location.path().split('/')[2];
 	$scope.bigImageHider=true;
@@ -544,6 +550,10 @@ $scope.switchFavorite=function(id, type)
 
 $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, favorite)
 		{
+		$scope.isLoading = true;
+		Facts.runFacts().then(function(result){
+			$scope.fact = result;
+		});
 			
 			if(post_title=='undefined')
 			{
@@ -563,10 +573,26 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 			$scope.bigImage=true;
 			$scope.alt=caption;
 			$scope.post_title = post_title;
+			if($scope.post_title=='undefined')
+			{
+				
+				$scope.titleHider=true;
+				console.log($scope.titleHider);
+			}
+			else
+			{
+				$scope.titleHider=false;
+			}
 			$scope.post_url = post_url;
 			$scope.parent = parent;
 			$scope.id = id;
 			$scope.favorite = favorite;
+			$('.xyzPhoto').bind('load', function(){
+				
+				$scope.isLoading=false;
+				$scope.$apply();
+				
+			});
 			
 				
 			
@@ -576,7 +602,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 		
 		};
 		
-		$scope.closeBigBigImage = function()
+		$scope.closeBigBigImage2 = function()
 		{
 			$scope.bigImage=false;
 			$scope.bigImageHider=true;
@@ -584,9 +610,13 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 		
 		$scope.prevImg = function(id)
 		{
-			
+			$scope.isLoading=true;
+			Facts.runFacts().then(function(result){
+			$scope.fact = result;
+			});
 			
 			length=$scope.images.length;
+			
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
 			{
@@ -598,7 +628,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 			
 			$scope.alt=$scope.images[prev].caption;
 			$scope.post_title = $scope.images[prev].post_title;
-			if(post_title=='undefined')
+			if($scope.post_title=='undefined')
 			{
 				
 				$scope.titleHider=true;
@@ -613,15 +643,23 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 			$scope.id = $scope.images[prev].id;
 			$scope.favorite = $scope.images[prev].favorite;
 			 $scope.bigImageSrc=$scope.images[prev].src
+			 $('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				$scope.$apply();
+				
+			});
 			
-		}
+		};
            
 		
 		$scope.nextImg = function(id)
 		{
-			
-			
 			$scope.isLoading = true;
+			Facts.runFacts().then(function(result){
+			$scope.fact = result;
+			});
+			
+			
             $scope.isSuccessful = false;
             length=$scope.images.length;
             
@@ -640,7 +678,7 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
        $scope.bigImageSrc=$scope.images[next].src;
         $scope.alt=$scope.images[next].caption;
 		$scope.post_title = $scope.images[next].post_title;
-		if(post_title=='undefined')
+		if($scope.post_title=='undefined')
 			{
 				
 				$scope.titleHider=true;
@@ -652,7 +690,11 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 			}
 		$scope.post_url = $scope.images[next].post_url;
 		$scope.parent = $scope.images[next].parent;
-		$scope.id = $scope.images[next].id;			
+		$scope.id = $scope.images[next].id;		
+		$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				$scope.$apply();
+			});	
 			
 		
 		};
@@ -668,8 +710,11 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id, fav
 
 
 angular.module('Media', [])
-.controller('mediaPage', ['$scope','$rootScope','$location','$routeParams','Media','Teacher','preloadImage','Slideshow','Favorites', function($scope, $rootScope, $location, $routeParams,Media,Teacher , preloadImage, Slideshow, Favorites)
+.controller('mediaPage', ['$scope','$rootScope','$location','$routeParams','Media','Teacher','preloadImage','Slideshow','Favorites','Facts', function($scope, $rootScope, $location, $routeParams,Media,Teacher , preloadImage, Slideshow, Favorites, Facts)
 {
+	Facts.runFacts().then(function(result){
+			$scope.fact = result
+		});
 	myScroll  = new iScroll("wrapper", {hScrollbar:false});
 	$scope.bigImage = false;
 	$scope.bigImage2 = false;
@@ -752,6 +797,9 @@ angular.module('Media', [])
 			{
 				$scope.titleHider=false;
 			}
+			Facts.runFacts().then(function(result){
+			$scope.fact = result;
+			});
 			window.scrollTo(0,0);
 			$scope.bigImageSrc='';
 			
@@ -771,7 +819,10 @@ angular.module('Media', [])
 			$scope.id = id;
 			$scope.favorite=favorite;
 			$scope.bigImageSrc=img;
-			preloadImage.runPreloader('.xyzPhoto');
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
 			//$scope.isLoading = false;
 			
 		
@@ -799,7 +850,9 @@ angular.module('Media', [])
 			else{
 			prev=(length-1);	
 			}
-			
+			Facts.runFacts().then(function(result){
+			$scope.fact = result;
+			});
             // Loading was successful.
           
            
@@ -822,7 +875,10 @@ angular.module('Media', [])
 			$scope.id = $scope.images[prev].id;
 			$scope.favorite = $scope.images[prev].favorite;
 			$scope.bigImageSrc=$scope.images[prev].src;
-			preloadImage.runPreloader('.xyzPhoto');
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
  			
                    
  
@@ -857,12 +913,18 @@ angular.module('Media', [])
 			{
 				$scope.titleHider=false;
 			}
+			Facts.runFacts().then(function(result){
+			$scope.fact = result;
+			});
 			$scope.post_url = $scope.images[next].post_url;
 			$scope.parent = $scope.images[next].parent;
 			$scope.id = $scope.images[next].id;
 			$scope.favorite = $scope.images[next].favorite;
 			$scope.bigImageSrc=$scope.images[next].src;
-			preloadImage.runPreloader('.xyzPhoto');
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
 			
 			
 			
@@ -1023,12 +1085,15 @@ angular.module('Media', [])
 }])
 
 
-.controller('powPage', ['$scope','$location','$routeParams','POW','preloadImage','$sce', function($scope, $location, $routeParams,POW, preloadImage, $sce)
+.controller('powPage', ['$scope','$location','$routeParams','POW','preloadImage','$sce','Facts', function($scope, $location, $routeParams,POW, preloadImage, $sce, Facts)
 {
 	
 	$scope.bigImage =false;
 	$scope.noFilter=true;
 	$scope.location = $location.path();
+	Facts.runFacts().then(function(result){
+		$scope.fact = result;
+	});
 	POW.getPOWData().then(function(result){
 		$scope.pow = result;
 		$scope.pow[0].finalImage=$scope.pow[0].url
@@ -1075,7 +1140,11 @@ angular.module('Media', [])
 	
 	$scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 		{
+			$scope.isLoading=true;
 			window.scrollTo(0,0);
+			Facts.runFacts().then(function(result){
+			$scope.fact = result;
+			});
 			$scope.bigImageHider=false;
 			$scope.bigImageSrc='';
 			$scope.bigImageSrc=img;
@@ -1090,7 +1159,11 @@ angular.module('Media', [])
 			$scope.post_url = post_url;
 			$scope.parent = parent;
 			$scope.id = id;
-			$scope.percentLoaded = 0;
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				$scope.$apply()	;			
+								
+			});
 							
 			
 		
@@ -1102,30 +1175,44 @@ angular.module('Media', [])
 			$scope.bigImageHider=true;
 		};
 		
+	
+		
+		$scope.closeBigImage2 = function()
+		{
+			$scope.bigImage=false;
+			$scope.bigImageHider=true;
+		};
+		
 		$scope.prevImg = function(id)
 		{
 			
-			$scope.bigImageSrc=''
-			length=$scope.data.length;
-			var prev = (parseInt(id)-1);
-			if(prev!=-1)
+			$scope.bigImageSrc='';
+			length=$scope.pow.length;
+			var prev = (parseInt(id));
+			if(prev==0)
 			{
-			prev=prev;
+			prev=length-1;
 			}
+			
 			else{
-			prev=(length-1);	
+			prev=(prev-1);	
 			}
+			
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
-			$scope.alt=$scope.data[prev].caption;
-			$scope.post_title = $scope.data[prev].post_title;
-			$scope.post_url = $scope.data[prev].post_url;
-			$scope.parent = $scope.data[prev].parent;
-			$scope.id = $scope.alert(id);[prev].id;
-			preloadImage.preloadImages([$scope.data[prev].ur])
-			 $scope.bigImageSrc=$scope.data[prev].url
+			$scope.alt=$scope.pow[prev].caption;
+			$scope.post_title = $scope.pow[prev].post_title;
+			$scope.post_url = $scope.pow[prev].post_url;
+			$scope.parent = $scope.pow[prev].parent;
+			$scope.id = $scope.pow[prev].id;
+			$scope.bigImageSrc=$scope.pow[prev].url
 			
-            
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				$scope.$apply();
+				
+			});
+			
  
 		};
 		
@@ -1135,7 +1222,7 @@ angular.module('Media', [])
 			$scope.bigImageSrc='';
 			$scope.isLoading = true;
             $scope.isSuccessful = false;
-            length=$scope.data.length;
+            length=$scope.pow.length;
 			
 			var next = (parseInt(id)+1)
 			
@@ -1147,21 +1234,23 @@ angular.module('Media', [])
 				
 				next=0;
 			}
-			$scope.bigImageSrc=$scope.data[next].url;
-            $scope.alt=$scope.data[next].caption;
-			$scope.post_title = $scope.data[next].post_title;
-			$scope.post_url = $scope.data[next].post_url;
-			$scope.parent = $scope.data[next].parent;
-			$scope.id = $scope.data[next].id;
-			//$scope.bigImageSrc=[$scope.images[next].src];
+			  $scope.alt=$scope.pow[next].caption;
+				$scope.post_title = $scope.pow[next].post_title;
+				$scope.post_url = $scope.pow[next].post_url;
+				$scope.parent = $scope.pow[next].parent;
+				$scope.id = $scope.pow[next].id;
+				$scope.bigImageSrc=$scope.pow[next].url;
+				$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				$scope.$apply();
+				
+				});
+			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
 			
 			
- 						
-                        // Loading was successful.
-                       
-                       
  
-                  
+			
+			$scope.imageLoaded=true;
 		};
 		
 		
@@ -1174,7 +1263,7 @@ angular.module('Media', [])
 }]);
 
 angular.module('Alumni', [])
-.controller('spotPage', ['$scope','$location','$routeParams','preloadImage','Alumni','$sce','$rootScope', function($scope, $location, $routeParams, preloadImage, Alumni, $sce, $rootScope)
+.controller('spotPage', ['$scope','$location','$routeParams','preloadImage','Alumni','$sce','$rootScope','Facts', function($scope, $location, $routeParams, preloadImage, Alumni, $sce, $rootScope, Facts)
 {
 		//alert($routeParams.spot_num.replace('page',''));
 		$scope.bigImage=false;
@@ -1235,6 +1324,9 @@ $scope.checkLength = function(query)
 $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 		{
 			window.scrollTo(0,0);
+			Facts.runFacts().then(function(result){
+			$scope.fact = result
+		});
 			$scope.bigImageHider=false;
 			$scope.bigImageSrc=''
 			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
@@ -1248,8 +1340,12 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 			$scope.post_url = post_url;
 			$scope.parent = parent;
 			$scope.id = id;
-			$scope.bigImageSrc=img
-			
+			$scope.bigImageSrc=img;
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				$scope.$apply();
+				
+			});
           
 			//$scope.imageLoaded=true;
 		
@@ -1280,8 +1376,13 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 			$scope.post_title = $scope.data[prev].post_title;
 			$scope.post_url = $scope.data[prev].post_url;
 			$scope.parent = $scope.data[prev].parent;
-			$scope.id = $scope.alert(id);[prev].id;
+			$scope.id = $scope.data[prev].id;
 			$scope.bigImageSrc=$scope.data[prev].url
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				$scope.$apply();
+				
+			});
 			
  
 		};
@@ -1310,6 +1411,11 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 				$scope.parent = $scope.data[next].parent;
 				$scope.id = $scope.data[next].id;
 				$scope.bigImageSrc=$scope.data[next].url;
+				$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				$scope.$apply();
+				
+				});
 			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
 			
 			
@@ -1356,6 +1462,24 @@ $scope.openBigImage = function(img,post_title,post_url, caption, parent, id)
 				$scope.indiv_longbody = $rootScope.alumni_spot[i].longbody;
 				$scope.indivSpot=true;
 				$scope.checkContents =true;
+				
+				/*Need
+				 * 
+				 * To
+				 * 
+				 * 
+				 * 
+				 * Fix This
+				 */
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				preloadImage.preloadImages(img)
 				.then(
                     function handleResolve( imageLocations ) {
@@ -1444,6 +1568,7 @@ angular.module('TabPages', [])
 	
 		if(tabsdatacount==0)
 		{
+			$scope.number=tabsdatacount;
 			
 			TabsDataFetch.data($scope.spreadsheet, $scope.type).then(function(result){
 				$scope.tabs = result;
@@ -1484,6 +1609,7 @@ angular.module('TabPages', [])
 			else if($rootScope.tabsdata.type.toLowerCase()!=$location.path().split('/')[1].split('/')[0].toLowerCase())
 			{
 				tabsdatacount=0;
+				$scope.number=tabsdatacount;
 				$scope.accessData();
 			}
 			else
@@ -1507,6 +1633,7 @@ angular.module('TabPages', [])
 					
 				}
 				$scope.dataLoaded=true;
+				$scope.number=tabsdatacount;
 			}
 			tabsdatacount = TabsDataFetch.count += 1;
 	};
@@ -1552,6 +1679,7 @@ angular.module('TabPages', [])
 	
 		if(tabsdatacount==0 ||topdatacount==0)
 		{
+			$scope.number=tabsdatacount;
 			$scope.loadHider=false;
 			
 			$rootScope.topdata ={};
@@ -1563,7 +1691,7 @@ angular.module('TabPages', [])
 				$scope.top=result;
 				console.log($scope.top);
 				$scope.top.finalImage=$scope.top.image.split('?')[0];
-				console.log($scope.top.finalImage)
+				
 				
 				$rootScope.topdata=result;
 				
@@ -1611,12 +1739,14 @@ angular.module('TabPages', [])
 				
 				tabsdatacount=0;
 				topdatacount=0;
+				$scope.number=tabsdatacount;
 				$scope.accessData();
 			}
 			else
 			{
 			$scope.tabs = $rootScope.tabsdata;
 			$scope.top=$rootScope.topdata;
+			$scope.number=TabsDataFetch.count
 			for(var i=0; i<$scope.tabs.length; i++)
 				{
 					$scope.tabs[i].gsx$tabname.$t=toTitleCase($scope.tabs[i].gsx$tabname.$t);
@@ -1734,11 +1864,16 @@ angular.module('TASA', [])
 			$scope.bigImageHider=false;
 			$scope.bigImage=true;
 			$scope.bigImageSrc=''
+			$scope.isLoading=true;
 			//$scope.bigImageSrc='/images/NOAA-Logo.gif';
 			$scope.alt=caption;
 			$scope.id = id;
 			$scope.percentLoaded = 0;
-			 $scope.bigImageSrc=img;			
+			 $scope.bigImageSrc=img;
+			 $('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});			
 			
 		
 		};
@@ -1754,6 +1889,7 @@ angular.module('TASA', [])
 		{
 			
 			$scope.bigImageSrc='';
+			$scope.isLoading=true;
 			length=$scope.gallery.length;
 			var prev = (parseInt(id)-1);
 			if(prev!=-1)
@@ -1767,7 +1903,10 @@ angular.module('TASA', [])
 			$scope.alt=$scope.gallery[prev].gsx$caption.$t;
 			$scope.id = $scope.gallery[prev].id.$t;
 			$scope.bigImageSrc=$scope.gallery[prev].gsx$photourl.$t;
-			
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
 		};
 		
 		$scope.nextImg = function(id)
@@ -1794,6 +1933,10 @@ angular.module('TASA', [])
             $scope.alt=$scope.gallery[next].gsx$caption.$t;
 			
 			$scope.id = $scope.gallery[next].id.$t;
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
 			//$scope.bigImageSrc=[$scope.wp.Images[next].src];
 			
 			
@@ -2084,6 +2227,10 @@ angular.module('Favorites', [])
 			$scope.parent = parent[0];
 			$scope.id = id;
 			$scope.favorite = favorite;
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
 			
 				
 			
@@ -2395,7 +2542,7 @@ angular.module('Favorites', [])
 }]);
 
 angular.module('SearchBox', [])
-.controller('SearchBox', ['$scope','SearchBox','preloadImage','$sce','Favorites', function($scope, SearchBox, preloadImage, $sce, Favorites)
+.controller('SearchBox', ['$scope','SearchBox','preloadImage','$sce','Favorites', 'Facts', function($scope, SearchBox, preloadImage, $sce, Favorites, Facts)
 {
 	
 	
@@ -2414,6 +2561,9 @@ angular.module('SearchBox', [])
 	};	
 	$scope.searchBlogs=function(search_blogs)
 	{
+		Facts.runFacts().then(function(result){
+			$scope.fact = result
+		});
 		if($scope.search_blogs!=null)
 		{
 		$scope.search_blogs = search_blogs;
@@ -2468,6 +2618,9 @@ angular.module('SearchBox', [])
 	
 	$scope.searchImages=function(search_images)
 	{
+		Facts.runFacts().then(function(result){
+			$scope.fact = result
+		});
 		if($scope.search_images!=null)
 		{
 		$scope.search_images = search_images;
@@ -2525,6 +2678,9 @@ angular.module('SearchBox', [])
 	
 	$scope.searchLessons=function(search_lessons)
 	{
+		Facts.runFacts().then(function(result){
+			$scope.fact = result
+		});
 		if($scope.search_lessons!=null)
 		{
 		$scope.search_lessons = search_lessons;
@@ -2580,6 +2736,9 @@ angular.module('SearchBox', [])
 
 	$scope.searchSite=function(search_site)
 	{
+		Facts.runFacts().then(function(result){
+			$scope.fact = result
+		});
 		if($scope.search_site!=null)
 		{
 		$scope.search_site = search_site;
@@ -2732,7 +2891,10 @@ angular.module('SearchBox', [])
 			$scope.post_url = post_url[0];
 			$scope.parent = parent[0];
 			$scope.id = id;
-			
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
 				
 		
  
@@ -2771,7 +2933,11 @@ angular.module('SearchBox', [])
 			$scope.parent = $scope.images[prev].parent;
 			$scope.id = $scope.images[prev].id;
 			$scope.favorite = $scope.images[prev].favorite;
-			$scope.bigImageSrc=$scope.images[prev].src
+			$scope.bigImageSrc=$scope.images[prev].src;
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
                        
  
                   
@@ -2783,7 +2949,8 @@ angular.module('SearchBox', [])
 			
 			
             length=$scope.images.length;
-            
+            $scope.bigImageSrc='';
+            $scope.isLoading=true;
 			var next = (parseInt(id)+1)
 			if(next<(length-1))
 			{
@@ -2803,11 +2970,15 @@ angular.module('SearchBox', [])
 			$scope.post_url = $scope.images[next].post_url;
 			$scope.parent = $scope.images[next].parent;
 			$scope.id = $scope.images[next].id;
+			$('.xyzPhoto').bind('load', function(){
+				$scope.isLoading=false;
+				
+			});
 								
                    
  
 			
-			$scope.imageLoaded=true;
+			
 		};
 		
 
@@ -3042,17 +3213,8 @@ angular.module('RespNav', [])
 		
 }]);
 
-angular.module('Facts',[])
-.controller('Facts', ['$scope', '$rootScope', function($scope, $rootScope){
 
-	$rootScope.facts=[{fact:'A sandbar shark will have around 35,000 teeth over the course of its lifetime!'}, {fact: 'The back of sharks\' eyeballs have a reflective layer of tissue called a tapetum. This helps sharks see extremely well with little light.'}, {fact:'A sea scallop\'s eyes are the black dots that line the edges of both its top and bottom shells.'}, {fact:'This fish, the polka dot batfish, is a bottom-dwelling species that uses its stubby fins to slowly "walk" along the seafloor.'}, {fact:'A "sea mouse" is not a mouse, but a marine polychaete worm.'} , {fact:'The male spoon arm octopus has a modified arm that aids in reproduction.'}, {fact: 'A scorpion fish\'s mouth has gill rakers: rows of bumpy spikes that help filter food from the water.'}, {fact:'Scallops can live up to 20 years, and a single female scallop can produce up to 270 million eggs in her lifetime.'},{fact:'Sea spiders have no lungs or other respiratory organs. Since they are so small, gasses diffuse in and out of their bodies.' }];
-		
-		
-		var randomnumber = Math.floor(Math.random()*$scope.facts.length);	
-		
-		$rootScope.fact = $scope.facts[randomnumber].fact;
-		console.log($rootScope.fact)
-}]);
+
 
 
 
