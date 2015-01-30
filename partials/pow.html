@@ -1,3 +1,4 @@
+
 <div >
 	<div id="top" >
 	<div id="popup_holder"  class="animate-show" ng-hide="bigImage==false">
@@ -13,10 +14,9 @@
 		</p>
 	</div>
 
-
-
-	<div class="main_top" >
-		<div>
+		
+		<div class="main_top" ng-hide="pow.checkContents==false">
+			<div>
 			<h1 tabindex="150" style="float:left">NOAA Teacher at Sea Photo of the Week</h1><div class="internal_search" tabIndex="151">
 			<form id="pow" name="pow"  >
 				<label style="visibility:hidden">Search Photos of the Week</label><input type="text" name="search_pow" value="" placeholder="Search Photo of Week" class="text" ng-model="query" ng-change="checkLength(query)" tabIndex="152">
@@ -29,8 +29,6 @@
 		
 		<div class="clear"></div>
 		<div class="border2"></div>
-		<div class="main_no_tab" ng-hide="pow.checkContents==false">
-
 			<h2  ng-hide="noFilter==false;" style="margin-bottom:15px; margin-top:15px;">This Week's Photo!</h2>
 
 			<div  ng-hide="noFilter==false;" id="BigPhoto">
@@ -38,22 +36,22 @@
 
 					<div class="photo">
 							
-						<a><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span><img imageonload tabindex="{{pow[0].tabIndex}}" resize-list ng-click="openBigImage(pow[0].url,pow[0].post_title,pow[0].post_url, pow[0].caption, pow[0].parent, pow[0].id)"  ng-enter="openBigImage(pow[0].url,pow[0].post_title,pow[0].post_url, pow[0].caption, pow[0].parent, pow[0].id)"style="cursor:pointer;border:none" id="photo{{pow[0].id}}" src="{{pow[0].finalImage}}?w={{bigPow}}" alt="{{pow[0].caption}}" ></a>
+						<a><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span><img imageonload tabindex="{{pow[0].tabIndex}}" resize-list ng-click="openBigImage(pow[0].src,pow[0].post_title,pow[0].post_src, pow[0].caption, pow[0].parent, pow[0].id)"  ng-enter="openBigImage(pow[0].src,pow[0].post_title,pow[0].post_src, pow[0].caption, pow[0].parent, pow[0].id)"style="cursor:pointer;border:none" id="photo{{pow[0].id}}" src="{{pow[0].finalImage}}?w={{bigPow}}" alt="{{pow[0].caption}}" ></a>
 					</div>
-					<a ng-href="{{pow[0].url}}" target="_blank" class="caption">View High Resolution Image</a>
+					<a ng-href="{{pow[0].src}}" target="_blank" class="caption">View High Resolution Image</a>
 				</div>
 				<div  tabindex="{{pow[0].tabIndex}}" id="photo_description">
 					<h3 ng-bind-html="SkipValidation(pow[0].caption)"></h3>
 					
 					<span class="caption">For the week of {{pow[0].date}}</span>
-					<div style="font-size:14px">
+					<div style="font-size:14px">		
 						<p ng-bind-html="SkipValidation(pow[0].description)">
 						</p>
 						</div>
 						<br>
 						From <a  tabindex="{{pow[0].tabIndex}}" ng-href="{{pow[0].parent}}" target="_blank">{{pow[0].post_title}}</a>
 						<br>
-						<a   tabindex="{{pow[0].tabIndex}}" ng-click="openBigImage(pow[0].url,pow[0].post_title,pow[0].post_url, pow[0].caption, pow[0].parent, pow[0].id)">View Image</a>
+						<a   tabindex="{{pow[0].tabIndex}}" ng-click="openBigImage(pow[0].src,pow[0].post_title,pow[0].post_src, pow[0].caption, pow[0].parent, pow[0].id)">View Image</a>
 						<br>
 						<span  tabindex="{{pow[0].tabIndex}}" class="caption">Photo By:{{pow[0].credit}}</span>
 						</div>
@@ -65,8 +63,8 @@
 				<h2 style="margin-bottom:15px;" ng-hide="noFilter==false;"> Previous Photos of the Week</h2>
 				<div ng-hide="noFilter==true;">
 					<div ng-repeat="pow in data | filter:query"  >
-						<div class="photo" id="image{{pow.id}}" ><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>	<a></a><img imageonload tabindex="{{pow.tabIndex}}" resize-list style="cursor:pointer" ng-click="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)" ng-enter="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)"  id="photo{pow.id}" src="{{pow.url}}?w={{tnWidth}}" alt="{{pow.caption}}" ></a>
-							<a ng-href="{{pow.url}}" target="_blank" class="caption">View High Resolution Image</a>
+						<div class="photo" id="image{{pow.id}}" ><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>	<a></a><img imageonload tabindex="{{pow.tabIndex}}" resize-list style="cursor:pointer" ng-click="openBigImage(pow.src,pow.post_title,pow.post_src, pow.caption, pow.parent, pow.id)" ng-enter="openBigImage(pow.src,pow.post_title,pow.post_src, pow.caption, pow.parent, pow.id)"  id="photo{pow.id}" src="{{pow.src}}?w={{tnWidth}}" alt="{{pow.caption}}" ></a>
+							<a ng-href="{{pow.src}}" target="_blank" class="caption">View High Resolution Image</a>
 						</div>
 
 						<div class="desc" tabindex="{{pow.tabIndex}}" >
@@ -81,7 +79,7 @@
 							</div>
 							From <a   tabindex="{{pow.tabIndex}}" ng-href="{{pow.parent}}" target="_blank">{{pow.post_title}}</a>
 							<br>
-							<a  tabindex="{{pow.tabIndex}}" ng-click="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)">View Image</a>
+							<a  tabindex="{{pow.tabIndex}}" ng-click="openBigImage(pow.src,pow.post_title,pow.post_src, pow.caption, pow.parent, pow.id)">View Image</a>
 							<br>
 							<span  tabindex="{{pow.tabIndex}}" class="caption">Photo By: {{pow.credit}}</span>
 						</div>
@@ -97,8 +95,8 @@
 				<div ng-hide="noFilter==false;">
 
 					<div ng-repeat="pow in filtered_data" >
-						<div class="photo" id="image{{pow.id}}" ><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>	<img imageonload tabindex="{{pow.tabIndex}}" resize-list style="cursor:pointer" ng-click="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)" ng-enter="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)"  id="photo{pow.id}" src="{{pow.url}}?w={{tnWidth}}" alt="{{pow.caption}}" >
-							<a ng-href="{{pow.url}}" target="_blank" class="caption">View High Resolution Image</a>
+						<div class="photo" id="image{{pow.id}}" ><span class="loading"> <img src="/images/NOAA-Logo.gif" class="no-border"/></span>	<img imageonload tabindex="{{pow.tabIndex}}" resize-list style="cursor:pointer" ng-click="openBigImage(pow.src,pow.post_title,pow.post_src, pow.caption, pow.parent, pow.id)" ng-enter="openBigImage(pow.src,pow.post_title,pow.post_src, pow.caption, pow.parent, pow.id)"  id="photo{pow.id}" src="{{pow.src}}?w={{tnWidth}}" alt="{{pow.caption}}" >
+							<a ng-href="{{pow.src}}" target="_blank" class="caption">View High Resolution Image</a>
 						</div>
 
 						<div class="desc" tabindex="{{pow.tabIndex}}">
@@ -111,7 +109,7 @@
 							</div>
 							From <a  tabindex="{{pow.tabIndex}}" ng-href="{{pow.parent}}" target="_blank">{{pow.post_title}}</a>
 							<br>
-							<a  tabindex="{{pow.tabIndex}}" ng-click="openBigImage(pow.url,pow.post_title,pow.post_url, pow.caption, pow.parent, pow.id)">View Image</a>
+							<a  tabindex="{{pow.tabIndex}}" ng-click="openBigImage(pow.src,pow.post_title,pow.post_src, pow.caption, pow.parent, pow.id)">View Image</a>
 							<br>
 							<span tabindex="{{pow.tabIndex}}" class="caption">Photo By: {{pow.credit}}</span>
 						</div>
@@ -119,14 +117,15 @@
 						<div class="border" style="margin-left:0px; margin-right:0px;margin-top:15px;"></div>
 
 					</div>
+					</div>
 
 					<pagination-routes length={{data.length}} page={{currentPage}} itemsper={{itemsPerPage}} type="pow" ></pagination-routes>
-				</div>
 
 				
-			</div>
-			<div class="clear"></div>
-			<div ><img width="15" height="15" src="/images/feed-icon-22x22.png" style="border:none;margin-top:8px;" alt="RSS Feed"> <a href="/media/photo_of_week.xml" target="_blank">Subscribe to the Photo of the Week Feed <span style="color:#ECBD00">»</span></a></div>
+			
+			
+			<div ><img width="15" height="15" src="/images/feed-icon-22x22.png" style="border:none;margin-top:8px;" alt="RSS Feed"> <a href="/media/photo_of_week.xml" target="_blank">Subscribe to the Photo of the Week Feed <span style="color:#ECBD00">»»</span></a></div>
 		</div>
 	</div>
 </div>
+</div>	

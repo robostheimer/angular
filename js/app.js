@@ -2,7 +2,7 @@
 
 /* App Module */
 //var teachernamehash = window.location.hash.split('/')[2];
-var TAS_SITE = angular.module('TAS_SITE', ['ngRoute',  'BaseballCardInfo', 'ClassPage',  'Media', 'ngSanitize', 'ngAnimate', 'Alumni','TabPages', 'FAQs', 'TASA', 'Homepage','Highlights','ngTouch','Footer', 'SearchBox', 'Navigation', 'RespNav','angulartics', 'angulartics.google.analytics', 'Favorites']);
+var TAS_SITE = angular.module('TAS_SITE', ['ngRoute',  'BaseballCardInfo', 'ClassPage',  'Media', 'ngSanitize', 'ngAnimate', 'Alumni','TabPages', 'FAQs', 'TASA', 'Homepage','Highlights','ngTouch','Footer', 'SearchBox', 'Navigation', 'RespNav','angulartics', 'angulartics.google.analytics', 'Favorites','Generic']);
 TAS_SITE.config(['$routeProvider',
   function($routeProvider) {
    $routeProvider.
@@ -26,73 +26,76 @@ TAS_SITE.config(['$routeProvider',
         templateUrl: 'partials/contact.html',
        controller: 'highlightsController'
       }).
-      
+       when('/privacy/', {
+        templateUrl: 'partials/privacy.html',
+       controller: 'genericController'
+      }).
       when('/pastseasons/', {
         templateUrl: 'partials/pastseasons.html',
-       controller: 'pastController'
+       controller: 'genericController'
       }).
        when('/past_seasons/', {
         templateUrl: 'partials/pastseasons.html',
-       controller: 'pastController'
+       controller: 'genericController'
       }).
        when('/Past_Seasons/', {
         templateUrl: 'partials/pastseasons.html',
-       controller: 'pastController'
+       controller: 'genericController'
       }).
        when('/Past_seasons/', {
         templateUrl: 'partials/pastseasons.html',
-       controller: 'pastController'
+       controller: 'genericController'
       }).
        when('/past_Season/', {
         templateUrl: 'partials/pastseasons.html',
-       controller: 'pastController'
+       controller: 'genericController'
       }).
        when('/past_season/', {
         templateUrl: 'partials/pastseasons.html',
-       controller: 'pastController'
+       controller: 'genericController'
       }).
        when('/Past_Season/', {
         templateUrl: 'partials/pastseasons.html',
-       controller: 'pastController'
+       controller: 'genericController'
       }).
       
        when('/NOAA_Corps/', {
         templateUrl: 'partials/noaacorps.html',
-       controller: 'corpsController'
+       controller: 'genericController'
       }).
         when('/noaa_corps/', {
         templateUrl: 'partials/noaacorps.html',
-       controller: 'corpsController'
+       controller: 'genericController'
       }).
         when('/NOAA_corps/', {
         templateUrl: 'partials/noaacorps.html',
-       controller: 'corpsController'
+       controller: 'genericController'
       }).
         when('/noaa_Corps/', {
         templateUrl: 'partials/noaacorps.html',
-       controller: 'corpsController'
+       controller: 'genericController'
       }).
         when('/corps/', {
         templateUrl: 'partials/noaacorps.html',
-       controller: 'corpsController'
+       controller: 'genericController'
       }).
         when('/Corps/', {
         templateUrl: 'partials/noaacorps.html',
-       controller: 'corpsController'
+       controller: 'genericController'
       }).
       
         when('/feeds/', {
         templateUrl: 'partials/feeds.html',
-       controller: 'corpsController'
+       controller: 'genericController'
       }).
         when('/Feeds/', {
         templateUrl: 'partials/feeds.html',
-       controller: 'corpsController'
+       controller: 'genericController'
       }).
       
       when('/Highlights/', {
         templateUrl: 'partials/highlights.html',
-       controller: 'pastController'
+       controller: 'genericController'
       }).
  	  when('/NETASA/', {
         templateUrl: 'partials/NETASA.html',
@@ -226,6 +229,14 @@ TAS_SITE.config(['$routeProvider',
         templateUrl: 'partials/profile.html',
        redirectTo:'/:year/:teachername/blogs'
       }).
+       when('/2004/:teachername/:tab', {
+        templateUrl: 'partials/profile.html',
+        controller: 'changeTab'
+      }).
+      when('/2004/', {
+        templateUrl: 'partials/class.html',
+        controller: 'classPage'
+      }).
       when('/2009/:teachername/:tab', {
         templateUrl: 'partials/profile.html',
         controller: 'changeTab'
@@ -277,7 +288,12 @@ TAS_SITE.config(['$routeProvider',
     when('/2015/', {
         templateUrl: 'partials/class.html',
         controller: 'classPage'
-      }).  
+      }). 
+     when('/FeatureImagePage',{
+     	templateUrl:'partials/LargeImageTop.html',
+     	controller:'genericController'
+     	
+     }) . 
     otherwise({
       	templateUrl: 'partials/home.html',
         redirectTo: '/home/'

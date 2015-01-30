@@ -2,7 +2,7 @@
 	
 	<div id="top" ng-hide="teacher.dataLoaded==false">
 		<div id="popup_holder" class="animate-show"  ng-hide="bigImage==false" >
-		<big-image id="bigImg1" class="bigImg2 animate-show"></big-image>
+		<big-image id="bigImg1" class="bigImg animate-show"></big-image>
 		<div style="clear:both"></div>
 	</div>
 	<div ng-show="teacher.dataLoaded==false" style="margin:15px">
@@ -11,7 +11,7 @@
 			We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.
 		</p>
 	</div>
-		<div class="main_top" >
+		<div class="main">
 			<div class="profile_photo">
 				<div>
 					
@@ -46,8 +46,8 @@
 				</p>
 			</div>
 			<div style="clear:both"></div>
-		</div>
-		<div class="border" style="margin-bottom:20px; margin-top: 0px;"></div>
+		
+		<div class="border"></div>
 		<div class="main_inner_page" >
 			<div id="social_media">
 				<ul ol role = "profile_tabs">
@@ -85,7 +85,7 @@
 								</div>
 								<div id="search_image_txt{{item.id}}_profile" class="search_image_text">
 									<b><a  tabindex="141" id="titlelink{{index}}_profile" class="titlelink searchlink" href="{{item.BlogUrl[0]}}" title="{{item.BlogTitle}}" target="_blank">{{item.BlogTitle}}</a>&nbsp;&nbsp;</b>
-									<img tabindex="141" id="favorite_profile{{item.id}}" class="search_favorite {{item.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{item.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(item.id, 'blog')" ng-enter="switchFavorite(item.id, 'blog')">
+									<img tabindex="141" id="favorite_profile{{item.id}}" class="{{item.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{item.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(item.id, 'blog')" ng-enter="switchFavorite(item.id, 'blog')">
 									<div id="blogdesc{{item.id}}" class="blogdesc" tabindex="141" >
 										{{item.contentSnipp}}... <a tabindex="141"ng-href="{{item.link}}" target="_blank">Read More</a>
 									</div>
@@ -106,8 +106,8 @@
 										<div id="searcher_image_profile{{index}}">
 											<div id="search_img_profile{{src.id}}" class="blogphotos" ng-repeat = "src in images">
 												<div>
-													<span class="loading" ng-show="loadHider==false"> <img ng-src="/images/NOAA-Logo_200.gif" class="no-border" /></span>
-													<img ng-hide="loadHider==false" imageonloadprofile tabindex="{{src.tabIndex}}" ng-click ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id,src.favorite)" ng-enter ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w=130" alt="{{wp.BlogTitle}}{{src.caption}}" />
+													<span class="loading" "> <img ng-src="/images/NOAA-Logo_200.gif" class="no-border" /></span>
+													<img  imageonload tabindex="{{src.tabIndex}}" ng-click ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id,src.favorite)" ng-enter ="bigImage=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w=130" alt="{{wp.BlogTitle}}{{src.caption}}" />
 												</div>
 												<img tabindex="{{src.tabIndex}}" id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite_{{src.favorite}}" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')" style="border:none;cursor:pointer" ng-src="/images/star_{{src.favorite}}.png" alt="Add to Favorites">
 											</div>
@@ -193,8 +193,10 @@
 								</div>
 								
 							</div>
-							
 						</div>
 						<div class="clear"></div>
+						</div>
+						
 					</div>
+					<div class="clear"></div>
 				</div>

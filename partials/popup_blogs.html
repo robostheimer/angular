@@ -29,7 +29,7 @@
 				<div  id="search_image_txt{{blog.id}}_searchblog" class="search_image_text">
 					<b> <a tabindex = "{{blog.tabIndex}}" id="titlelink{{blog.id}}_blog" class="searchlink titlelink" href="{{blog.BlogUrl.0}}" target="_blank"> <span class="favtitle">{{blog.BlogTitle}}</span></a> </b> &nbsp;&nbsp;
 
-					<img tabindex="{{blog.tabIndex}}" id="favorite{{blog.id}}_searchblog" class="search_favorite on" style="border:none;cursor:pointer" src="/images/star_{{blog.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(blog.id, 'blog')" ng-enter="switchFavorite(blog.id, 'blog')">
+					<img tabindex="{{blog.tabIndex}}" id="favorite{{blog.id}}_searchblog" class="blog.favorite" style="border:none;cursor:pointer" src="/images/star_{{blog.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(blog.id, 'blog')" ng-enter="switchFavorite(blog.id, 'blog')">
 					<div style="margin-top:10px;font-weight:normal">
 						<span ng-repeat="tag in blog.Tags track by $index"><a tabindex="{{blog.tabIndex}}" class="caption" style="cursor:pointer"  ng-click="searchBlogs(tag)">#{{tag}} </a></span>
 

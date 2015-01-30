@@ -6,20 +6,20 @@
 		
 		<ul class="chooser">
 			<li id="wrapper_search_favbtn" class="{{favButtons[0].state}}" ng-click="changeClass(favButtons[0])">
-				BLOGS<sup class="fav_sup" id="blog_sup"  ng-hide="favorites.blogs.length<1">{{favorites.blogs.length}}</sup>
+				BLOGS<sup class="fav_sup" id="blog_sup"  ng-hide="favorites.blogs.length==0;">{{favorites.blogs.length}}</sup>
 			</li>
 			<li id="wrapper_search_fav_imgbtn" class="{{favButtons[1].state}}" ng-click="changeClass(favButtons[1])" >
-				IMAGES<sup class="fav_sup" id="img_sup" ng-hide="favorites.images.length<1" >{{favorites.images.length}}</sup>
+				IMAGES<sup class="fav_sup" id="img_sup" ng-hide="favorites.images.length==0;" >{{favorites.images.length}}</sup>
 			</li>
 			<li id="wrapper_search_fav_lessonsbtn" class="{{favButtons[2].state}}" ng-click="changeClass(favButtons[2])" >
-				LESSONS<sup class="fav_sup" id="lesson_sup" ng-hide="favorites.lessons.length<1">{{favorites.lessons.length}}</sup>
+				LESSONS<sup class="fav_sup" id="lesson_sup" ng-hide="favorites.lessons.length==0">{{favorites.lessons.length}}</sup>
 			</li>
 		<!--	<li id="wrapper_search_fav_dykbtn"  class='{{favButtons[3].state}}' ng-click="changeClass(favButtons[3])" >
 				DYKs<sup class="fav_sup" id="dyk_sup" ng-hide="favorites.dyks.length<1" >{{favorites.dyks.length}}</sup>
 		</li>-->
 		</ul>
 		<div class="clear" style="margin-bottom:10px"></div>
-		<div ng-show="favorites.blogs.length==0 && favorites.images.length==0 && favorites.lessons.length==0">As you search our site, you will notice that the blog, images, and lesson results all now have small stars beside them. Click on this icon to "store" your favorite Teacher at Sea resources in your browser. Simply click on the big star icon (next to the search icon), to view, email or share your favorited resources. For more information, click on the info button on the "Favorites" results page.</div>
+		<div ng-show="favorites.blogs.length==0&& favorites.images.length==0 && favorites.lessons.length==0">As you search our site, you will notice that the blog, images, and lesson results all now have small stars beside them. Click on this icon to "store" your favorite Teacher at Sea resources in your browser. Simply click on the big star icon (next to the search icon), to view, email or share your favorited resources. For more information, click on the info button on the "Favorites" results page.</div>
 		<!----Blogs--->
 		
 		<div class="wrapper_fav {{favButtons[0].classy}}" id="wrapper_search_fav" style="overflow-y: scroll;" >
@@ -44,12 +44,18 @@
 
 		<div class="wrapper_fav {{favButtons[1].classy}}" id="wrapper_search_fav_img" style="overflow-y: scroll;" >
 
-			<div id="search_img_media{{src.id}}" class="search_image" ng-repeat = "src in favorites.images">
-				<img tabindex="{{src.tabIndex}}" id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite {{src.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{src.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')" >
-				<div>
-					<img tabindex="{{src.tabIndex}}" resizesearch-image ng-click ="bigImageFav2=true; openBigImage2(src.src, src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" ng-enter ="bigImage2=true; openBigImage(src.src[0], src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w={{search_image}}" alt="{{src.finalCaption}}" />
-				</div>
-			</div>
+			<div id="searcher_image_media{{index}}">
+							<div id="search_img_media{{src.id}}" class="search_image" ng-repeat = "src in favorites.images">
+									<img tabindex="{{src.tabIndex}}"  id="favorite_img_profile{{src.id}}" class=" search_favorite {{src.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{src.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')">
+								<div class="holder">
+								
+									<span class="loading"> <img src="/images/NOAA-Logo_75.gif" class="no-border"/></span>
+									<img imageonload resizesearch-image tabindex="{{src.tabIndex}}" ng-click ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id, src.favorite)" ng-enter ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w={{search_image}}" alt="{{wp.BlogTitle}}{{src.caption}}" />
+								</div>
+								
+								
+							</div>
+					</div>
 
 		</div>
 		<div class="clear" ></div>
@@ -117,8 +123,8 @@
 			</form><div style="padding:15px; padding-top:0px;" >
 				<button ng-click="setUpEmail()" id="html">HTML Email</button>&nbsp;&nbsp;<button style="padding-right:15px" ng-click="setUpPlainEmail()" id="plain">Plain Text Email</button>
 			</div>
-			<div id="success" style="padding:15px; color:#189E81" ng-show="success==true;">An email has been sent to: rob@yah.com. <a href="{{short_url}}" target="_blank">View that email in your browser</a></div></div></li>
-			<li ng-hide="showOption==false" ng-show="showOption==true" id="trash"><img onclick="localStorage.clear();" style="border:none;" src="/images/dyk/trash.png">
+			<div id="success" style="padding:15px; color:#189E81" ng-show="success==true;">An email has been sent to: {{address}}. <a href="{{short_url}}" target="_blank">View that email in your browser</a></div></div></li>
+			<li ng-hide="showOption==false" ng-show="showOption==true" id="trash" ng-click="removeFavorites()"><img style="border:none;" src="/images/dyk/trash.png">
 	</li>
 	<li></li>
 	<li></li>

@@ -2,7 +2,7 @@
 		<ul class="slideshow" style="overflow:hidden; width:{{slideshow_width}}px">
 			
 			<li class="slideshow animate-show" ng-repeat="slide in slides" ng-hide="slide.visible==false;">
-				<div class="image"><a  href= "{{slide.link}}" ng-click ="nameClick(slide.publishdate, slide.title)">
+				<div class="image"><a  ng-click ="nameClick(slide.publishdate, slide.title)">
 					<span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span>
 					<img imageonload class="no-border" src="{{slide.finalImage}}?w=620" alt="{{slide.title}}"/>
 				</a></div>

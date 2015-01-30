@@ -13,7 +13,6 @@
 				Learn more interesting facts about Marine Life, NOAA Ships, and Hydrography at <a href="/dyk" target="_blank">Did You Know: Tweets From Sea</a>.
 			</p>
 		</div>
-		
 		<img imageonload class="xyzPhoto" ng-show="image.isLoading==false" resize-bigimage id= "bigImg{{image.id}}" ng-src='{{image.bigImageSrc}}?w={{bigImageWidth}}' alt="{{image.alt}}"  class="no-border" />
 	</div>
 	<div class="caption" id="bigCaption" style="font-size:15px">
@@ -25,9 +24,9 @@
 	</div>
 
 	<div style="position:absolute;  top:50%;width:100%;margin-left:-28px;">
-		<div style="float:left;" ng-click="prevImg(image.id, images)"><img style="border:none;cursor:pointer" src="/images/left_arrow_btn.png" alt="previous photo">
+		<div style="float:left;" ng-click="prevImg(image.id, gallery)"><img style="border:none;cursor:pointer" src="/images/left_arrow_btn.png" alt="previous photo">
 		</div>
-		<div style="float:right" ng-click="nextImg(image.id, images)"><img style="border:none;cursor:pointer" src="/images/right_arrow_btn.png" alt="next photo">
+		<div style="float:right" ng-click="nextImg(image.id, gallery)"><img style="border:none;cursor:pointer" src="/images/right_arrow_btn.png" alt="next photo">
 
 		</div>
 	</div>

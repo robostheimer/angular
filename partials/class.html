@@ -1,5 +1,5 @@
 
-<div >
+<div id="top">
 	<div id="popup_holder" class="animate-show"  ng-hide="bigImage==false" >
 		<big-image id="bigImg1" class="bigImg animate-show"></big-image>
 
@@ -7,18 +7,19 @@
 
 				</div>
 				<div ng-show="dataLoaded==false" style="margin:15px"><h1>Uh Oh!  The Information you requested was not found.</h1><p>We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.</p></div>
-				<div id="top">
-	<div class="main_top" >
+
+	<div class="main">
+	
     <h1>NOAA's Teacher at Sea {{year}} Field Season</h1>
     <div class="border2" ></div>
 	  		
-	  	<div class="svg_us" ng-include="'images/US_Map.svg'" imgaeonload style="">
+	  	<div class="svg_us" ng-include="'images/map_svgs/US_Map.svg'" imgaeonload style="">
 	  			
 	  	</div>
 	  	<div class="map_txt animate-show" ng-hide="hideMapDiv==true" >
 	  		 
 		       <div class="teacherinfo" ng-repeat="teacher in teachers.forRollOver" >
-		          <div   class="img"><img src="{{teacher.image.split('?')[0]+'?w=75'}}" alt ="{{teacher.firstname}} {{teacher.lastname_forDOM}}"/></div>
+		          <div class="img"><span class="loading"> <img  src="/images/NOAA-Logo_75.gif" class="no-border"/></span><img imageonload src="{{teacher.image.split('?')[0]+'?w=75'}}" alt ="{{teacher.firstname}} {{teacher.lastname_forDOM}}"/></div>
 		          <div  class="info"><a href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname_forDOM}}">{{teacher.firstname}} {{teacher.lastname_forDOM}}</a><br>{{teacher.city}}, {{teacher.state}}<br><a href="{{teacher.school_url}}" target="_blank">{{teacher.school}}</a></div>
 		                 
 		          <div class="clear" ng-class="{padding:clearer==true}"></div>   
@@ -37,9 +38,9 @@
       <div   class="top-paragraph">
             <p style="margin-right:15px;">Below is a list of the NOAA Teachers at Sea for the {{year}} Field Season. Once they have embarked on their cruise, you can gain access to their logs which document their missions at sea and offer a wealth of information about the research being conducted as well as personal stories. All individual teachers' logs can be accessed by clicking on the teacher's name.</p>
           </div>
-         </div>
+         
          <div class="border"></div>
-         <div style="margin-left:20px;">
+        
          	
          	<div  ng-hide="dataLoaded">
          		<span class="loading">
@@ -53,7 +54,7 @@
  		
  		<div ng-repeat = "teacher in teachers">
  			<div class="class_page_image">
- 				<a tabindex="{{teacher.tabIndex}}"href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname_forDOM}}"><span class="loading"> <img  src="/images/NOAA-Logo.gif" class="no-border"/></span><img imageonload tabindex="{{teacher.tabIndex}}" resize-class src="{{teacher.image}}?w={{tnWidth}}" alt="{{teacher.firstname}} {{teacher.lastname}} " class="no-border"></div></a>
+ 				<a tabindex="{{teacher.tabIndex}}"href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname_forDOM}}"><span class="loading"> <img  src="/images/NOAA-Logo_75.gif" class="no-border"/></span><img imageonload tabindex="{{teacher.tabIndex}}" resize-class src="{{teacher.image}}?w={{tnWidth}}" alt="{{teacher.firstname}} {{teacher.lastname}} " class="no-border"></div></a>
  				<div tabindex="{{teacher.tabIndex}}" class="class_page_text">
  					<b><a tabindex="{{teacher.tabIndex}}" href="#/{{year}}/{{teacher.firstname}}*{{teacher.lastname_forDOM}}">{{teacher.firstname}} {{teacher.lastname_forDOM}}</a></b> ({{teacher.state}})<span ng-hide="teacher.shipHider==true">, {{teacher.shiptype}} <a href="{{teacher.shipurl}}" target="_blank"><em>{{teacher.ship}}</em></a></span>
  					<p tabindex="{{teacher.tabIndex}}"style="margin-top:7px;">{{teacher.firstname}} {{teacher.lastname}} teaches <span ng-show="teacher.subjects_num==1">{{teacher.subjects}} <a href="{{teacher.schoolurl}}" tabindex="{{teacher.tabIndex}}" target="_blank">{{teacher.school}}</a></span><span ng-show="teacher.subjects_num==2">{{teacher.subjects1}} at <a href="{{teacher.schoolurl1}}" target="_blank">{{teacher.school1}}</a> and {{teacher.subjects2}} at <a tabindex="{{teacher.tabIndex}}" href="{{teacher.schoolurl2}}" target="_blank">{{teacher.school2}}</a></span>
@@ -82,7 +83,7 @@
  		
  		
  	</div>
-    </div>
-    
+   
+   </div>
     
 </div>

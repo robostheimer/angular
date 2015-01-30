@@ -1,33 +1,33 @@
 <div>
 	<div class="bigImgClose" ng-click="closeBigBigImage2()"><img style="cursor:pointer" alt="collapse button_bigger_white" class="icon" src="/images/collapse_btn_bigger_white.png" height="30" width="30">
-	</div><img id="favorite_img_big_profile{{id}}" class="search_favorite_image_off_big" src="/images/star_{{favorite}}.png" border="none" alt="Add to Favorites" ng-click="switchFavorite(id, 'bigphoto')" ng-enter="switchFavorite(id, 'bigphoto')">
+	</div><img id="favorite_img_big_profile{{image.id}}" class="search_favorite_image_off_big" src="/images/star_{{image.favorite}}.png" border="none" alt="Add to Favorites" ng-click="switchFavorite(id, 'bigphoto')" ng-enter="switchFavorite(id, 'bigphoto')">
 	<div style="max-width:650px; margin:auto">
 
-		<div class="loading" ng-hide="isLoading==false"> <img  ng-src="/images/NOAA-Logo_200.gif" class="no-border" />
+		<div class="loading" ng-hide="image.isLoading==false"> <img  ng-src="/images/NOAA-Logo_200.gif" class="no-border" />
 			<h3>While you wait...<h3>
 			<p>
 				Did You Know?
 				<br>
-				{{fact}}
+				{{image.fact}}
 				<br>
 				<br>
 				Learn more interesting facts about Marine Life, NOAA Ships, and Hydrography at <a href="/dyk" target="_blank">Did You Know: Tweets From Sea</a>.
 			</p>
 		</div>
-		<img class="xyzPhoto" ng-hide="isLoading==true" resize-bigimage id= "bigImg{{id}}" ng-src='{{bigImageSrc}}?w={{bigImageWidth}}' alt="{{alt}}"  class="no-border" />
+		<img class="xyzPhoto" ng-hide="image.isLoading==true" resize-bigimage id= "bigImg{{image.id}}" ng-src='{{image.bigImageSrc}}?w={{bigImageWidth}}' alt="{{image.alt}}"  class="no-border" />
 	</div>
 	<div class="caption" id="bigCaption" style="font-size:15px">
-		{{alt}}
-		<span ng-hide="titleHider==true"><br>
-		From: <a href="http://teacheratsea.wordpress.com/?p={{parent}}" target="_blank">{{post_title}}</a></span>
+		{{image.alt}}
+		<span ng-hide="image.titleHider==true"><br>
+		From: <a href="http://teacheratsea.wordpress.com/?p={{image.parent}}" target="_blank">{{image.post_title}}</a></span>
 		<br>
-		<a href="{{bigImageSrc}}" target="_blank">View High Resolution Image</a>
+		<a href="{{image.bigImageSrc}}" target="_blank">View High Resolution Image</a>
 	</div>
 
 	<div style="position:absolute;  top:50%;width:100%;margin-left:-28px;">
-		<div style="float:left;" ng-click="prevImg(id)"><img style="border:none;cursor:pointer" src="/images/left_arrow_btn.png" alt="previous photo">
+		<div style="float:left;" ng-click="prevImg(image.id, images)"><img style="border:none;cursor:pointer" src="/images/left_arrow_btn.png" alt="previous photo">
 		</div>
-		<div style="float:right" ng-click="nextImg(id)"><img style="border:none;cursor:pointer" src="/images/right_arrow_btn.png" alt="next photo">
+		<div style="float:right" ng-click="nextImg(image.id, images)"><img style="border:none;cursor:pointer" src="/images/right_arrow_btn.png" alt="next photo">
 
 		</div>
 	</div>

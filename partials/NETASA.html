@@ -2,7 +2,7 @@
 <div id="top">
 	<div >
 	<div id="popup_holder" class="animate-show"  ng-hide="bigImage==false" >
-		<big-imagespot id="bigImg1" class="bigImg animate-show"></big-imagespot>
+		<big-imagetasa id="bigImg1" class="bigImg animate-show"></big-imagetasa>
 
 				<div style="clear:both"></div>
 
@@ -10,14 +10,16 @@
 	<div class="main_top" style="margin-bottom: 0px;">
 		<h1 tabindex="130">{{intro[0].gsx$headline.$t}}</h1>
 		<div class="border2"></div>
-			
-		<div tabindex="131" ng-bind-html="SkipValidation(intro[0].gsx$body.$t)">}</div>
+			<p class="img"><span class="loading"><img src="/images/NOAA-Logo_200.gif" alt="loading"/ class="no-border"></span><img imageonload src="http://teacheratsea.files.wordpress.com/2013/10/dsc_0193.jpg?w=280" alt="New England Teacher at Sea Alumni Association"></p>
+<p>The New England Teacher at Sea Alumni (NETASA) network is comprised of NOAA Teacher at Sea Alumni from Connecticut, Massachusetts, Maine, New Hampshire, Rhode Island, and Vermont. Its goals are to build an understanding of physical and marine oceanography among teachers and students, establish strong working relationships among teachers that emphasize  collective participation of groups of teachers and develop relationships among NOAA scientists, teachers, and students.</p>
+<h6>NETASA Accomplishment Highlights</h6>
+		<div tabindex="131" ng-bind-html="SkipValidation(intro[0].gsx$body.$t)"></div>
 
 		<div class="border"></div>
 		
 			
 			<div class="info_div animate-show" ng-hide="showInfo ==false;" ng-click="closeRollover()">
-				<div   class="info_div_photo"><img tabindex="132" src="{{teacher_for_rollover.gsx$profileimage.$t}}?w=200" alt="{{teacher_for_rollover.gsx$teachername.$t}}"/></div>
+				<div   class="info_div_photo"><span class="loading"><img src="/images/NOAA-Logo_200.gif" alt="loading"/ class="no-border"></span><img imageonload tabindex="132" src="{{teacher_for_rollover.gsx$profileimage.$t}}?w=200" alt="{{teacher_for_rollover.gsx$teachername.$t}}"/></div>
 				<div class="info_div_info">
 					<h6>{{teacher_for_rollover.gsx$teachername.$t}}</h6>
 					<p>
@@ -50,7 +52,7 @@
 			
 			<div id="container" >
 				
-					<div  class="tasa_photo item" ng-repeat="img in gallery"   ><img tabindex = "{{img.tabIndex}}" resize-tasa class="tasaimage" id="image{{img.id}}"   ng-src="{{img.gsx$photourl.$t}}?w={{windowWidth}}"  alt="{{img.gsx$caption.$t}}" ng-click="openBigImage(img.gsx$photourl.$t, img.gsx$caption.$t, img.id)" ng-enter="openBigImage(img.gsx$photourl.$t, img.gsx$caption.$t, img.id)"></div>
+					<div  class="tasa_photo item" ng-repeat="img in gallery"   ><span class="loading"><img src="/images/NOAA-Logo_200.gif" alt="loading"/ class="no-border"></span><img imageonload tabindex = "{{img.tabIndex}}" resize-tasa class="tasaimage" id="image{{img.id}}"   ng-src="{{img.gsx$photourl.$t}}?w={{windowWidth}}"  alt="{{img.gsx$caption.$t}}" ng-click="openBigImage(img.gsx$photourl.$t, img.gsx$caption.$t, img.id)" ng-enter="openBigImage(img.gsx$photourl.$t, img.gsx$caption.$t, img.id)"></div>
 			</div>
 		</div>
 		<div class="clear"></div>

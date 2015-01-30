@@ -11,19 +11,19 @@
 						
 
 						<div id="searcher_image_media{{index}}">
-							
 							<div id="search_img_media{{src.id}}" class="search_image" ng-repeat = "src in images">
-								<span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span>
-								<img imageonload tabindex="{{src.tabIndex}}" id="favorite_img_profile{{src.id}}" class="search_favorite_image_off search_favorite off" style="border:none;cursor:pointer" src="/images/star_{{src.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')" >
-								<div>
-									<span class="loading"> <img src="/images/NOAA-Logo_200.gif" class="no-border"/></span>
-									
-									<img imageonload tabindex="{{src.tabIndex}}" resizesearch-image ng-click ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" ng-enter ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.finalCaption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w={{search_image}}" alt="{{src.finalCaption}}" />
+									<img tabindex="{{src.tabIndex}}"  id="favorite_img_profile{{src.id}}" class=" search_favorite {{src.favorite}}" style="border:none;cursor:pointer" src="/images/star_{{src.favorite}}.png" alt="Add to Favorites" ng-click="switchFavorite(src.id, 'photo')" ng-enter="switchFavorite(src.id, 'photo')">
+								<div class="holder">
+								
+									<span class="loading"> <img src="/images/NOAA-Logo_75.gif" class="no-border"/></span>
+									<img imageonload resizesearch-image tabindex="{{src.tabIndex}}" ng-click ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id, src.favorite)" ng-enter ="bigImage2=true; openBigImage(src.src, src.post_title, src.post_url, src.caption, src.parent, src.id, src.favorite)" id="search_image_profile{{src.id}}" class="imgsearch" src="{{src.src}}?w={{search_image}}" alt="{{wp.BlogTitle}}{{src.caption}}" />
 								</div>
+								
+								
 							</div>
-						</div>
 					</div>
 				</div>
+				<div class="clear"></div>
 			</div>
 		</div>
 		

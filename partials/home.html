@@ -15,15 +15,13 @@
 		</p>
 	</div>
 	<div style="clear:both"></div>
-	<div id="top" ng-hide="checkContents==false">
-
-	</div>
+	
 	<slide-show></slide-show>
 
 	<div id="top_right">
 		<h6 style="margin-left:15px" >QUICK LINKS <span style="color:#189E81">FOR TEACHERS</span></h6>
     <ul style="margin:0px">
-      <li class="diamond"><a href="#/progam_highlights">Program Highlights</a> »»</li>
+      <li class="diamond"><a href="#/highlights">Program Highlights</a> »»</li>
       <li class="diamond"><a href="#/faqs">Frequently Asked Questions </a>»»</li>
       <li class="diamond"><a href="http://teacheratsea.wordpress.com" target="_blank">Teacher Blogs </a>»»</li>
       <li class="diamond"><a href="#/how_to_apply">How to Apply</a> »»
@@ -82,7 +80,7 @@
 				<div class="main_box_inner" id="current"   >
 
 					
-					<carou-sel tabindex  service="HomePageCurrent" type="current" length="{{teachers.length}}" width="202"></carou-sel>
+					<div carou-sel tabindex  service="HomePageCurrent" type="current" length="{{teachers.length}}" width="202" pagination=""></div>
 					
 
 					<div class="scrollbar-container"></div>
@@ -103,7 +101,7 @@
 					
 						<!--<div class="wrapper" id="wrapper_alumni">
 						<div id="scroller_alumni" class="scroller">-->
-						<carou-sel service="HomePageAlumni" type='alumni' length="{{spotlights.length}}" width="{{windowWidth}}" resize-home></carou-sel>
+						<carou-sel service="HomePageAlumni" type='alumni' length="{{spotlights.length}}" width="{{windowWidth}}" resize-home pagination=""></carou-sel>
 						<div class="clear"></div>
 
 						<a tabindex="113" href="#/alumni_spotlight/">All Spotlights<span class="chevron">»»</span></a>
@@ -121,7 +119,7 @@
 					<!--<div class="preloader" ng-hide="powHider ==false"></div>-->
 
 					
-						<carou-sel service="HomePagePOW" type='pow' length="{{pows.length}}" width="{{windowWidth}}" resize-home ></carou-sel>
+						<carou-sel service="HomePagePOW" type='pow' length="{{pows.length}}" width="{{windowWidth}}" resize-home pagination="3"></carou-sel>
 						<div class="clear"></div>
 
 						<a tabindex="116" href="#/alumni_spotlight/">All Photos of the Week<span class="chevron">»»</span></a>
@@ -285,7 +283,7 @@
 					<div style="margin-top:10px;margin-bottom:10px;margin-right:10px;margin-left:5px;;" id="photobox" class="{{photos.classy}}">
 					<div >
 					<div >
-					<carou-sel resize-social service="" type="photos" length="{{images.length}}" width="{{windowWidth+5}}"></carou-sel>
+					<carou-sel resize-social service="" type="photos" length="{{images.length}}" width="{{windowWidth+5}}" pagination=""></carou-sel>
 
 				</div>
 
@@ -299,7 +297,7 @@
 
 		<div>
 			<div >
-				<carou-sel service="" resize-social type="videos" length="{{videosArr.length}}" width="{{windowWidth+12}}"></carou-sel>
+				<carou-sel service="" resize-social type="videos" length="{{videosArr.length}}" width="{{windowWidth+12}}" pagination=""></carou-sel>
 			</div>
 		</div>
 

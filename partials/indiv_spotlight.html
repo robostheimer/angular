@@ -5,7 +5,7 @@
 		<div style="clear:both"></div>
 
 	</div>
-	<div ng-hide="checkContents==true">
+	<div ng-show="checkContents==false">
 		<h1>Uh Oh!  The Information you requested was not found.</h1>
 		<p>
 			We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a ng-href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.
@@ -18,7 +18,9 @@
     <div class="border2"></div>
 		
 <div id="container_spotlight" ng-hide="indivSpot==false">
-		<div class="spot_bigImage "><img src="{{indiv_image}}?w=400" alt="{{indiv_caption}}">
+		<div class="right_image">
+			<span class="loading"><img src="/images/NOAA-Logo.gif" alt="loading" class="no-border"></span>
+			<img imageonload resize-profile src="{{indiv_image}}?w={{topImageWidth}}" alt="{{indiv_caption}}">
 		<div class="caption">{{indiv_caption}}</div>
 	</div>
 		<h2>{{indiv_title}}</h2> 
@@ -26,7 +28,6 @@
 	</div>
 	</div>
 <div style="clear:both"></div>
- </div>
 
 			<div style="margin:20px; margin-left:30px"><img width="15" height="15" src="/images/feed-icon-22x22.png" style="border:none;margin-top:8px;" alt="RSS Feed"/><a href="/alumni/alumni_spotlight.xml" target="_blank">Subscribe to the Alumni Spotlight Feed <span style="color:#ECBD00">»</span></a>
 			</div>

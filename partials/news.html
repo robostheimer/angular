@@ -10,7 +10,11 @@
 				<div ng-show="news.dataLoaded==false" style="margin:15px"><h1>Uh Oh!  The Information you requested was not found.</h1><p>We've been changing some things around on our site.  The information you are looking for may have moved.  Please see below for the main pages on our website.  If you still can't find what you need, please email <a href="emailto:teacheratsea@noaa.gov">teacheratsea@noaa.gov</a> with your request.</p></div>
 			</div>
 			<div id="top">
-	<div class="main_top">
+	
+    				<div class="preloader" ng-hide="news.dataLoaded==true"></div>
+
+		
+<div class="main_top">
     <div style="float:left">
     <h1 tabindex = "130">NOAA Teacher at Sea in the News</h1></div>
     <div class="internal_search">
@@ -24,10 +28,6 @@
 		</div>
 <div class="clear"></div>
     <div class="border2"></div>
-    				<div class="preloader" ng-hide="news.dataLoaded==true"></div>
-
-		
-<div class="main_no_tab" ng-hide="news.dataLoaded==false">
 	
 <div >
 	
@@ -74,6 +74,5 @@
 </div>
 </div>
 <div style="clear:both"></div>
-</div>
 </div>
 </div>
